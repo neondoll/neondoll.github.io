@@ -1,6 +1,6 @@
 <style lang="css">img{width:200px;float:right}</style>
 
-![Моя фотография](images/NxcQR6VIBiA.jpg)
+![Моя фотография](assets/images/NxcQR6VIBiA.jpg)
 
 # Михайлова Александра Сергеевна
 
@@ -67,3 +67,11 @@ E-mail: <i>bonni_1998@mail.ru</i>
 - **Российский технологический университет, Москва**
 
   Институт информационных технологий, Программная инженерия (2022)
+
+## Сертификаты
+
+- [CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)](assets/files/-OST-2-MIREA-IKBO-certificate.pdf)
+- [HTML-верстка: с нуля до первого макета](assets/files/certificate-html-layout-from-scratch-to-first-layout.pdf)
+- [Адаптивная и мобильная верстка](assets/files/certificate-adaptive-and-mobile-layout.pdf)
+- [Основы программирования](assets/files/certificate-basics-of-programming.pdf)
+- [Git — система контроля версий](assets/files/certificate-git-version-control-system.pdf)
