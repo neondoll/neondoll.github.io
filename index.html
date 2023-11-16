@@ -2,53 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script>
-        function getTheme() {
-            const localTheme = localStorage.theme;
-            
-            if (localTheme) {
-                switch (localTheme) {
-                    case "dark":
-                        document.documentElement.classList.add("dark");
-                        break;
-                    case "light":
-                        document.documentElement.classList.remove("dark");
-                        break;
-                }
-            }
-            else {
-                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                    console.log("Ты предпочитаешь тёмный режим");
-                    document.documentElement.classList.add("dark");
-                }
-                else {
-                    document.documentElement.classList.remove("dark");
-                }
-            }
-        }
-        
-        getTheme();
-    </script>
-    <style lang="css">
-        :root {
-            --bg-color: #fff;
-            --text-color: #202020;
-        }
-        
-        html.dark {
-            --bg-color: #202020;
-            --text-color: #fff;
-        }
-        
-        body {
-            color: var(--text-color);
-            background-color: var(--bg-color);
-        }
-    </style>
+    <link rel="icon" type="image/svg+xml" href="/src/assets/images/owl.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Портфолио | Frontend</title>
 </head>
 <body>
-<h2>Привет, я Александра!</h2>
-<p>Будем знакомы</p>
+<div id="app"></div>
+<script type="module" src="/src/main.ts"></script>
 </body>
 </html>

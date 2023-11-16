@@ -1,0 +1,176 @@
+@font-face {
+    font-display: swap;
+    font-family: "Museo";
+    font-weight: 400;
+    src: url("https://www.technodom.kz/under/tab_showcase/fonts/MuseoSansCyrl-Regular.woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: "Museo";
+    font-weight: 700;
+    src: url("https://www.technodom.kz/under/tab_showcase/fonts/MuseoSansCyrl-Bold.woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: "Museo";
+    font-weight: 900;
+    src: url("https://www.technodom.kz/under/tab_showcase/fonts/MuseoSansCyrl-ExtraBold.woff2");
+}
+
+body, h2, input, p {
+    margin: 0;
+    margin-block: 0;
+    margin-inline: 0;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #202020;
+}
+
+html::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: #6c63ff;
+    border-radius: 4px;
+}
+
+body { font-family: "Museo", "Segoe UI", "Arial", sans-serif; }
+
+#app {
+    min-height: 100vh;
+    color: var(--text-color, #202020);
+    background-color: var(--bg-color, #ffffff);
+}
+
+#app.dark {
+    --bg-color: #202020;
+    --text-color: #ffffff;
+}
+
+#app.dark .theme-checkbox { --theme-checkbox-ball-color: #7f5af0; }
+
+.header {
+    padding-top: 1rem; /* 16px */
+    padding-bottom: 1rem; /* 16px */
+    /*background-color: var(--bg-color);*/
+}
+
+.container {
+    box-sizing: border-box;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 1rem; /* 16px */
+    padding-left: 1rem; /* 16px */
+}
+
+.header__container {
+    display: flex;
+    justify-content: end;
+}
+
+.theme-checkbox { --theme-checkbox-ball-color: #6c63ff; }
+
+.theme-checkbox__input {
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.theme-checkbox__input:checked + .theme-checkbox__label > .theme-checkbox__ball {
+    background-color: var(--bg-color, #ffffff);
+    transform: translateX(38px);
+}
+
+.theme-checkbox__label {
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    width: 4.375rem; /* 70px */
+    height: 2rem; /* 32px */
+    padding: 0.3125rem; /* 5px */
+    background-color: #e5e5e5;
+    border-radius: 3.125rem; /* 50px */
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.theme-checkbox__icon {
+    width: 24px;
+    height: 24px;
+}
+
+.theme-checkbox__ball {
+    position: absolute;
+    top: 0.125rem; /* 2px */
+    bottom: 0.125rem; /* 2px */
+    left: 0.125rem; /* 2px */
+    width: 1.75rem; /* 28px */
+    height: 1.75rem; /* 28px */
+    border-radius: 50%;
+    background-color: var(--theme-checkbox-ball-color, #6c63ff);
+    transition: transform 300ms linear;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* 24px */
+}
+
+.hero__text-container, .hero__image-container { flex-basis: 50%; }
+
+.hero__title {
+    margin-bottom: 1rem; /* 16px */
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 900;
+}
+
+.hero__subtitle {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+}
+
+.hero__image-container {
+    display: flex;
+    justify-content: right;
+}
+
+.hero__image {
+    width: 600px;
+    height: calc(600px * 2160 / 1440);
+    background-image: url("./assets/images/NxcQR6VIBiA.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-shadow: 0 0 8px 8px var(--bg-color) inset;
+}
+
+@media (min-width: 640px) {
+    .container { max-width: 640px; }
+}
+
+@media (min-width: 768px) {
+    .container { max-width: 768px; }
+}
+
+@media (min-width: 1024px) {
+    .container { max-width: 1024px; }
+}
+
+@media (min-width: 1280px) {
+    .container { max-width: 1280px; }
+}
+
+@media (min-width: 1536px) {
+    .container { max-width: 1536px; }
+}
