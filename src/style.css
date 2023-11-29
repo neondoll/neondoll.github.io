@@ -60,10 +60,9 @@
     font-weight: 900;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
+a, button { color: inherit; }
+
+a { text-decoration: none; }
 
 body, h2, h3, h4, input, p, ul {
     margin: 0;
@@ -71,10 +70,15 @@ body, h2, h3, h4, input, p, ul {
     margin-inline: 0;
 }
 
-ul {
+button, ul {
     padding: 0;
     padding-block: 0;
     padding-inline: 0;
+}
+
+button {
+    background-color: transparent;
+    border: none;
 }
 
 ul { list-style-type: none; }
@@ -128,7 +132,9 @@ body {
 
 .header__container {
     display: flex;
-    justify-content: end;
+    gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .theme-checkbox { --theme-checkbox-ball-color: #6c63ff; }
@@ -188,6 +194,72 @@ body {
 .icon--sun {
     --icon: url("./assets/images/sun.svg");
 }
+
+.language-dropdown { position: relative; }
+
+.btn-language-dropdown, .btn-list-language-dropdown {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.btn-language-dropdown {
+    justify-content: space-between;
+    gap: 5px;
+    width: 100%;
+}
+
+.btn-language-dropdown::after {
+    content: "";
+    position: absolute;
+    bottom: -17px;
+    left: 50%;
+    display: none;
+    width: 16px;
+    height: 16px;
+    background-color: var(--white, #ffffff);
+    transform: rotate(45deg) translateX(-50%);
+}
+
+.btn-language-dropdown:focus-visible { outline: 2px solid var(--primary); }
+
+.btn-language-dropdown--active > .btn-language-dropdown__icon { transform: rotate(180deg); }
+
+.btn-language-dropdown--active + .language-dropdown__list { max-height: max-content; }
+
+.btn-language-dropdown--active::after { display: block; }
+
+.btn-language-dropdown__flag, .btn-list-language-dropdown__flag {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-language-dropdown__text, .btn-list-language-dropdown__text { font-size: 1rem; }
+
+.btn-language-dropdown__icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    transition: transform .2s ease;
+}
+
+.language-dropdown__list {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    max-height: 0;
+    background-color: var(--white, #ffffff);
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    overflow: hidden;
+}
+
+.btn-list-language-dropdown { gap: 10px; }
+
+.btn-list-language-dropdown__text { color: var(--dark, #202020); }
 
 .main {
     display: grid;
