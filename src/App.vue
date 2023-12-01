@@ -1,101 +1,110 @@
 <script setup lang="ts">
-import {provide, ref} from "vue";
+import {Language, LanguageType} from "./data/interfaces.ts";
+import {provide, Ref, ref} from "vue";
 import ChevronDown from "./components/icons/ChevronDown.vue";
 import IconGitHub from "./components/icons/GitHub.vue";
-import {Language} from "./data/interfaces.ts";
 
 const app = document.documentElement;
-const languagesList: Language[] = [{image: "/assets/images/russian.svg", title: "RU", value: "ru"},
-                                   {image: "/assets/images/english.svg", title: "EN", value: "en"}];
+const languagesList: Language[] = [
+  {image: "/assets/images/russian.svg", title: "RU", value: "ru"},
+  {image: "/assets/images/english.svg", title: "EN", value: "en"}
+];
 
-let language = ref("ru");
+let language: Ref<string> = ref("ru");
+let theme: Ref<string> = ref("light");
 
 provide("language", language);
 
 window.addEventListener("DOMContentLoaded", () => {
-  const languageDropdownBtn = document.querySelector(".language-dropdown__btn");
-  const languageDropdownBtnFlag = languageDropdownBtn.querySelector(".btn-language-dropdown__flag");
-  const languageDropdownBtnText = languageDropdownBtn.querySelector(".btn-language-dropdown__text");
-  const languageDropdownListBtns = document.querySelectorAll(".list-language-dropdown__btn");
-  const themeCheckboxInput = document.querySelector("#theme-checkbox");
+  const languageDropdownBtn: Element | null = app.querySelector(".language-dropdown__btn");
+  const languageDropdownListBtns: NodeListOf<Element> = app.querySelectorAll(".list-language-dropdown__btn");
+  const themeCheckboxInput: Element | null = app.querySelector("#theme-checkbox");
 
-  const setLanguage = () => {
-    const localLanguage = localStorage.language;
+  if (languageDropdownBtn) {
+    const languageDropdownBtnFlag: Element | null = languageDropdownBtn.querySelector(".btn-language-dropdown__flag");
+    const languageDropdownBtnText: Element | null = languageDropdownBtn.querySelector(".btn-language-dropdown__text");
 
-    if (localLanguage) {
-      language.value = localStorage.language;
+    const setLanguage = () => {
+      const localLanguage: LanguageType = localStorage.language;
 
-      app.setAttribute("lang", language.value);
-    } else {
-      language.value = app.getAttribute("lang") || "ru";
-
-      localStorage.language = language.value;
-    }
-
-    const languagesItem: Language = languagesList.find((languagesItem) => languagesItem.value === language.value) || languagesList[0];
-    languageDropdownBtnFlag.setAttribute("alt", languagesItem.title);
-    languageDropdownBtnFlag.setAttribute("src", languagesItem.image);
-    languageDropdownBtnText.textContent = languagesItem.title;
-  };
-  const setTheme = () => {
-    const localTheme = localStorage.theme;
-
-    if (localTheme) {
-      switch (localTheme) {
-        case "dark":
-          app.classList.add("dark");
-          themeCheckboxInput.checked = true;
-          break;
-        case "light":
-          app.classList.remove("dark");
-          break;
+      if (localLanguage) {
+        language.value = localLanguage;
+        app.setAttribute("lang", language.value);
+      } else {
+        language.value = app.getAttribute("lang") || "ru";
+        localStorage.language = language.value;
       }
-    } else {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        console.log("Ты предпочитаешь тёмный режим");
+
+      setLanguageDropdownBtnContent();
+    };
+    const setLanguageDropdownBtnContent = () => {
+      const languagesItem: Language = languagesList.find((languagesItem) => languagesItem.value === language.value) || languagesList[0];
+
+      if (languageDropdownBtnFlag) {
+        languageDropdownBtnFlag.setAttribute("alt", languagesItem.title);
+        languageDropdownBtnFlag.setAttribute("src", languagesItem.image);
+      }
+
+      if (languageDropdownBtnText) {
+        languageDropdownBtnText.textContent = languagesItem.title;
+      }
+    };
+
+    window.addEventListener("load", () => setLanguage());
+
+    languageDropdownBtn.addEventListener("click", () => {
+      languageDropdownBtn.classList.toggle("btn-language-dropdown--active");
+    });
+
+    languageDropdownListBtns.forEach((languageDropdownListBtn) => {
+      languageDropdownListBtn.addEventListener("click", () => {
+        languageDropdownBtn.classList.toggle("btn-language-dropdown--active");
+
+        language.value = languageDropdownListBtn.getAttribute("data-value") || "ru";
+        localStorage.language = language.value;
+        app.setAttribute("lang", language.value);
+
+        setLanguageDropdownBtnContent();
+      });
+    });
+  }
+
+  if (themeCheckboxInput) {
+    const setAppTheme = () => {
+      if (theme.value === "dark") {
         app.classList.add("dark");
-        themeCheckboxInput.checked = true;
       } else {
         app.classList.remove("dark");
       }
-    }
-  };
+    };
+    const setTheme = () => {
+      const localTheme = localStorage.theme;
 
-  languageDropdownBtn.addEventListener("click", () => {
-    languageDropdownBtn.classList.toggle("btn-language-dropdown--active");
-  });
+      if (localTheme) {
+        theme.value = localTheme;
+      } else {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          console.log("Ты предпочитаешь тёмный режим");
+          theme.value = "dark";
+        } else {
+          theme.value = "light";
+        }
+      }
 
-  languageDropdownListBtns.forEach((languageDropdownListBtn) => {
-    languageDropdownListBtn.addEventListener("click", () => {
-      languageDropdownBtn.classList.toggle("btn-language-dropdown--active");
+      setAppTheme();
+    };
 
-      language.value = languageDropdownListBtn.getAttribute("data-value") || "ru";
-      const languagesItem: Language = languagesList.find((languagesItem) => languagesItem.value === language.value) || languagesList[0];
+    window.addEventListener("load", () => setTheme());
 
-      localStorage.language = language.value;
-      app.setAttribute("lang", language.value);
-      languageDropdownBtnFlag.setAttribute("alt", languagesItem.title);
-      languageDropdownBtnFlag.setAttribute("src", languagesItem.image);
-      languageDropdownBtnText.textContent = languagesItem.title;
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => setTheme());
+
+    themeCheckboxInput.addEventListener("change", (event: Event) => {
+      theme.value = (event.target as HTMLInputElement).checked ? "dark" : "light";
+      localStorage.theme = theme.value;
+
+      setAppTheme();
     });
-  });
-
-  themeCheckboxInput.addEventListener("change", (event) => {
-    if (event.target.checked) {
-      localStorage.theme = "dark";
-      app.classList.add("dark");
-    } else {
-      localStorage.theme = "light";
-      app.classList.remove("dark");
-    }
-  });
-
-  window.addEventListener("load", () => {
-    setLanguage();
-    setTheme();
-  });
-
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => setTheme());
+  }
 });
 </script>
 
@@ -103,7 +112,7 @@ window.addEventListener("DOMContentLoaded", () => {
   <header class="header">
     <div class="header__container container">
       <div class="theme-checkbox">
-        <input class="theme-checkbox__input" id="theme-checkbox" type="checkbox">
+        <input class="theme-checkbox__input" :checked="theme === 'dark'" id="theme-checkbox" type="checkbox">
         <label class="theme-checkbox__label" for="theme-checkbox">
           <span class="theme-checkbox__icon icon--moon"/>
           <span class="theme-checkbox__ball"/>

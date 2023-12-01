@@ -8,23 +8,23 @@ const certificates: Certificates = {
       ru: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)",
       en: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE)"
     },
-    href: "https://github.com/neondoll/portfolio/blob/main/assets/files/-OST-2-MIREA-IKBO-certificate.pdf"
+    href: "/documents/-OST-2-MIREA-IKBO-certificate.pdf"
   },
   certificate_2: {
     text: {ru: "HTML-верстка: с нуля до первого макета", en: "HTML layout: from scratch to first layout"},
-    href: "https://github.com/neondoll/portfolio/blob/main/assets/files/certificate-html-layout-from-scratch-to-first-layout.pdf"
+    href: "/documents/certificate-html-layout-from-scratch-to-first-layout.pdf"
   },
   certificate_3: {
     text: {ru: "Адаптивная и мобильная верстка", en: "Adaptive and mobile layout"},
-    href: "https://github.com/neondoll/portfolio/blob/main/assets/files/certificate-adaptive-and-mobile-layout.pdf"
+    href: "/documents/certificate-adaptive-and-mobile-layout.pdf"
   },
   certificate_4: {
     text: {ru: "Основы программирования", en: "Basics of programming"},
-    href: "https://github.com/neondoll/portfolio/blob/main/assets/files/certificate-basics-of-programming.pdf"
+    href: "/documents/certificate-basics-of-programming.pdf"
   },
   certificate_5: {
     text: {ru: "Git — система контроля версий", en: "Git - version control system"},
-    href: "https://github.com/neondoll/portfolio/blob/main/assets/files/certificate-git-version-control-system.pdf"
+    href: "/documents/certificate-git-version-control-system.pdf"
   }
 };
 const content: Content = {
@@ -173,14 +173,14 @@ const toolsAndOther: Record<string, string> = {phpstorm: "PhpStorm"};
       <ul class="stack__list">
         <li v-for="(stackItem, stackItemId) in myStackList"
             v-text="stackItem"
-            :class="`stack__item stack__item--${stackItemId.replace('_', '-')}`"
+            :class="`stack__item icon--${stackItemId.replace('_', '-')}`"
             :key="`stack_${stackItemId}`"/>
       </ul>
       <h3 v-text="content.stack_subtitle[language]" class="stack__subtitle" data-localization-key="stack_subtitle"/>
       <ul class="stack__list">
         <li v-for="(tool, toolId) in toolsAndOther"
             v-text="tool"
-            :class="`stack__item stack__item--${toolId.replace('_', '-')}`"
+            :class="`stack__item icon--${toolId.replace('_', '-')}`"
             :key="`tool_${toolId}`"/>
       </ul>
     </section>

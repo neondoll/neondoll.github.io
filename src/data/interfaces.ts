@@ -30,6 +30,8 @@ export interface Language {
     value: LanguageType;
 }
 
+export type ThemeType = "light" | "dark";
+
 interface TextLine {
     ru: string;
     en: string;
