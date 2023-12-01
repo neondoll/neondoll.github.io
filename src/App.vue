@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import {provide, ref} from "vue";
 import ChevronDown from "./components/icons/ChevronDown.vue";
 import IconGitHub from "./components/icons/GitHub.vue";
+import {Language} from "./data/interfaces.ts";
 
 const app = document.documentElement;
-const languagesList = [{image: "/assets/images/russian.svg", title: "RU", value: "ru"},
-                       {image: "/assets/images/english.svg", title: "EN", value: "en"}];
+const languagesList: Language[] = [{image: "/assets/images/russian.svg", title: "RU", value: "ru"},
+                                   {image: "/assets/images/english.svg", title: "EN", value: "en"}];
+
+let language = ref("ru");
+
+provide("language", language);
 
 window.addEventListener("DOMContentLoaded", () => {
   const languageDropdownBtn = document.querySelector(".language-dropdown__btn");
@@ -15,19 +21,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const setLanguage = () => {
     const localLanguage = localStorage.language;
-    let value: string;
 
     if (localLanguage) {
-      value = localStorage.language;
+      language.value = localStorage.language;
 
-      app.setAttribute("lang", value);
+      app.setAttribute("lang", language.value);
     } else {
-      value = app.getAttribute("lang");
+      language.value = app.getAttribute("lang") || "ru";
 
-      localStorage.language = value;
+      localStorage.language = language.value;
     }
 
-    const languagesItem = languagesList.find((languagesItem) => languagesItem.value === value);
+    const languagesItem: Language = languagesList.find((languagesItem) => languagesItem.value === language.value) || languagesList[0];
     languageDropdownBtnFlag.setAttribute("alt", languagesItem.title);
     languageDropdownBtnFlag.setAttribute("src", languagesItem.image);
     languageDropdownBtnText.textContent = languagesItem.title;
@@ -64,11 +69,11 @@ window.addEventListener("DOMContentLoaded", () => {
     languageDropdownListBtn.addEventListener("click", () => {
       languageDropdownBtn.classList.toggle("btn-language-dropdown--active");
 
-      const value: string = languageDropdownListBtn.getAttribute("data-value");
-      const languagesItem = languagesList.find((languagesItem) => languagesItem.value === value);
+      language.value = languageDropdownListBtn.getAttribute("data-value") || "ru";
+      const languagesItem: Language = languagesList.find((languagesItem) => languagesItem.value === language.value) || languagesList[0];
 
-      localStorage.language = value;
-      app.setAttribute("lang", value);
+      localStorage.language = language.value;
+      app.setAttribute("lang", language.value);
       languageDropdownBtnFlag.setAttribute("alt", languagesItem.title);
       languageDropdownBtnFlag.setAttribute("src", languagesItem.image);
       languageDropdownBtnText.textContent = languagesItem.title;
