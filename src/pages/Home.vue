@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {Certificates, Content, Jobs, LanguageType} from "../data/interfaces.ts";
 import {inject} from "vue";
+import jobImage1 from "../assets/images/MIREA.png";
 
 const certificates: Certificates = {
   certificate_1: {
@@ -61,7 +62,7 @@ const myStackList: Record<string, string> = {
 };
 const jobs: Jobs = {
   job_1: {
-    image           : {src: "src/assets/images/MIREA.png", alt: "МИРЭА Герб"},
+    image           : {src: jobImage1, alt: "МИРЭА Герб"},
     content         : {
       title                      : {ru: "Fullstack-разработчик", en: "Fullstack developer"},
       company_and_employment_form: {
