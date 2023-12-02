@@ -113,32 +113,34 @@ html.dark {
     --text-color: var(--white, #ffffff);
 }
 
+html.dark .language-dropdown__btn {
+    --btn-language-dropdown-text-icon-after: url("assets/images/chevron-down-dark.svg");
+}
+
 body {
-    font-family: "MuseoSans", "Segoe UI", "Arial", sans-serif;
     min-height: 100vh;
+    font-family: "MuseoSans", "Segoe UI", "Arial", sans-serif;
     color: var(--text-color, #202020);
     background-color: var(--bg-color, #ffffff);
 }
 
 .header {
-    padding-top: 1rem; /* 16px */
-    padding-bottom: 1rem; /* 16px */
+    padding: 1rem 0; /* 16px 0 */
 }
 
 .container {
+    --container-padding-x: 1rem; /* 16px */
     box-sizing: border-box;
     width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 1rem; /* 16px */
-    padding-left: 1rem; /* 16px */
+    margin: 0 auto;
+    padding: 0 var(--container-padding-x, 1rem); /* 0 16px */
 }
 
 .header__container {
     display: flex;
-    gap: 1rem; /* 16px */
     justify-content: flex-end;
     align-items: center;
+    gap: 1rem; /* 16px */
 }
 
 .theme-checkbox {
@@ -154,13 +156,13 @@ body {
 
 .theme-checkbox__input:checked + .theme-checkbox__label > .theme-checkbox__ball {
     background-color: var(--bg-color, #ffffff);
-    transform: translateX(38px);
+    transform: translateX(2.375rem); /* 38px */
 }
 
 .theme-checkbox__label {
-    box-sizing: border-box;
     position: relative;
     display: flex;
+    box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
     width: 4.375rem; /* 70px */
@@ -178,7 +180,7 @@ body {
     background-image: var(--icon);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 1.5rem 1.5rem; /* 24px 24px */
+    background-size: contain;
 }
 
 .icon--moon {
@@ -205,20 +207,7 @@ body {
     position: relative;
 }
 
-.btn-language-dropdown, .btn-list-language-dropdown {
-    display: flex;
-    align-items: center;
-    padding: 0.625rem; /* 10px */
-    cursor: pointer;
-}
-
-.btn-language-dropdown {
-    gap: 0.3125rem; /* 5px */
-    justify-content: space-between;
-    width: 100%;
-}
-
-.btn-language-dropdown::after {
+.language-dropdown::before {
     content: "";
     position: absolute;
     bottom: -1.0625rem; /* -17px */
@@ -230,36 +219,66 @@ body {
     transform: rotate(45deg) translateX(-50%);
 }
 
-.btn-language-dropdown:focus-visible {
-    outline: 0.125rem solid var(--primary, #6c63ff); /* 2px */
-}
-
-.btn-language-dropdown--active > .btn-language-dropdown__icon {
+.language-dropdown--active > .language-dropdown__btn::after {
     transform: rotate(180deg);
 }
 
-.btn-language-dropdown--active + .language-dropdown__list {
+.language-dropdown--active > .language-dropdown__list {
     max-height: max-content;
 }
 
-.btn-language-dropdown--active::after {
+.language-dropdown--active::before {
     display: block;
 }
 
-.btn-language-dropdown__flag, .btn-list-language-dropdown__flag {
+.language-dropdown__btn, .list-language-dropdown__btn {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem; /* 10px */
+    font-size: 1rem; /* 16px */
+    cursor: pointer;
+}
+
+.language-dropdown__btn {
+    --btn-language-dropdown-text-icon-after: url("assets/images/chevron-down-light.svg");
+    justify-content: space-between;
+    gap: 0.3125rem; /* 5px */
+    width: 100%;
+}
+
+.language-dropdown__btn:focus-visible {
+    outline: 0.125rem solid var(--primary, #6c63ff); /* 2px */
+}
+
+.language-dropdown__btn::before, .list-language-dropdown__btn::before {
+    content: "";
+    display: inline-block;
     width: 2rem; /* 32px */
     height: 2rem; /* 32px */
+    background-image: var(--icon);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
-.btn-language-dropdown__text, .btn-list-language-dropdown__text {
-    font-size: 1rem; /* 16px */
-}
-
-.btn-language-dropdown__icon {
+.language-dropdown__btn::after {
+    content: "";
+    display: inline-block;
     width: 1rem; /* 16px */
     height: 1rem; /* 16px */
-    fill: currentColor;
+    background-image: var(--btn-language-dropdown-text-icon-after, url("assets/images/chevron-down.svg"));
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     transition: transform 200ms ease;
+}
+
+.icon--ru {
+    --icon: url("assets/images/russian.svg");
+}
+
+.icon--en {
+    --icon: url("assets/images/english.svg");
 }
 
 .language-dropdown__list {
@@ -275,11 +294,8 @@ body {
     overflow: hidden;
 }
 
-.btn-list-language-dropdown {
+.list-language-dropdown__btn {
     gap: 0.625rem; /* 10px */
-}
-
-.btn-list-language-dropdown__text {
     color: var(--dark, #202020);
 }
 
@@ -320,8 +336,8 @@ body {
 .about__container, .work__container {
     display: flex;
     flex-direction: column;
-    gap: 1rem; /* 16px */
     align-items: flex-start;
+    gap: 1rem; /* 16px */
 }
 
 .about__text {
@@ -353,7 +369,6 @@ body {
 .job {
     --job-image-width: 3rem; /* 48px */
     display: flex;
-    flex-direction: column;
     gap: 1rem; /* 16px */
 }
 
@@ -375,10 +390,9 @@ body {
 .job__list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; /* 8px */
     align-items: flex-start;
-    margin-top: 1.5rem; /* 24px */
-    margin-bottom: 1.5rem; /* 24px */
+    gap: 0.5rem; /* 8px */
+    margin: 1.5rem 0; /* 24px 0 */
 }
 
 .list-inside {
@@ -413,8 +427,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 2rem 3rem; /* 32px 48px */
-    margin-top: 2rem; /* 32px */
-    margin-bottom: 2rem; /* 32px */
+    margin: 2rem 0; /* 32px 0 */
 }
 
 .stack__item {
@@ -435,7 +448,7 @@ body {
     background-image: var(--icon);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: var(--stack-item-icon-size, 3rem) var(--stack-item-icon-size, 3rem); /* 48px 48px */
+    background-size: contain;
     transform: translateX(-50%);
 }
 
@@ -484,8 +497,7 @@ body {
 }
 
 .stack__subtitle {
-    margin-top: 3rem; /* 48px */
-    margin-bottom: 3rem; /* 48px */
+    margin: 3rem 0; /* 48px 0 */
     font-size: clamp(1.5rem, 4vw, 2rem);
 }
 
@@ -496,12 +508,12 @@ body {
 .certificates__list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; /* 8px */
     align-items: flex-start;
+    gap: 0.5rem; /* 8px */
 }
 
 .certificates__link {
-    transition: color ease 300ms;
+    transition: color 300ms ease;
 }
 
 .certificates__link:hover, .certificates__link:focus-visible {
@@ -509,14 +521,13 @@ body {
 }
 
 .footer {
-    padding-top: 1.5rem; /* 24px */
-    padding-bottom: 1.5rem; /* 24px */
+    padding: 1.5rem 0; /* 24px 0 */
 }
 
 .list-footer {
     display: flex;
-    gap: 1.5rem; /* 24px */
     justify-content: center;
+    gap: 1.5rem; /* 24px */
 }
 
 .list-footer__item {
@@ -524,8 +535,8 @@ body {
     z-index: 0;
     display: flex;
     flex-direction: row-reverse;
-    gap: 1rem; /* 16px */
     align-items: center;
+    gap: 1rem; /* 16px */
     padding: 0.5rem; /* 8px */
     border-radius: 0.25rem; /* 4px */
     pointer-events: none;
@@ -574,18 +585,19 @@ body {
     fill: var(--primary, #6c63ff);
 }
 
-@media (max-width: 639px) {
+@media (max-width: 639px) and (orientation: portrait), (max-height: 639px) and (orientation: landscape) {
     .hero {
         position: relative;
     }
 
     .hero__image {
-        --image-width: 100vw;
+        --image-width: calc(100% + var(--container-padding-x, 1rem) * 2);
         --image-height: 100%;
         position: absolute;
-        left: -1rem; /* 16px */
+        left: 50%;
         background-position: center 25%;
         background-size: cover;
+        transform: translateX(-50%);
     }
 
     .hero__image:after {
@@ -600,8 +612,7 @@ body {
     .hero__container {
         position: relative;
         z-index: 2;
-        padding-top: 4rem; /* 64px */
-        padding-bottom: 4rem; /* 64px */
+        padding: 4rem 0; /* 64px 0 */
     }
 
     .list-footer {
@@ -614,13 +625,15 @@ body {
     .container {
         max-width: 640px;
     }
+}
 
+@media (min-width: 640px) and (orientation: portrait), (min-height: 640px) and (orientation: landscape) {
     .hero {
         display: flex;
         flex-direction: row-reverse;
-        gap: 1.5rem; /* 24px */
         justify-content: space-between;
         align-items: center;
+        gap: 1.5rem; /* 24px */
     }
 
     .hero__image {
@@ -633,6 +646,7 @@ body {
     }
 
     .hero__container {
+        flex: 1 1 auto;
         width: min-content;
     }
 
@@ -649,7 +663,9 @@ body {
     .container {
         max-width: 768px;
     }
+}
 
+@media (min-width: 768px) and (orientation: portrait), (min-height: 768px) and (max-width: 1023px) and (orientation: landscape) {
     .hero__container {
         width: max-content;
     }

@@ -8,23 +8,23 @@ const certificates: Certificates = {
       ru: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)",
       en: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE)"
     },
-    href: "/documents/-OST-2-MIREA-IKBO-certificate.pdf"
+    href: "public/documents/-OST-2-MIREA-IKBO-certificate.pdf"
   },
   certificate_2: {
     text: {ru: "HTML-верстка: с нуля до первого макета", en: "HTML layout: from scratch to first layout"},
-    href: "/documents/certificate-html-layout-from-scratch-to-first-layout.pdf"
+    href: "public/documents/certificate-html-layout-from-scratch-to-first-layout.pdf"
   },
   certificate_3: {
     text: {ru: "Адаптивная и мобильная верстка", en: "Adaptive and mobile layout"},
-    href: "/documents/certificate-adaptive-and-mobile-layout.pdf"
+    href: "public/documents/certificate-adaptive-and-mobile-layout.pdf"
   },
   certificate_4: {
     text: {ru: "Основы программирования", en: "Basics of programming"},
-    href: "/documents/certificate-basics-of-programming.pdf"
+    href: "public/documents/certificate-basics-of-programming.pdf"
   },
   certificate_5: {
     text: {ru: "Git — система контроля версий", en: "Git - version control system"},
-    href: "/documents/certificate-git-version-control-system.pdf"
+    href: "public/documents/certificate-git-version-control-system.pdf"
   }
 };
 const content: Content = {
@@ -61,7 +61,7 @@ const myStackList: Record<string, string> = {
 };
 const jobs: Jobs = {
   job_1: {
-    image           : {src: "/assets/images/MIREA.png", alt: "МИРЭА Герб"},
+    image           : {src: "src/assets/images/MIREA.png", alt: "МИРЭА Герб"},
     content         : {
       title                      : {ru: "Fullstack-разработчик", en: "Fullstack developer"},
       company_and_employment_form: {
