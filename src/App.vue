@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import {Language, LanguageType} from "./data/interfaces.ts";
 import {provide, Ref, ref} from "vue";
-import ChevronDown from "./components/icons/ChevronDown.vue";
 import IconGitHub from "./components/icons/GitHub.vue";
 
 const app = document.documentElement;
-const languagesList: Language[] = [
-  {image: "/assets/images/russian.svg", title: "RU", value: "ru"},
-  {image: "/assets/images/english.svg", title: "EN", value: "en"}
-];
+const languagesList: Record<string, Language> = {
+  ru: {image: "/src/assets/images/russian.svg", title: "RU", value: "ru"},
+  en: {image: "/src/assets/images/english.svg", title: "EN", value: "en"}
+};
 
 let language: Ref<string> = ref("ru");
 let theme: Ref<string> = ref("light");
@@ -16,13 +15,12 @@ let theme: Ref<string> = ref("light");
 provide("language", language);
 
 window.addEventListener("DOMContentLoaded", () => {
-  const languageDropdownBtn: Element | null = app.querySelector(".language-dropdown__btn");
-  const languageDropdownListBtns: NodeListOf<Element> = app.querySelectorAll(".list-language-dropdown__btn");
+  const languageDropdown: Element | null = app.querySelector(".language-dropdown");
   const themeCheckboxInput: Element | null = app.querySelector("#theme-checkbox");
 
-  if (languageDropdownBtn) {
-    const languageDropdownBtnFlag: Element | null = languageDropdownBtn.querySelector(".btn-language-dropdown__flag");
-    const languageDropdownBtnText: Element | null = languageDropdownBtn.querySelector(".btn-language-dropdown__text");
+  if (languageDropdown) {
+    const languageDropdownBtn: Element | null = languageDropdown.querySelector(".language-dropdown__btn");
+    const languageDropdownListBtns: NodeListOf<Element> = languageDropdown.querySelectorAll(".list-language-dropdown__btn");
 
     const setLanguage = () => {
       const localLanguage: LanguageType = localStorage.language;
@@ -34,37 +32,23 @@ window.addEventListener("DOMContentLoaded", () => {
         language.value = app.getAttribute("lang") || "ru";
         localStorage.language = language.value;
       }
-
-      setLanguageDropdownBtnContent();
-    };
-    const setLanguageDropdownBtnContent = () => {
-      const languagesItem: Language = languagesList.find((languagesItem) => languagesItem.value === language.value) || languagesList[0];
-
-      if (languageDropdownBtnFlag) {
-        languageDropdownBtnFlag.setAttribute("alt", languagesItem.title);
-        languageDropdownBtnFlag.setAttribute("src", languagesItem.image);
-      }
-
-      if (languageDropdownBtnText) {
-        languageDropdownBtnText.textContent = languagesItem.title;
-      }
     };
 
     window.addEventListener("load", () => setLanguage());
 
-    languageDropdownBtn.addEventListener("click", () => {
-      languageDropdownBtn.classList.toggle("btn-language-dropdown--active");
-    });
+    if (languageDropdownBtn) {
+      languageDropdownBtn.addEventListener("click", () => {
+        languageDropdown.classList.toggle("language-dropdown--active");
+      });
+    }
 
     languageDropdownListBtns.forEach((languageDropdownListBtn) => {
       languageDropdownListBtn.addEventListener("click", () => {
-        languageDropdownBtn.classList.toggle("btn-language-dropdown--active");
+        languageDropdown.classList.toggle("language-dropdown--active");
 
         language.value = languageDropdownListBtn.getAttribute("data-value") || "ru";
         localStorage.language = language.value;
         app.setAttribute("lang", language.value);
-
-        setLanguageDropdownBtnContent();
       });
     });
   }
@@ -112,7 +96,7 @@ window.addEventListener("DOMContentLoaded", () => {
   <header class="header">
     <div class="header__container container">
       <div class="theme-checkbox">
-        <input class="theme-checkbox__input" :checked="theme === 'dark'" id="theme-checkbox" type="checkbox">
+        <input class="theme-checkbox__input" id="theme-checkbox" type="checkbox" :checked="theme === 'dark'">
         <label class="theme-checkbox__label" for="theme-checkbox">
           <span class="theme-checkbox__icon icon--moon"/>
           <span class="theme-checkbox__ball"/>
@@ -120,22 +104,18 @@ window.addEventListener("DOMContentLoaded", () => {
         </label>
       </div>
       <div class="language-dropdown">
-        <button class="language-dropdown__btn btn-language-dropdown" type="button">
-          <img class="btn-language-dropdown__flag" alt="RU" src="/assets/images/russian.svg">
-          <span class="btn-language-dropdown__text">RU</span>
-          <ChevronDown class="btn-language-dropdown__icon"/>
-        </button>
+        <button v-text="languagesList[language].title"
+                :class="`language-dropdown__btn icon--${language}`"
+                type="button"/>
         <ul class="language-dropdown__list list-language-dropdown">
-          <template v-for="languagesItem in languagesList">
-            <li class="list-language-dropdown__item">
-              <button class="list-language-dropdown__btn btn-list-language-dropdown"
-                      :data-value="languagesItem.value"
-                      type="button">
-                <img class="btn-list-language-dropdown__flag" :alt="languagesItem.title" :src="languagesItem.image">
-                <span class="btn-list-language-dropdown__text">{{ languagesItem.title }}</span>
-              </button>
-            </li>
-          </template>
+          <li v-for="(languagesItem, languagesItemId) in languagesList"
+              class="list-language-dropdown__item"
+              :key="`language_${languagesItemId}`">
+            <button v-text="languagesItem.title"
+                    :class="`list-language-dropdown__btn icon--${languagesItemId}`"
+                    :data-value="languagesItemId"
+                    type="button"/>
+          </li>
         </ul>
       </div>
     </div>
