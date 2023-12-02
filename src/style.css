@@ -367,15 +367,23 @@ body {
 }
 
 .job {
-    --job-image-width: 3rem; /* 48px */
+    --job-image-size: 3rem; /* 48px */
     display: flex;
     gap: 1rem; /* 16px */
 }
 
+.job--mirea {
+    --job-image: url("assets/images/MIREA.png");
+}
+
 .job__image {
     flex-shrink: 0;
-    width: var(--job-image-width, 3rem); /* 48px */
-    height: calc(var(--job-image-width, 3rem) * 482 / 436);
+    width: var(--job-image-size, 3rem); /* 48px */
+    height: var(--job-image-size, 3rem); /* 48px */
+    background-image: var(--job-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     object-fit: cover;
 }
 
@@ -663,15 +671,15 @@ body {
     .container {
         max-width: 768px;
     }
+
+    .job {
+        --job-image-size: 5rem; /* 80px */
+    }
 }
 
 @media (min-width: 768px) and (orientation: portrait), (min-height: 768px) and (max-width: 1023px) and (orientation: landscape) {
     .hero__container {
         width: max-content;
-    }
-
-    .job__image {
-        --job-image-width: 5rem; /* 80px */
     }
 }
 

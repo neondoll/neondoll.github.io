@@ -7,15 +7,10 @@ export type Certificates = Record<string, Certificate>;
 
 export type Content = Record<string, TextLine>;
 
-interface Image {
-    src: string;
-    alt: string;
-}
-
 export type Jobs = Record<string, Job>;
 
 interface Job {
-    image: Image;
+    image_class: string;
     content: Content;
     responsibilities: Content;
     technology_stack: Record<string, string>;
