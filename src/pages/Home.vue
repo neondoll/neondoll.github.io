@@ -65,8 +65,8 @@ const jobs: Jobs = {
     content         : {
       title                      : {ru: "Fullstack-разработчик", en: "Fullstack developer"},
       company_and_employment_form: {
-        ru: "Учебно-научный институт информатики и систем управления · Полная занятость",
-        en: "Educational and Scientific Institute of Informatics and Control Systems · Full-time"
+        ru: "Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете · Полная занятость",
+        en: "Educational and Scientific Institute of Informatics and Control Systems at MIREA - Russian Technological University · Full-time"
       },
       start_and_end              : {
         ru: "Фев 2020 - по настоящее время · 3 года 11 месяцев",
