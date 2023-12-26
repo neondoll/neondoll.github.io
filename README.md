@@ -75,3 +75,4 @@ E-mail: <i>bonni_1998@mail.ru</i>
 - [Адаптивная и мобильная верстка](public/documents/certificate-adaptive-and-mobile-layout.pdf)
 - [Основы программирования](public/documents/certificate-basics-of-programming.pdf)
 - [Git — система контроля версий](public/documents/certificate-git-version-control-system.pdf)
+- [Основы JavaScript](public/documents/certificate-basics-of-javascript.pdf)
