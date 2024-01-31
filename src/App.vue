@@ -1,15 +1,23 @@
 <script setup lang="ts">
-import {Language, LanguageType} from "./data/interfaces.ts";
+import {Language, LanguageType, TextLine} from "./data/interfaces.ts";
 import {provide, Ref, ref} from "vue";
 import IconGitHub from "./components/icons/GitHub.vue";
 
+interface footerNavItem {
+  text: TextLine;
+  to: { name: string; }
+}
+
 const app = document.documentElement;
+const footerNavList: footerNavItem[] = [
+  {text: {ru: "Интерактивная клавиатура", en: "Interactive keyboard"}, to: {name: "interactiveKeyboard"}}
+];
 const languagesList: Record<string, Language> = {
   ru: {image: "/src/assets/images/russian.svg", title: "RU", value: "ru"},
   en: {image: "/src/assets/images/english.svg", title: "EN", value: "en"}
 };
 
-let language: Ref<string> = ref("ru");
+let language: Ref<LanguageType> = ref("ru");
 let theme: Ref<string> = ref("light");
 
 provide("language", language);
@@ -29,8 +37,12 @@ window.addEventListener("DOMContentLoaded", () => {
         language.value = localLanguage;
         app.setAttribute("lang", language.value);
       } else {
-        language.value = app.getAttribute("lang") || "ru";
-        localStorage.language = language.value;
+        const appLanguage = app.getAttribute("lang");
+
+        if (appLanguage) {
+          language.value = appLanguage as LanguageType ? appLanguage : "ru";
+          localStorage.language = language.value;
+        }
       }
     };
 
@@ -45,10 +57,13 @@ window.addEventListener("DOMContentLoaded", () => {
     languageDropdownListBtns.forEach((languageDropdownListBtn) => {
       languageDropdownListBtn.addEventListener("click", () => {
         languageDropdown.classList.toggle("language-dropdown--active");
+        const languageDropdownValue = languageDropdownListBtn.getAttribute("data-value");
 
-        language.value = languageDropdownListBtn.getAttribute("data-value") || "ru";
-        localStorage.language = language.value;
-        app.setAttribute("lang", language.value);
+        if (languageDropdownValue) {
+          language.value = languageDropdownValue as LanguageType ? languageDropdownValue : "ru";
+          localStorage.language = language.value;
+          app.setAttribute("lang", language.value);
+        }
       });
     });
   }
@@ -123,12 +138,25 @@ window.addEventListener("DOMContentLoaded", () => {
   <RouterView/>
   <footer class="footer">
     <div class="footer__container container">
-      <ul class="footer__list list-footer">
-        <li class="list-footer__item">
-          <a class="list-footer__link" href="https://github.com/neondoll">GitHub</a>
-          <IconGitHub class="list-footer__icon"/>
-        </li>
-      </ul>
+      <address class="footer__contacts contacts-footer">
+        <ul class="contacts-footer__list">
+          <li class="contacts-footer__item">
+            <a class="contacts-footer__link" href="https://github.com/neondoll">GitHub</a>
+            <IconGitHub class="contacts-footer__icon"/>
+          </li>
+        </ul>
+      </address>
+      <nav class="footer__nav nav-footer">
+        <ul class="nav-footer__list">
+          <template v-for="footerNavItem in footerNavList">
+            <li class="nav-footer__item">
+              <RouterLink class="nav-footer__link" :to="footerNavItem.to">
+                {{ footerNavItem.text[language] }}
+              </RouterLink>
+            </li>
+          </template>
+        </ul>
+      </nav>
     </div>
   </footer>
 </template>
