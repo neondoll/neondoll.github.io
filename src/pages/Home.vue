@@ -97,9 +97,17 @@ const jobs: Jobs = {
       tailwind_css : "Tailwind CSS",
       php          : "PHP",
       yii2         : "Yii2",
-      laravel      : "Laravel"
+      laravel      : "Laravel",
+      mysql        : "MySQL"
     },
-    tools           : {webpack: "Webpack", vite: "Vite", phpstorm: "PhpStorm", datagrip: "DataGrip"}
+    tools           : {
+      webpack : "Webpack",
+      vite    : "Vite",
+      phpstorm: "PhpStorm",
+      datagrip: "DataGrip",
+      git     : "Git",
+      gitlab  : "GitLab"
+    }
   }
 };
 const toolsAndOther: Record<string, string> = {phpstorm: "PhpStorm"};
