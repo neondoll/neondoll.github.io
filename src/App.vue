@@ -113,9 +113,13 @@ window.addEventListener("DOMContentLoaded", () => {
       <div class="theme-checkbox">
         <input class="theme-checkbox__input" id="theme-checkbox" type="checkbox" :checked="theme === 'dark'">
         <label class="theme-checkbox__label" for="theme-checkbox">
-          <span class="theme-checkbox__icon icon--moon"/>
+          <svg class="theme-checkbox__icon">
+            <use xlink:href="#svg-moon"/>
+          </svg>
           <span class="theme-checkbox__ball"/>
-          <span class="theme-checkbox__icon icon--sun"/>
+          <svg class="theme-checkbox__icon">
+            <use xlink:href="#svg-sun"/>
+          </svg>
         </label>
       </div>
       <div class="language-dropdown">
@@ -159,6 +163,31 @@ window.addEventListener("DOMContentLoaded", () => {
       </nav>
     </div>
   </footer>
+  <div style="display:none">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="svg-moon" viewBox="0 0 473.935 473.935">
+        <circle fill="#344e5d" cx="236.967" cy="236.967" r="236.967"/>
+        <path fill="#f1eb75"
+              d="M248.443,242.685c0-52.318,28.516-97.945,70.832-122.289c-15.757-6.601-33.055-10.26-51.21-10.26 c-73.204,0-132.549,59.341-132.549,132.549c0,73.201,59.341,132.549,132.549,132.549c18.155,0,35.453-3.663,51.21-10.267 C276.96,340.63,248.443,294.995,248.443,242.685z"/>
+      </symbol>
+      <symbol id="svg-sun" viewBox="0 0 456.54 456.54">
+        <rect fill="#fceba2" width="26" height="77.239" x="81.169" y="55.548"
+              transform="matrix(0.7071 -0.7071 0.7071 0.7071 -39.005 94.1686)"/>
+        <rect fill="#fceba2" width="26" height="77.239" x="81.169" y="323.75"
+              transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 -95.4776 685.1913)"/>
+        <rect fill="#fceba2" width="26" height="77.239" x="349.372" y="55.544"
+              transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 552.0227 416.9835)"/>
+        <rect fill="#fceba2" width="26" height="77.239" x="349.378" y="323.753"
+              transform="matrix(0.7071 -0.7071 0.7071 0.7071 -150.0985 362.3763)"/>
+        <rect fill="#ffde55" width="26" height="77.24" x="215.27"/>
+        <rect fill="#ffde55" width="26" height="77.24" x="215.27" y="379.3"/>
+        <rect fill="#ffde55" width="77.24" height="26" x="379.3" y="215.27"/>
+        <rect fill="#ffde55" width="77.24" height="26" y="215.27"/>
+        <circle fill="#fceba2" cx="228.267" cy="228.271" r="124.003"/>
+        <circle fill="#ffde55" cx="228.267" cy="228.271" r="95.142"/>
+      </symbol>
+    </svg>
+  </div>
 </template>
 
 <style scoped></style>

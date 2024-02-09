@@ -1,10 +1,12 @@
-import {createRouter, createWebHashHistory} from "vue-router";
-import Home from "./pages/Home.vue";
-import InteractiveKeyboard from "./pages/InteractiveKeyboard.vue";
+import {createRouter, createWebHashHistory} from 'vue-router';
 
 const routes = [
-    {path: "/", name: "home", component: Home},
-    {path: "/interactive-keyboard", name: "interactiveKeyboard", component: InteractiveKeyboard}
+    {path: '/', name: 'home', component: () => import('./pages/Home.vue')},
+    {
+        path     : '/interactive-keyboard',
+        name     : 'interactiveKeyboard',
+        component: () => import('./pages/InteractiveKeyboard.vue')
+    }
 ];
 
 const router = createRouter({history: createWebHashHistory(), routes});

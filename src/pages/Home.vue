@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Certificates, Content, Jobs, LanguageType} from "../data/interfaces.ts";
-import {inject} from "vue";
+import {Certificates, Content, Jobs, LanguageType} from '../data/interfaces.ts';
+import {inject} from 'vue';
 
 const certificates: Certificates = {
   certificate_1: {
@@ -49,7 +49,7 @@ const content: Content = {
   projects_title      : {ru: "Проекты", en: "Projects"},
   certificates_title  : {ru: "Сертификаты", en: "Certificates"}
 };
-const language: LanguageType = inject("language") || "ru";
+const language: LanguageType = inject('language') || 'ru';
 const myStackList: Record<string, string> = {
   html5        : "HTML 5",
   css3         : "CSS 3",
@@ -114,7 +114,15 @@ const jobs: Jobs = {
     }
   }
 };
-const toolsAndOther: Record<string, string> = {phpstorm: "PhpStorm"};
+const projects = {
+  project_1: {
+    image      : 'https://xn--80aejmawrcgd.xn--p1ai/images/main-image.png',
+    title      : 'ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ',
+    description: 'Сайт премий Правительства Российской Федерации',
+    links      : {live: 'https://xn--80aejmawrcgd.xn--p1ai/'}
+  }
+};
+const toolsAndOther: Record<string, string> = {phpstorm: 'PhpStorm'};
 </script>
 
 <template>
@@ -196,9 +204,26 @@ const toolsAndOther: Record<string, string> = {phpstorm: "PhpStorm"};
             :key="`tool_${toolId}`"/>
       </ul>
     </section>
-    <!--<section class="projects">
+    <section class="projects">
       <h2 v-text="content.projects_title[language]" class="projects__title" data-localization-key="projects_title"/>
-    </section>-->
+      <div class="projects__cards">
+        <article v-for="(project, projectId) in projects" class="projects__card card-project" :key="projectId">
+          <figure class="card-project__image-container">
+            <img class="card-project__image" :alt="project.title" draggable="false" :src="project.image">
+          </figure>
+          <div class="card-project__info">
+            <h3 class="card-project__title">{{ project.title }}</h3>
+            <p class="card-project__description">{{ project.description }}</p>
+            <div v-if="project.links" class="card-project__links">
+              <a v-if="project.links.live" class="card-project__link" :href="project.links.live" target="_blank">
+                <img alt="" src="https://dastan64.github.io/assets/images/external-icon.svg" width="24" height="24">
+                <span class="card-project__link-caption" data-localization-key="live">Посмотреть вживую</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
     <section class="certificates">
       <h2 v-text="content.certificates_title[language]"
           class="certificates__title"
