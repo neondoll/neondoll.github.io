@@ -135,10 +135,13 @@ const projects: Projects = {
   }
 };
 const toolsAndOther: StackList = {
+  webpack : {svgUse: '<use xlink:href="#svg-webpack"/>', title: "Webpack"},
+  vite    : {imgSrc: 'https://neondoll.github.io/project-sources/neondoll-github-io/icons/vite.svg', title: 'Vite'},
   phpstorm: {
     imgSrc: 'https://neondoll.github.io/project-sources/neondoll-github-io/icons/phpstorm.svg',
     title : 'PhpStorm'
-  }
+  },
+  git     : {svgUse: '<use xlink:href="#svg-git"/>', title: "Git"}
 };
 </script>
 
