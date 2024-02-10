@@ -17,7 +17,7 @@ export type FooterNavList = FooterNavItem[];
 export type Jobs = Record<string, Job>;
 
 interface Job {
-    image_class: string;
+    image: string;
     content: Content;
     responsibilities: Content;
     technology_stack: Record<string, string>;
@@ -46,7 +46,8 @@ interface Project {
 export type Projects = Record<string, Project>;
 
 interface StackItem {
-    svgUse: string;
+    imgSrc?: string;
+    svgUse?: string;
     title: string;
 }
 

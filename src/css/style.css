@@ -294,8 +294,6 @@ body {
 .hero__image {
     width: var(--image-width);
     height: var(--image-height);
-    background-image: url("../assets/images/NxcQR6VIBiA.jpg");
-    background-repeat: no-repeat;
     box-shadow: 0 0 0.5rem 0.5rem var(--bg-color) inset;
 }
 
@@ -358,19 +356,12 @@ body {
     gap: 1rem; /* 16px */
 }
 
-.job--mirea {
-    --job-image: url("../assets/images/MIREA.png");
-}
-
 .job__image {
     flex-shrink: 0;
     width: var(--job-image-size, 3rem); /* 48px */
     height: var(--job-image-size, 3rem); /* 48px */
-    background-image: var(--job-image);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
 }
 
 .job__title, .job__text {
@@ -443,7 +434,7 @@ body {
 
 .projects__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(0, 550px));
     gap: 1rem; /* 16px */
     margin: 0 auto;
 }
@@ -650,8 +641,8 @@ body {
         --image-height: 100%;
         position: absolute;
         left: 50%;
-        background-position: center 25%;
-        background-size: cover;
+        object-fit: cover;
+        object-position: center 25%;
         transform: translateX(-50%);
     }
 
@@ -696,8 +687,8 @@ body {
         --image-height: calc(var(--image-width) * 2160 / 1440);
         position: relative;
         left: 0;
-        background-position: center;
-        background-size: contain;
+        object-fit: contain;
+        object-position: center;
     }
 
     .hero__container {

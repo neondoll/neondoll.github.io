@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Certificates, Content, Jobs, Language, Projects, StackList} from '../data/interfaces.ts';
+import {Certificates, Content, Jobs, Language, Projects, StackList} from '../interfaces.ts';
 import {inject} from 'vue';
 
 const certificates: Certificates = {
@@ -32,6 +32,7 @@ const certificates: Certificates = {
   }
 };
 const content: Content = {
+  hero_image          : {ru: 'Моя фотография', en: 'My photo'},
   hero_title          : {ru: 'Привет, я Александра!', en: "Hi, I'm Alexandra!"},
   hero_subtitle       : {ru: 'Будем знакомы', en: 'Nice to meet you'},
   about_title         : {ru: 'Обо мне', en: 'About me'},
@@ -66,20 +67,21 @@ const myStackList: StackList = {
 };
 const jobs: Jobs = {
   job_1: {
-    image_class     : "job--mirea",
+    image           : "https://neondoll.github.io/project-sources/neondoll-github-io/images/MIREA.png",
     content         : {
-      title                      : {ru: "Fullstack-разработчик", en: "Fullstack developer"},
-      company_and_employment_form: {
-        ru: "Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете · Полная занятость",
-        en: "Educational and Scientific Institute of Informatics and Control Systems at MIREA - Russian Technological University · Full-time"
+      title                 : {ru: "Fullstack-разработчик", en: "Fullstack developer"},
+      company               : {
+        ru: "Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете",
+        en: "Educational and Scientific Institute of Informatics and Control Systems at MIREA - Russian Technological University"
       },
-      start_and_end              : {
+      employment_form       : {ru: "Полная занятость", en: "Full-time"},
+      start_and_end         : {
         ru: "Фев 2020 - по настоящее время · 3 года 11 месяцев",
         en: "Feb 2020 - present · 3 years 11 months"
       },
-      address                    : {ru: "Москва, Россия", en: "Moscow, Russia"},
-      technology_stack_title     : {ru: "Стек технологий:", en: "Technologies Stack:"},
-      tools_title                : {ru: "Инструменты:", en: "Tools:"}
+      address               : {ru: "Москва, Россия", en: "Moscow, Russia"},
+      technology_stack_title: {ru: "Стек технологий:", en: "Technologies Stack:"},
+      tools_title           : {ru: "Инструменты:", en: "Tools:"}
     },
     responsibilities: {
       responsibility_1: {
@@ -129,13 +131,20 @@ const projects: Projects = {
     links      : {live: 'https://xn--80aejmawrcgd.xn--p1ai/'}
   }
 };
-const toolsAndOther: StackList = {phpstorm: {svgUse: '<use xlink:href="https://raw.githubusercontent.com/neondoll/neondoll.github.io/36eb0812391123e65aed0d85b2adc4dca751c7a1/src/assets/images/phpstorm.svg"/>', title: 'PhpStorm'}};
+const toolsAndOther: StackList = {
+  phpstorm: {
+    imgSrc: 'https://neondoll.github.io/project-sources/neondoll-github-io/icons/phpstorm.svg',
+    title : 'PhpStorm'
+  }
+};
 </script>
 
 <template>
   <main class="main container">
     <section class="hero">
-      <div class="hero__image"></div>
+      <img class="hero__image"
+           src="https://neondoll.github.io/project-sources/neondoll-github-io/images/NxcQR6VIBiA.jpg"
+           :alt="content.hero_image[language]">
       <div class="hero__container">
         <h2 v-text="content.hero_title[language]" class="hero__title" data-localization-key="hero_title"/>
         <p v-text="content.hero_subtitle[language]" class="hero__subtitle" data-localization-key="hero_subtitle"/>
@@ -155,11 +164,11 @@ const toolsAndOther: StackList = {phpstorm: {svgUse: '<use xlink:href="https://r
     <section class="work">
       <h2 v-text="content.work_title[language]" class="work__title" data-localization-key="work_title"/>
       <div class="work__container">
-        <div v-for="(job, jobId) in jobs" class="job" :class="job.image_class" :key="jobId">
-          <div class="job__image"/>
+        <div v-for="(job, jobId) in jobs" class="job" :key="jobId">
+          <img class="job__image" :src="job.image" :alt="job.content.company[language]">
           <div class="job__container">
             <h3 v-text="job.content.title[language]" class="job__title" :data-localization-key="`${jobId}_title`"/>
-            <p v-text="job.content.company_and_employment_form[language]"
+            <p v-text="`${job.content.company[language]} · ${job.content.employment_form[language]}`"
                class="job__text"
                :data-localization-key="`${jobId}_company_and_employment_form`"/>
             <p v-text="job.content.start_and_end[language]"
@@ -201,14 +210,16 @@ const toolsAndOther: StackList = {phpstorm: {svgUse: '<use xlink:href="https://r
         <li v-for="(stackItem, stackItemId) in myStackList"
             class="stack__item item-stack"
             :key="`stack_${stackItemId}`">
-          <svg v-html="stackItem.svgUse" class="item-stack__icon"/>
+          <svg v-if="stackItem.svgUse" v-html="stackItem.svgUse" class="item-stack__icon"/>
+          <img v-else-if="stackItem.imgSrc" class="item-stack__icon" :src="stackItem.imgSrc" :alt="stackItem.title">
           <span v-text="stackItem.title" class="item-stack__text"/>
         </li>
       </ul>
       <h3 v-text="content.stack_subtitle[language]" class="stack__subtitle" data-localization-key="stack_subtitle"/>
       <ul class="stack__list">
         <li v-for="(tool, toolId) in toolsAndOther" class="stack__item item-stack" :key="`tool_${toolId}`">
-          <svg v-html="tool.svgUse" class="item-stack__icon"/>
+          <svg v-if="tool.svgUse" v-html="tool.svgUse" class="item-stack__icon"/>
+          <img v-else-if="tool.imgSrc" class="item-stack__icon" :src="tool.imgSrc" :alt="tool.title">
           <span v-text="tool.title" class="item-stack__text"/>
         </li>
       </ul>

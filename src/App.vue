@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Language, LanguageList, Theme} from './data/interfaces.ts';
+import {Language, LanguageList, Theme} from './interfaces.ts';
 import {provide, Ref, ref} from 'vue';
 
 /*const footerNavList: FooterNavList = [
@@ -247,9 +247,6 @@ window.addEventListener('DOMContentLoaded', function () {
         <circle fill="#344e5d" cx="236.967" cy="236.967" r="236.967"/>
         <path fill="#f1eb75"
               d="M248.443,242.685c0-52.318,28.516-97.945,70.832-122.289c-15.757-6.601-33.055-10.26-51.21-10.26 c-73.204,0-132.549,59.341-132.549,132.549c0,73.201,59.341,132.549,132.549,132.549c18.155,0,35.453-3.663,51.21-10.267 C276.96,340.63,248.443,294.995,248.443,242.685z"/>
-      </symbol>
-      <symbol id="svg-phpstorm" viewBox="0 0 70 70">
-        <use xlink:href="https://github.com/neondoll/neondoll.github.io/blob/main/src/assets/images/phpstorm.svg#phpstorm"/>
       </symbol>
       <symbol id="svg-russian" viewBox="0 0 512 512">
         <rect fill="#103b9b" width="495.484" height="110.108" x="8.258" y="200.946"/>
