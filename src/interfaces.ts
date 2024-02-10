@@ -1,6 +1,6 @@
 interface Certificate {
     text: TextByLanguage;
-    href: string;
+    to: { name: string; params: Record<string, any>; }
 }
 
 export type Certificates = Record<string, Certificate>;

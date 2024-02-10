@@ -8,27 +8,30 @@ const certificates: Certificates = {
       ru: 'CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)',
       en: 'CCNA 7. Switching, Routing, and Wireless Essentials (SRWE)'
     },
-    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/-OST-2-MIREA-IKBO-certificate.pdf'
+    to  : {name: 'document', params: {documentName: 'certificates/-OST-2-MIREA-IKBO-certificate.pdf'}}
   },
   certificate_2: {
     text: {ru: 'HTML-верстка: с нуля до первого макета', en: 'HTML layout: from scratch to first layout'},
-    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-html-layout-from-scratch-to-first-layout.pdf'
+    to  : {
+      name  : 'document',
+      params: {documentName: 'certificates/certificate-html-layout-from-scratch-to-first-layout.pdf'}
+    }
   },
   certificate_3: {
     text: {ru: 'Адаптивная и мобильная верстка', en: 'Adaptive and mobile layout'},
-    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-adaptive-and-mobile-layout.pdf'
+    to  : {name: 'document', params: {documentName: 'certificates/certificate-adaptive-and-mobile-layout.pdf'}}
   },
   certificate_4: {
     text: {ru: 'Основы программирования', en: 'Basics of programming'},
-    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-basics-of-programming.pdf'
+    to  : {name: 'document', params: {documentName: 'certificates/certificate-basics-of-programming.pdf'}}
   },
   certificate_5: {
     text: {ru: 'Git — система контроля версий', en: 'Git - version control system'},
-    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-git-version-control-system.pdf'
+    to  : {name: 'document', params: {documentName: 'certificates/certificate-git-version-control-system.pdf'}}
   },
   certificate_6: {
     text: {ru: 'Основы JavaScript', en: 'Basics of JavaScript'},
-    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-basics-of-javascript.pdf'
+    to  : {name: 'document', params: {documentName: 'certificates/certificate-basics-of-javascript.pdf'}}
   }
 };
 const content: Content = {
@@ -211,7 +214,7 @@ const toolsAndOther: StackList = {
             class="stack__item item-stack"
             :key="`stack_${stackItemId}`">
           <svg v-if="stackItem.svgUse" v-html="stackItem.svgUse" class="item-stack__icon"/>
-          <img v-else-if="stackItem.imgSrc" class="item-stack__icon" :src="stackItem.imgSrc" :alt="stackItem.title">
+          <img v-else-if="stackItem.imgSrc" class="item-stack__image" :src="stackItem.imgSrc" :alt="stackItem.title">
           <span v-text="stackItem.title" class="item-stack__text"/>
         </li>
       </ul>
@@ -219,7 +222,7 @@ const toolsAndOther: StackList = {
       <ul class="stack__list">
         <li v-for="(tool, toolId) in toolsAndOther" class="stack__item item-stack" :key="`tool_${toolId}`">
           <svg v-if="tool.svgUse" v-html="tool.svgUse" class="item-stack__icon"/>
-          <img v-else-if="tool.imgSrc" class="item-stack__icon" :src="tool.imgSrc" :alt="tool.title">
+          <img v-else-if="tool.imgSrc" class="item-stack__image" :src="tool.imgSrc" :alt="tool.title">
           <span v-text="tool.title" class="item-stack__text"/>
         </li>
       </ul>
@@ -254,11 +257,11 @@ const toolsAndOther: StackList = {
           data-localization-key="certificates_title"/>
       <ul class="certificates__list list-inside list-disc">
         <li v-for="(certificate, certificateId) in certificates" class="certificates__item" :key="certificateId">
-          <a v-text="certificate.text[language]"
-             class="certificates__link"
-             :data-localization-key="`${certificateId}_text`"
-             :href="certificate.href"
-             target="_blank"/>
+          <RouterLink v-text="certificate.text[language]"
+                      class="certificates__link"
+                      :data-localization-key="`${certificateId}_text`"
+                      :to="certificate.to"
+                      target="_blank"/>
         </li>
       </ul>
     </section>
