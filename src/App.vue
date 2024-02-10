@@ -1,92 +1,87 @@
 <script setup lang="ts">
-import {Language, LanguageType} from "./data/interfaces.ts";
-import {provide, Ref, ref} from "vue";
-import IconGitHub from "./components/icons/GitHub.vue";
+import {FooterNavList, Language, LanguageList, Theme} from './data/interfaces.ts';
+import {provide, Ref, ref} from 'vue';
 
-const app = document.documentElement;
-const languagesList: Record<string, Language> = {
-  ru: {image: "/src/assets/images/russian.svg", title: "RU", value: "ru"},
-  en: {image: "/src/assets/images/english.svg", title: "EN", value: "en"}
+const footerNavList: FooterNavList = [
+  {text: {ru: 'Интерактивная клавиатура', en: 'Interactive keyboard'}, to: {name: 'interactiveKeyboard'}}
+];
+const languagesList: LanguageList = {
+  ru: {svgUse: '<use xlink:href="#svg-russian"/>', title: 'RU', value: 'ru'},
+  en: {svgUse: '<use xlink:href="#svg-english"/>', title: 'EN', value: 'en'}
 };
 
-let language: Ref<string> = ref("ru");
-let theme: Ref<string> = ref("light");
+let language: Ref<Language> = ref('ru');
+let theme: Ref<Theme> = ref('light');
 
-provide("language", language);
+provide('language', language);
 
-window.addEventListener("DOMContentLoaded", () => {
-  const languageDropdown: Element | null = app.querySelector(".language-dropdown");
-  const themeCheckboxInput: Element | null = app.querySelector("#theme-checkbox");
+const getLanguage = function () {
+  language.value = localStorage.language ? localStorage.language : document.documentElement.getAttribute("lang");
 
-  if (languageDropdown) {
-    const languageDropdownBtn: Element | null = languageDropdown.querySelector(".language-dropdown__btn");
-    const languageDropdownListBtns: NodeListOf<Element> = languageDropdown.querySelectorAll(".list-language-dropdown__btn");
+  setLanguage();
+};
+const getTheme = function () {
+  theme.value = localStorage.theme
+      ? localStorage.theme
+      : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
-    const setLanguage = () => {
-      const localLanguage: LanguageType = localStorage.language;
+  setTheme();
+};
+const setLanguage = function () {
+  localStorage.language = language.value;
+  document.documentElement.setAttribute("lang", language.value);
+};
+const setTheme = function () {
+  localStorage.theme = theme.value;
 
-      if (localLanguage) {
-        language.value = localLanguage;
-        app.setAttribute("lang", language.value);
-      } else {
-        language.value = app.getAttribute("lang") || "ru";
-        localStorage.language = language.value;
-      }
-    };
+  if (theme.value === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+};
 
-    window.addEventListener("load", () => setLanguage());
+window.addEventListener("load", getLanguage);
+window.addEventListener("load", getTheme);
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", getTheme);
 
-    if (languageDropdownBtn) {
-      languageDropdownBtn.addEventListener("click", () => {
-        languageDropdown.classList.toggle("language-dropdown--active");
+window.addEventListener('DOMContentLoaded', function () {
+  const themeCheckboxElement: HTMLElement | null = document.getElementById('theme-checkbox');
+
+  if (themeCheckboxElement) {
+    const themeCheckboxInputElement: HTMLElement | null = themeCheckboxElement.querySelector('#theme-checkbox-input');
+
+    if (themeCheckboxInputElement) {
+      themeCheckboxInputElement.addEventListener("change", (event: Event) => {
+        theme.value = (event.target as HTMLInputElement).checked ? "dark" : "light";
+
+        setTheme();
+      });
+    }
+  }
+
+  const languageDropdownElement: HTMLElement | null = document.getElementById('language-dropdown');
+
+  if (languageDropdownElement) {
+    const languageDropdownBtnElement: HTMLElement | null = languageDropdownElement.querySelector('.language-dropdown__btn');
+
+    if (languageDropdownBtnElement) {
+      languageDropdownBtnElement.addEventListener("click", () => {
+        languageDropdownElement.classList.toggle("language-dropdown--active");
       });
     }
 
-    languageDropdownListBtns.forEach((languageDropdownListBtn) => {
-      languageDropdownListBtn.addEventListener("click", () => {
-        languageDropdown.classList.toggle("language-dropdown--active");
+    Array.from(languageDropdownElement.querySelectorAll('.list-language-dropdown__btn')).forEach((listLanguageDropdownBtnElement) => {
+      listLanguageDropdownBtnElement.addEventListener("click", () => {
+        languageDropdownElement.classList.toggle("language-dropdown--active");
+        const languageDropdownValue = (listLanguageDropdownBtnElement as HTMLElement).dataset.value;
 
-        language.value = languageDropdownListBtn.getAttribute("data-value") || "ru";
-        localStorage.language = language.value;
-        app.setAttribute("lang", language.value);
-      });
-    });
-  }
+        if (languageDropdownValue) {
+          language.value = languageDropdownValue as Language;
 
-  if (themeCheckboxInput) {
-    const setAppTheme = () => {
-      if (theme.value === "dark") {
-        app.classList.add("dark");
-      } else {
-        app.classList.remove("dark");
-      }
-    };
-    const setTheme = () => {
-      const localTheme = localStorage.theme;
-
-      if (localTheme) {
-        theme.value = localTheme;
-      } else {
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          console.log("Ты предпочитаешь тёмный режим");
-          theme.value = "dark";
-        } else {
-          theme.value = "light";
+          setLanguage();
         }
-      }
-
-      setAppTheme();
-    };
-
-    window.addEventListener("load", () => setTheme());
-
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => setTheme());
-
-    themeCheckboxInput.addEventListener("change", (event: Event) => {
-      theme.value = (event.target as HTMLInputElement).checked ? "dark" : "light";
-      localStorage.theme = theme.value;
-
-      setAppTheme();
+      });
     });
   }
 });
@@ -95,26 +90,34 @@ window.addEventListener("DOMContentLoaded", () => {
 <template>
   <header class="header">
     <div class="header__container container">
-      <div class="theme-checkbox">
-        <input class="theme-checkbox__input" id="theme-checkbox" type="checkbox" :checked="theme === 'dark'">
-        <label class="theme-checkbox__label" for="theme-checkbox">
-          <span class="theme-checkbox__icon icon--moon"/>
+      <div class="theme-checkbox" id="theme-checkbox">
+        <input class="theme-checkbox__input" id="theme-checkbox-input" type="checkbox" :checked="theme === 'dark'">
+        <label class="theme-checkbox__label" for="theme-checkbox-input">
+          <svg class="theme-checkbox__icon">
+            <use xlink:href="#svg-moon"/>
+          </svg>
           <span class="theme-checkbox__ball"/>
-          <span class="theme-checkbox__icon icon--sun"/>
+          <svg class="theme-checkbox__icon">
+            <use xlink:href="#svg-sun"/>
+          </svg>
         </label>
       </div>
-      <div class="language-dropdown">
-        <button v-text="languagesList[language].title"
-                :class="`language-dropdown__btn icon--${language}`"
-                type="button"/>
+      <div class="language-dropdown" id="language-dropdown">
+        <button class="language-dropdown__btn" type="button">
+          <svg v-html="languagesList[language].svgUse" class="language-dropdown__btn-flag"/>
+          <span v-text="languagesList[language].title" class="language-dropdown__btn-text"/>
+          <svg class="language-dropdown__btn-icon">
+            <use xlink:href="#svg-chevron-down"/>
+          </svg>
+        </button>
         <ul class="language-dropdown__list list-language-dropdown">
           <li v-for="(languagesItem, languagesItemId) in languagesList"
               class="list-language-dropdown__item"
               :key="`language_${languagesItemId}`">
-            <button v-text="languagesItem.title"
-                    :class="`list-language-dropdown__btn icon--${languagesItemId}`"
-                    :data-value="languagesItemId"
-                    type="button"/>
+            <button class="list-language-dropdown__btn" :data-value="languagesItemId" type="button">
+              <svg v-html="languagesItem.svgUse" class="list-language-dropdown__btn-flag"/>
+              <span v-text="languagesItem.title" class="list-language-dropdown__btn-text"/>
+            </button>
           </li>
         </ul>
       </div>
@@ -123,14 +126,184 @@ window.addEventListener("DOMContentLoaded", () => {
   <RouterView/>
   <footer class="footer">
     <div class="footer__container container">
-      <ul class="footer__list list-footer">
-        <li class="list-footer__item">
-          <a class="list-footer__link" href="https://github.com/neondoll">GitHub</a>
-          <IconGitHub class="list-footer__icon"/>
-        </li>
-      </ul>
+      <address class="footer__contacts contacts-footer">
+        <ul class="contacts-footer__list">
+          <li class="contacts-footer__item">
+            <svg class="contacts-footer__icon">
+              <use xlink:href="#svg-git-hub"/>
+            </svg>
+            <a class="contacts-footer__link" href="https://github.com/neondoll">GitHub</a>
+          </li>
+        </ul>
+      </address>
+      <!--<nav class="footer__nav nav-footer">
+        <ul class="nav-footer__list">
+          <template v-for="footerNavItem in footerNavList">
+            <li class="nav-footer__item">
+              <RouterLink class="nav-footer__link" :to="footerNavItem.to">
+                {{ footerNavItem.text[language] }}
+              </RouterLink>
+            </li>
+          </template>
+        </ul>
+      </nav>-->
     </div>
   </footer>
+  <div class="svg-container">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <symbol id="svg-bootstrap" viewBox="0 0 256 256">
+        <path d="M0 222.991C0 241.223 14.779 256 33.009 256H222.99C241.223 256 256 241.221 256 222.991V33.01C256 14.777 241.221 0 222.991 0H33.01C14.777 0 0 14.779 0 33.009V222.99z"
+              fill="#563d7c"/>
+        <path d="M106.158 113.238V76.985h31.911c3.04 0 5.97.253 8.792.76 2.822.506 5.319 1.41 7.49 2.713 2.17 1.303 3.907 3.112 5.21 5.427 1.302 2.316 1.954 5.283 1.954 8.9 0 6.513-1.954 11.217-5.862 14.111-3.907 2.895-8.9 4.342-14.979 4.342h-34.516zM72.075 50.5v155h75.112c6.947 0 13.713-.868 20.298-2.605 6.585-1.737 12.446-4.414 17.584-8.032 5.137-3.618 9.226-8.286 12.265-14.002 3.04-5.717 4.559-12.483 4.559-20.298 0-9.697-2.352-17.982-7.055-24.856-4.704-6.875-11.832-11.687-21.384-14.437 6.947-3.328 12.194-7.598 15.74-12.808 3.545-5.21 5.318-11.722 5.318-19.538 0-7.236-1.194-13.314-3.582-18.235-2.388-4.92-5.753-8.864-10.095-11.831-4.341-2.967-9.551-5.102-15.63-6.404-6.078-1.303-12.808-1.954-20.189-1.954H72.075zm34.083 128.515v-42.549h37.121c7.381 0 13.315 1.7 17.802 5.102 4.486 3.401 6.73 9.081 6.73 17.041 0 4.053-.688 7.381-2.063 9.986-1.375 2.605-3.22 4.668-5.536 6.187-2.315 1.52-4.993 2.605-8.032 3.257-3.04.65-6.223.976-9.552.976h-36.47z"
+              fill="#ffffff"/>
+      </symbol>
+      <symbol id="svg-bootstrap-vue" viewBox="0 0 2041 2160">
+        <path fill="#34495e" d="m1397 271-370 642-371-642h-592l963 1667 962-1667z"/>
+        <path fill="#563d7c" fill-rule="nonzero" d="m44 0h1952l-979 1696z"/>
+        <path fill="#41b883" d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z"/>
+        <path fill="#ffffff"
+              d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z"/>
+      </symbol>
+      <symbol id="svg-chevron-down" viewBox="0 0 512 512">
+        <path fill="currentColor"
+              d="M505.183,123.179c-9.087-9.087-23.824-9.089-32.912,0.002l-216.266,216.27L39.729,123.179 c-9.087-9.087-23.824-9.089-32.912,0.002c-9.089,9.089-9.089,23.824,0,32.912L239.55,388.82c4.364,4.364,10.283,6.816,16.455,6.816 c6.172,0,12.092-2.453,16.455-6.817l232.721-232.727C514.272,147.004,514.272,132.268,505.183,123.179z"/>
+      </symbol>
+      <symbol id="svg-css3" viewBox="0 0 32 32">
+        <polygon fill="#1f62ae" points="27.377,28.889 16.001,32 4.625,28.889 2,0 30.002,0"/>
+        <polygon fill="#347dc6" points="16,2 16,29.75 25.232,27.008 27.688,2"/>
+        <polygon fill="#ffffff"
+                 points="24.363,6 7.607,6 8,10 16,10 8.25,12.99 8.619,17 19.502,17 19.158,21 16,21.99 12.861,20.984 12.533,19 8.803,19 9.262,23.987 16,25.99 22.728,23.986 23.719,12.99 16.026,12.99 24,10"/>
+      </symbol>
+      <symbol id="svg-english" viewBox="0 0 512 512">
+        <path fill="#103b9b"
+              d="M469.058,421.161H42.942c-19.155,0-34.684-15.528-34.684-34.684V125.523 c0-19.155,15.528-34.684,34.684-34.684h426.115c19.155,0,34.684,15.528,34.684,34.684v260.954 C503.741,405.632,488.213,421.161,469.058,421.161z"/>
+        <path fill="#ffffff"
+              d="M467.957,90.839h-44.608L256,202.405L88.65,90.839H39.271c-17.128,0-31.014,13.886-31.014,31.014 v22.581L175.607,256L8.259,367.566v18.911c0,19.155,15.528,34.684,34.684,34.684H88.65L256,309.594l167.35,111.566h46.809 c18.548,0,33.583-15.035,33.583-33.583v-20.012L336.392,256l167.35-111.566v-17.81C503.741,106.86,487.72,90.839,467.957,90.839z"/>
+        <path fill="#ed1f34"
+              d="M20.817,412.787c6.169,5.219,14.142,8.373,22.856,8.373h18.179l220.945-147.296l208.385,138.923 l12.547-26.569c0-0.011,0.001-0.022,0.001-0.033L282.487,238.341L491.181,99.211c-6.169-5.219-14.142-8.373-22.856-8.373h-18.18 L229.214,238.142L20.817,99.211c-7.679,6.496-12.559,16.199-12.559,27.045v0.337l220.659,147.461L20.817,412.787z"/>
+        <path fill="#121b21"
+              d="M229.214,246.401c-1.597,0-3.193-0.462-4.58-1.387L16.237,106.082 c-3.794-2.529-4.82-7.657-2.29-11.451c2.529-3.794,7.658-4.819,11.451-2.29l203.816,135.877L445.566,83.968 c3.794-2.53,8.923-1.504,11.451,2.29c2.53,3.794,1.504,8.922-2.29,11.452L233.795,245.013 C232.408,245.938,230.811,246.401,229.214,246.401z"/>
+        <path fill="#121b21"
+              d="M503.734,394.452c-1.578,0-3.171-0.45-4.58-1.393L277.899,245.207 c-2.295-1.534-3.671-4.111-3.67-6.871s1.382-5.336,3.678-6.866L486.601,92.341c3.794-2.529,8.922-1.504,11.451,2.29 c2.53,3.794,1.504,8.922-2.29,11.452L297.363,238.348l210.967,140.978c3.792,2.535,4.812,7.662,2.277,11.454 C509.016,393.164,506.399,394.452,503.734,394.452z"/>
+        <path fill="#121b21"
+              d="M61.86,429.419c-2.669,0-5.287-1.292-6.878-3.679c-2.53-3.794-1.504-8.922,2.29-11.452 l220.943-147.296c2.775-1.85,6.387-1.849,9.161,0l208.386,138.923c3.794,2.53,4.82,7.657,2.29,11.452 c-2.53,3.794-7.658,4.819-11.451,2.29L282.797,283.79L66.434,428.031C65.025,428.97,63.434,429.419,61.86,429.419z"/>
+        <path fill="#121b21"
+              d="M20.825,421.046c-2.669,0-5.287-1.292-6.878-3.679c-2.53-3.794-1.504-8.922,2.29-11.452 l197.806-131.87L3.67,133.459c-3.792-2.535-4.812-7.662-2.277-11.454c2.532-3.792,7.662-4.812,11.453-2.278l220.659,147.461 c2.295,1.534,3.671,4.111,3.67,6.871c-0.001,2.759-1.382,5.336-3.678,6.866L25.398,419.659 C23.991,420.597,22.399,421.046,20.825,421.046z"/>
+        <polygon fill="#ffffff"
+                 points="503.741,211.406 300.593,211.406 300.593,90.839 211.407,90.839 211.407,211.406 8.259,211.406 8.259,300.593 211.407,300.593 211.407,421.161 300.593,421.161 300.593,300.593 503.741,300.593 "/>
+        <polygon fill="#ed1f34"
+                 points="503.741,232.051 279.948,232.051 279.948,90.839 232.052,90.839 232.052,232.051 8.259,232.051 8.259,279.948 232.052,279.948 232.052,421.161 279.948,421.161 279.948,279.948 503.741,279.948 "/>
+        <path fill="#121b21"
+              d="M468.323,82.581H43.677c-24.083,0-43.676,19.592-43.676,43.676v259.487 c0,24.083,19.594,43.676,43.676,43.676h424.646c24.083,0,43.676-19.592,43.676-43.676V126.256 C511.999,102.173,492.406,82.581,468.323,82.581z M495.483,126.256v97.536H288.206V99.097h180.117 C483.299,99.097,495.483,111.28,495.483,126.256z M43.677,99.097h180.117v124.697H16.517v-97.536 C16.517,111.28,28.7,99.097,43.677,99.097z M16.517,385.742v-97.536h207.277v124.697H43.677 C28.7,412.903,16.517,400.718,16.517,385.742z M468.323,412.903H288.206V288.206h149.471c4.562,0,8.258-3.697,8.258-8.258 s-3.696-8.258-8.258-8.258H279.948c-4.562,0-8.258,3.697-8.258,8.258v132.955H240.31V279.948c0-4.561-3.696-8.258-8.258-8.258 H16.517v-31.381h215.535c4.562,0,8.258-3.697,8.258-8.258V99.097h31.381v132.955c0,4.561,3.696,8.258,8.258,8.258h215.535v31.381 h-24.774c-4.562,0-8.258,3.697-8.258,8.258s3.696,8.258,8.258,8.258h24.774v97.536C495.483,400.718,483.299,412.903,468.323,412.903 z"/>
+      </symbol>
+      <symbol id="svg-external" viewBox="0 0 20 20">
+        <path fill="currentColor"
+              d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+        <path fill="currentColor"
+              d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+      </symbol>
+      <symbol id="svg-git-hub" viewBox="-1163 1657.697 56.693 56.693">
+        <path fill="currentColor"
+              d="M-1134.6598,1662.9163c-13.601,0-24.63,11.0267-24.63,24.6299 c0,10.8821,7.0573,20.1144,16.8435,23.3713c1.2308,0.2279,1.6829-0.5345,1.6829-1.1849c0-0.587-0.0227-2.5276-0.0334-4.5857 c-6.8521,1.4901-8.2979-2.906-8.2979-2.906c-1.1205-2.8467-2.7347-3.6039-2.7347-3.6039 c-2.2349-1.5287,0.1685-1.4972,0.1685-1.4972c2.473,0.1737,3.7755,2.5385,3.7755,2.5385c2.1967,3.7651,5.7618,2.6765,7.1675,2.0472 c0.2211-1.5917,0.8591-2.6786,1.5637-3.2936c-5.4707-0.6226-11.2218-2.7347-11.2218-12.1722c0-2.6888,0.9623-4.8861,2.538-6.611 c-0.2557-0.6206-1.0989-3.1255,0.2386-6.5183c0,0,2.0684-0.6616,6.7747,2.525c1.9648-0.5458,4.0719-0.8195,6.165-0.829 c2.093,0.0095,4.2017,0.2832,6.17,0.829c4.7012-3.1866,6.7665-2.525,6.7665-2.525c1.3406,3.3928,0.4974,5.8977,0.2417,6.5183 c1.5793,1.7249,2.5348,3.9221,2.5348,6.611c0,9.4602-5.7618,11.5428-11.2465,12.1527c0.8834,0.7644,1.6704,2.2632,1.6704,4.561 c0,3.2955-0.0282,5.9479-0.0282,6.7592c0,0.6556,0.4432,1.4236,1.6915,1.1818c9.7812-3.2605,16.8296-12.4896,16.8296-23.3682 C-1110.0299,1673.943-1121.0574,1662.9163-1134.6598,1662.9163z"/>
+        <path fill="currentColor"
+              d="M-1149.9611,1698.2793c-0.0542,0.1227-0.2469,0.1593-0.4222,0.0753c-0.1788-0.0804-0.2788-0.2473-0.2211-0.37 c0.053-0.126,0.2457-0.161,0.4242-0.0769C-1150.0013,1697.9882-1149.8993,1698.1566-1149.9611,1698.2793L-1149.9611,1698.2793z M-1150.2642,1698.0547"/>
+        <path fill="currentColor"
+              d="M-1148.9634,1699.3922c-0.1174,0.1086-0.3473,0.0581-0.5031-0.1139c-0.1613-0.1718-0.1912-0.4016-0.072-0.5118 c0.1211-0.1088,0.3438-0.0579,0.505,0.1139C-1148.8721,1699.0541-1148.8407,1699.2819-1148.9634,1699.3922L-1148.9634,1699.3922z M-1149.1984,1699.14"/>
+        <path fill="currentColor"
+              d="M-1147.9922,1700.8105c-0.151,0.1051-0.3979,0.0067-0.5505-0.2123c-0.151-0.2191-0.151-0.4819,0.0035-0.5872 c0.1526-0.1051,0.396-0.0104,0.5505,0.2068C-1147.8381,1700.4406-1147.8381,1700.7034-1147.9922,1700.8105L-1147.9922,1700.8105z M-1147.9922,1700.8105"/>
+        <path fill="currentColor"
+              d="M-1146.6619,1702.1812c-0.1351,0.1489-0.4227,0.1086-0.6329-0.0945c-0.2155-0.1984-0.2753-0.4803-0.1403-0.6293 c0.1371-0.149,0.4263-0.1072,0.6381,0.0944C-1146.5831,1701.7501-1146.5182,1702.0337-1146.6619,1702.1812L-1146.6619,1702.1812z M-1146.6619,1702.1812"/>
+        <path fill="currentColor"
+              d="M-1144.8265,1702.9769c-0.0597,0.1927-0.3365,0.2804-0.6154,0.1984c-0.2788-0.0845-0.4608-0.3103-0.4047-0.5051 c0.0577-0.1943,0.3361-0.2855,0.6169-0.1979C-1144.9512,1702.5563-1144.7688,1702.7805-1144.8265,1702.9769L-1144.8265,1702.9769z M-1144.8265,1702.9769"/>
+        <path fill="currentColor"
+              d="M-1142.8107,1703.1243c0.0067,0.2031-0.2299,0.3716-0.5226,0.3752c-0.2944,0.0067-0.533-0.1577-0.5361-0.3577 c0-0.2052,0.2313-0.3717,0.5258-0.3768C-1143.0509,1702.7594-1142.8107,1702.9227-1142.8107,1703.1243L-1142.8107,1703.1243z M-1142.8107,1703.1243"/>
+        <path fill="currentColor"
+              d="M-1140.9351,1702.8052c0.035,0.198-0.1686,0.4015-0.4594,0.4557c-0.2859,0.0526-0.5504-0.0701-0.587-0.2665 c-0.0354-0.2031,0.1716-0.4066,0.4573-0.4592C-1141.233,1702.4846-1140.9722,1702.6036-1140.9351,1702.8052L-1140.9351,1702.8052z M-1140.9351,1702.8052"/>
+      </symbol>
+      <symbol id="svg-html5" viewBox="0 0 32 32">
+        <polygon fill="#e44d26" points="27.377,28.889 16.001,32 4.625,28.889 2,0 30.002,0"/>
+        <polygon fill="#ff6c39" points="16,2 16,29.75 25.232,27.008 27.688,2"/>
+        <polygon fill="#ffffff"
+                 points="24.363,6 7.607,6 8,10 8.619,17 19.503,17 19.148,20.984 16,21.99 12.857,20.984 12.648,19 8.803,19 9.262,23.987 16,25.99 22.728,23.986 23.718,13 12.252,13 12.002,10 24,10"/>
+      </symbol>
+      <symbol id="svg-javascript" viewBox="0 0 512 512">
+        <rect fill="#f0db4f" width="459.996" height="459.998" x="26.002" y="26.001"/>
+        <path fill="#323330"
+              d="M276.331,384.759c0,44.767-26.286,65.2-64.586,65.2c-34.601,0-54.623-17.865-64.892-39.529 l35.218-21.255c6.777,12.013,12.938,22.177,27.826,22.177c14.169,0,23.207-5.544,23.207-27.208V237.21h43.227V384.759 L276.331,384.759z"/>
+        <path fill="#323330"
+              d="M378.598,449.959c-40.147,0-66.124-19.099-78.754-44.151l35.219-20.332 c9.241,15.095,21.356,26.286,42.611,26.286c17.866,0,29.364-8.932,29.364-21.355c0-14.787-11.704-20.021-31.52-28.75l-10.781-4.62 c-31.214-13.246-51.853-29.983-51.853-65.2c0-32.447,24.745-57.09,63.248-57.09c27.518,0,47.232,9.549,61.402,34.603 l-33.679,21.562c-7.392-13.246-15.401-18.481-27.825-18.481c-12.63,0-20.639,8.01-20.639,18.481 c0,12.938,8.009,18.176,26.594,26.285l10.78,4.621c36.759,15.71,57.397,31.832,57.397,67.974 C450.164,428.602,419.565,449.959,378.598,449.959L378.598,449.959z"/>
+      </symbol>
+      <symbol id="svg-jquery" viewBox="0 0 24 24">
+        <path fill="#1266A9"
+              d="M1.406 16.346c.023.052.049.1.077.148.013.028.031.057.047.083.026.052.054.102.081.152l.157.264c.029.049.057.097.09.145.055.094.12.186.177.28.026.039.05.078.079.117.11.171.21.313.317.451.076.103.152.204.234.305.027.038.057.076.085.114l.221.268c.027.031.054.067.083.099.098.118.202.232.306.348 0 .002.003.004.005.007.129.162.268.306.42.434l.004.004c.08.082.16.163.245.243l.101.097c.111.104.222.207.339.307.002 0 .003.002.005.003l.057.05c.102.089.205.177.31.259l.125.105c.085.068.173.132.26.199l.136.104c.093.07.192.138.287.206.035.025.07.05.106.073l.029.023.281.184.12.08c.147.094.293.182.439.27.042.021.084.044.123.068.108.062.22.125.329.182.06.034.122.063.184.094.075.042.153.083.233.125.022.007.04.014.058.024l.004-.004c.033.015.064.031.096.047.12.06.245.117.375.173.024.01.05.02.076.034.144.063.288.123.437.181.034.01.07.027.105.04.135.051.274.103.412.152l.05.018c.153.052.304.102.46.149.036.01.073.023.111.033.159.048.313.105.474.135 10.273 1.863 13.258-6.146 13.258-6.146-2.508 3.25-6.959 4.107-11.174 3.153-.156-.036-.312-.086-.47-.132a11.753 11.753 0 0 1-.663-.209l.095.029-.062-.024c-.136-.046-.267-.097-.4-.148a1.53 1.53 0 0 0-.099-.038l-.011-.003c-.147-.059-.29-.119-.432-.182-.031-.01-.057-.024-.088-.036a13.656 13.656 0 0 1-.5-.23l.138.061a1.483 1.483 0 0 1-.106-.052c-.094-.044-.188-.094-.28-.141a3.784 3.784 0 0 1-.207-.106l.02.01c-.113-.06-.226-.125-.34-.186-.034-.024-.073-.044-.112-.066a14.058 14.058 0 0 1-.502-.306l.063.038a2.042 2.042 0 0 1-.124-.083l.006.004a6.039 6.039 0 0 1-.316-.208c-.034-.022-.065-.046-.1-.07a8.47 8.47 0 0 1-.318-.228l.024.017c-.042-.034-.087-.066-.132-.099-.088-.069-.177-.135-.265-.207l-.118-.094a10.16 10.16 0 0 1-.37-.309l-.001-.001-.347-.315-.1-.094c-.082-.083-.166-.162-.25-.244l-.097-.1a9.008 9.008 0 0 1-.303-.315l-.006-.007-.017-.014a17.877 17.877 0 0 1-.313-.353c-.027-.031-.052-.064-.08-.097l-.227-.275a13.75 13.75 0 0 1-.3-.391l-.04-.056C2.152 11.79 1.306 7.407 3.177 3.811L1.525 5.9C-.6 8.939-.337 12.891 1.288 16.118c.037.079.078.153.118.228z"/>
+        <path d="m8.563 11.968-.011-.016-.009-.012.02.028z"/>
+        <path fill="#1266A9"
+              d="m9.681 13.28.09.09c.114.11.231.217.35.324l.015.013c.12.106.255.217.394.325l.021.016c.034.023.063.05.096.073.14.108.281.211.428.314l.015.009c.062.045.128.086.198.13.028.018.06.042.09.06.106.068.21.131.317.196.017.007.032.016.048.023.09.055.188.108.282.156.033.02.065.035.099.054.067.033.133.068.197.102l.032.014c.135.066.273.128.408.189.034.013.063.024.092.038.111.048.224.094.335.136.05.017.097.037.144.052.102.038.209.073.31.108l.14.045c.146.045.294.104.449.128C22.164 17.181 24 11.104 24 11.104c-1.653 2.367-4.852 3.495-8.261 2.614a8.215 8.215 0 0 1-.506-.145l.057.016c-.048-.013-.09-.028-.136-.042-.104-.036-.211-.071-.312-.108l-.144-.054c-.112-.045-.226-.087-.335-.135-.034-.015-.065-.025-.091-.04-.14-.063-.281-.125-.418-.191l-.206-.107-.119-.06c-.092-.048-.177-.098-.265-.149a.558.558 0 0 1-.065-.036l.003.001c-.106-.066-.216-.13-.318-.197-.034-.019-.065-.042-.097-.062l-.208-.135c-.144-.1-.285-.207-.428-.311-.032-.029-.063-.053-.094-.079-1.499-1.173-2.681-2.776-3.242-4.591-.591-1.887-.461-4.003.56-5.72L8.12 3.341c-1.541 2.201-1.454 5.143-.254 7.471.219.43.441.793.686 1.139.228.326.48.708.784.97.108.123.224.24.345.359z"/>
+        <path d="m2.436 17.992-.004-.006-.007-.009zM6.594 17.248l.01.007.002.003z"/>
+        <path fill="#1266A9"
+              d="M13.666 1.427c-.909 1.327-.996 2.975-.37 4.438.665 1.554 2.024 2.774 3.608 3.352.065.025.128.046.195.07l.088.027c.092.029.185.063.28.084 4.381.841 5.567-2.238 5.886-2.691-1.043 1.49-2.792 1.848-4.938 1.329a4.753 4.753 0 0 1-.55-.17l.033.011a6.196 6.196 0 0 1-.656-.27l.038.017c-.41-.2-.762-.416-1.089-.664-1.918-1.45-3.104-4.211-1.852-6.46l-.673.927z"/>
+      </symbol>
+      <symbol id="svg-moon" viewBox="0 0 473.935 473.935">
+        <circle fill="#344e5d" cx="236.967" cy="236.967" r="236.967"/>
+        <path fill="#f1eb75"
+              d="M248.443,242.685c0-52.318,28.516-97.945,70.832-122.289c-15.757-6.601-33.055-10.26-51.21-10.26 c-73.204,0-132.549,59.341-132.549,132.549c0,73.201,59.341,132.549,132.549,132.549c18.155,0,35.453-3.663,51.21-10.267 C276.96,340.63,248.443,294.995,248.443,242.685z"/>
+      </symbol>
+      <symbol id="svg-phpstorm" viewBox="0 0 70 70">
+        <use xlink:href="https://github.com/neondoll/neondoll.github.io/blob/main/src/assets/images/phpstorm.svg#phpstorm"/>
+      </symbol>
+      <symbol id="svg-russian" viewBox="0 0 512 512">
+        <rect fill="#103b9b" width="495.484" height="110.108" x="8.258" y="200.946"/>
+        <path fill="#ffffff"
+              d="M468.324,90.839H43.676c-19.562,0-35.418,15.857-35.418,35.417v74.69h495.484v-74.69 C503.742,106.695,487.885,90.839,468.324,90.839z"/>
+        <path fill="#ed1f34"
+              d="M8.258,385.743c0,19.561,15.857,35.418,35.418,35.418h424.648c19.561,0,35.418-15.858,35.418-35.418 v-74.689H8.258V385.743z"/>
+        <path fill="#121b21"
+              d="M468.324,82.581H43.676C19.594,82.581,0,102.173,0,126.256v259.487 c0,24.084,19.594,43.676,43.676,43.676h424.647c24.083,0,43.676-19.593,43.676-43.676V126.256 C512,102.173,492.406,82.581,468.324,82.581z M43.676,99.097h424.647c14.977,0,27.16,12.183,27.16,27.159v66.432H16.516v-66.432 C16.516,111.28,28.7,99.097,43.676,99.097z M468.324,412.903H43.676c-14.977,0-27.16-12.183-27.16-27.16v-66.431h388.129 c4.562,0,8.258-3.697,8.258-8.258c0-4.561-3.696-8.258-8.258-8.258H16.516v-93.591h478.968v93.591h-57.806 c-4.562,0-8.258,3.697-8.258,8.258c0,4.561,3.696,8.258,8.258,8.258h57.806v66.431C495.484,400.72,483.3,412.903,468.324,412.903z"/>
+      </symbol>
+      <symbol id="svg-scss" viewBox="0 0 128 128">
+        <circle fill="#cc6699" cx="64" cy="64" r="50"/>
+        <path fill="#ffffff"
+              d="M90.9,41.8c-0.6-2.4-2.3-4.4-4.9-5.8c-5.1-2.7-13.3-2.8-20.8-0.1c-4.5,1.6-13,5.2-19.4,11.1 c-6.4,6-7.4,11.3-6.9,13.4c1.1,5.8,7.2,9.9,12,13.3c1.3,0.9,2.5,1.7,3.4,2.5c-2.7,1.4-10,5.5-12,9.8c-1.5,3.4-0.8,5.9-0.2,7 c0.6,1.3,1.6,2.3,2.6,2.6c1,0.3,2.1,0.4,3.2,0.4c4.3,0,8.5-2.3,11.1-6.2c2.6-3.9,2.8-9.1,1.6-12.3c1.7-0.4,3.5-0.4,5.5-0.2 c3.9,0.5,5.8,2,6.7,3.2c1,1.3,1.2,2.6,1.1,3.4c-0.2,1.5-1.4,2.4-2,2.8c-0.5,0.3-0.9,0.6-0.8,1.2c0.2,0.8,1,0.7,1.3,0.7 c0.9-0.2,4.1-1.8,4.3-5.4c0.1-2.2-0.8-4.4-2.5-6.2c-2.2-2.3-5.5-3.5-9.3-3.4c-2.8,0-4.7,0.3-6.2,0.8c0,0-0.1-0.1-0.1-0.1 c-1.4-1.5-3.3-2.9-5-4.3c-4-3-7.7-5.9-7.5-10.2c0.3-5.4,5.6-10.7,15.9-15.8c9.1-4.5,16.5-4.7,20.4-3.3c1.6,0.6,2.7,1.4,3.1,2.3 c0.8,1.7,0.5,3.9-0.9,6.3c-2.3,4-8.1,9-17,10c-5.4,0.6-7.7-1.8-7.8-1.9c-0.6-0.7-1-1.1-1.7-0.7c-0.8,0.4-0.4,1.5-0.2,1.9 c0.4,1.1,2.1,3,5,4c2.3,0.8,8.2,1.3,15.5-1.5C86.8,57.7,92.6,48.7,90.9,41.8z M56.4,84.4c-0.1,0.2-0.1,0.4-0.2,0.6 c-0.1,0.2-0.2,0.4-0.2,0.6c-0.4,0.9-1,1.8-1.8,2.6c-2.3,2.5-5.4,3.2-6.4,2.6c-0.3-0.2-0.4-0.5-0.5-0.9c-0.2-1.2,0.5-3.6,2.6-5.7 c2.5-2.6,6-4.5,6.8-4.9C57,81.1,56.9,82.8,56.4,84.4z"/>
+      </symbol>
+      <symbol id="svg-sun" viewBox="0 0 456.54 456.54">
+        <rect fill="#fceba2" width="26" height="77.239" x="81.169" y="55.548"
+              transform="matrix(0.7071 -0.7071 0.7071 0.7071 -39.005 94.1686)"/>
+        <rect fill="#fceba2" width="26" height="77.239" x="81.169" y="323.75"
+              transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 -95.4776 685.1913)"/>
+        <rect fill="#fceba2" width="26" height="77.239" x="349.372" y="55.544"
+              transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 552.0227 416.9835)"/>
+        <rect fill="#fceba2" width="26" height="77.239" x="349.378" y="323.753"
+              transform="matrix(0.7071 -0.7071 0.7071 0.7071 -150.0985 362.3763)"/>
+        <rect fill="#ffde55" width="26" height="77.24" x="215.27"/>
+        <rect fill="#ffde55" width="26" height="77.24" x="215.27" y="379.3"/>
+        <rect fill="#ffde55" width="77.24" height="26" x="379.3" y="215.27"/>
+        <rect fill="#ffde55" width="77.24" height="26" y="215.27"/>
+        <circle fill="#fceba2" cx="228.267" cy="228.271" r="124.003"/>
+        <circle fill="#ffde55" cx="228.267" cy="228.271" r="95.142"/>
+      </symbol>
+      <symbol id="svg-tailwind-css" viewBox="0 0 24 24">
+        <path fill="#38bdf8"
+              d="M18.5 9.51a4.22 4.22 0 0 1-1.91-1.34A5.77 5.77 0 0 0 12 6a4.72 4.72 0 0 0-5 4 3.23 3.23 0 0 1 3.5-1.49 4.32 4.32 0 0 1 1.91 1.35A5.77 5.77 0 0 0 17 12a4.72 4.72 0 0 0 5-4 3.2 3.2 0 0 1-3.5 1.51zm-13 4.98a4.22 4.22 0 0 1 1.91 1.34A5.77 5.77 0 0 0 12 18a4.72 4.72 0 0 0 5-4 3.23 3.23 0 0 1-3.5 1.49 4.32 4.32 0 0 1-1.91-1.35A5.8 5.8 0 0 0 7 12a4.72 4.72 0 0 0-5 4 3.2 3.2 0 0 1 3.5-1.51z"/>
+      </symbol>
+      <symbol id="svg-typescript" viewBox="0 0 24 24">
+        <rect fill="#ffffff" width="100%" height="100%"/>
+        <path fill="#1677c7"
+              d="M0 12v12h24V0H0v12zm14.563 7.626c.108-.061.511-.294.892-.515l.69-.4.145.214c.202.308.643.731.91.872.766.404 1.817.347 2.335-.118a.88.88 0 0 0 .314-.675l-.001-.047v.002c0-.278-.035-.4-.18-.61-.186-.266-.567-.49-1.649-.96-1.238-.533-1.771-.864-2.259-1.39a3.152 3.152 0 0 1-.653-1.178l-.006-.022c-.091-.339-.114-1.189-.042-1.531.255-1.197 1.158-2.03 2.461-2.278.423-.08 1.406-.05 1.821.053v.001c.61.152 1.074.423 1.501.865.221.236.549.666.575.77.008.03-1.036.73-1.668 1.123-.023.015-.115-.084-.217-.236-.31-.45-.633-.644-1.128-.678-.728-.05-1.196.331-1.192.967l-.001.037c0 .151.038.293.105.417l-.002-.005c.16.331.458.53 1.39.933 1.719.74 2.454 1.227 2.911 1.92.51.773.625 2.008.278 2.926-.38.998-1.325 1.676-2.655 1.9-.411.073-1.386.062-1.828-.018-.964-.172-1.878-.648-2.442-1.273-.221-.243-.652-.88-.625-.925a1.58 1.58 0 0 1 .22-.141zm-9.305-7.561c0-.534.011-.98.026-.99.012-.016 1.913-.024 4.217-.02l4.195.012.011.979.008.983H10.59v8.876H8.38v-8.876H5.258v-.964z"/>
+      </symbol>
+      <symbol id="svg-vue" viewBox="0 0 256 221">
+        <path fill="#41b883" d="M204.8 0H256L128 220.8 0 0h97.92L128 51.2 157.44 0h47.36z"/>
+        <path fill="#41b883" d="M0 0l128 220.8L256 0h-51.2L128 132.48 50.56 0H0z"/>
+        <path fill="#35495e" d="M50.56 0L128 133.12 204.8 0h-47.36L128 51.2 97.92 0H50.56z"/>
+      </symbol>
+      <symbol id="svg-vuetify" viewBox="0 0 368 319">
+        <path fill="#1697f6"
+              d="M187.897 71.248L114.523 198.363L184 318.772L276.021 159.386L368 0H229.005L187.897 71.248Z"/>
+        <path fill="#aeddff" d="M92.0209 159.386L96.8398 167.768L165.478 48.8258L193.68 0H184H0L92.0209 159.386Z"/>
+        <path fill="#1867c0" d="M229.005 0C263.785 114.458 184 318.772 184 318.772L114.523 198.363L229.005 0Z"/>
+        <path fill="#7bc6ff" d="M193.68 0C47.1426 0 96.8405 167.768 96.8405 167.768L193.68 0Z"/>
+      </symbol>
+    </svg>
+  </div>
 </template>
 
 <style scoped></style>
