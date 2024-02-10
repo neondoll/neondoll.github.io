@@ -2,9 +2,9 @@
 import {FooterNavList, Language, LanguageList, Theme} from './data/interfaces.ts';
 import {provide, Ref, ref} from 'vue';
 
-const footerNavList: FooterNavList = [
+/*const footerNavList: FooterNavList = [
   {text: {ru: 'Интерактивная клавиатура', en: 'Interactive keyboard'}, to: {name: 'interactiveKeyboard'}}
-];
+];*/
 const languagesList: LanguageList = {
   ru: {svgUse: '<use xlink:href="#svg-russian"/>', title: 'RU', value: 'ru'},
   en: {svgUse: '<use xlink:href="#svg-english"/>', title: 'EN', value: 'en'}
