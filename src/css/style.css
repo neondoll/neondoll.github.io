@@ -135,6 +135,10 @@ body {
     min-height: 100vh;
 }
 
+#app:has(.document-page) > .header, #app:has(.document-page) > .footer {
+    display: none;
+}
+
 #app > .header, #app > .footer {
     flex: none;
 }
@@ -422,7 +426,7 @@ body {
     gap: 0.5rem; /* 8px */
 }
 
-.item-stack__icon {
+.item-stack__icon, .item-stack__image {
     width: 3rem; /* 48px */
     height: 3rem; /* 48px */
 }
@@ -590,6 +594,11 @@ body {
 
 .svg-container {
     display: none;
+}
+
+.document-page > object, .document-page > embed {
+    width: 100%;
+    height: 100%;
 }
 
 .interactive-keyboard {
