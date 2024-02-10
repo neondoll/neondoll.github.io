@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {FooterNavList, Language, LanguageList, Theme} from './data/interfaces.ts';
+import {Language, LanguageList, Theme} from './data/interfaces.ts';
 import {provide, Ref, ref} from 'vue';
 
 /*const footerNavList: FooterNavList = [
