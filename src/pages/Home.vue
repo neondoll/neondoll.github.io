@@ -1,67 +1,68 @@
 <script setup lang="ts">
-import {Certificates, Content, Jobs, LanguageType} from '../data/interfaces.ts';
+import {Certificates, Content, Jobs, Language, Projects, StackList} from '../data/interfaces.ts';
 import {inject} from 'vue';
 
 const certificates: Certificates = {
   certificate_1: {
     text: {
-      ru: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)",
-      en: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE)"
+      ru: 'CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)',
+      en: 'CCNA 7. Switching, Routing, and Wireless Essentials (SRWE)'
     },
-    href: "https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/-OST-2-MIREA-IKBO-certificate.pdf"
+    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/-OST-2-MIREA-IKBO-certificate.pdf'
   },
   certificate_2: {
-    text: {ru: "HTML-верстка: с нуля до первого макета", en: "HTML layout: from scratch to first layout"},
-    href: "https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-html-layout-from-scratch-to-first-layout.pdf"
+    text: {ru: 'HTML-верстка: с нуля до первого макета', en: 'HTML layout: from scratch to first layout'},
+    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-html-layout-from-scratch-to-first-layout.pdf'
   },
   certificate_3: {
-    text: {ru: "Адаптивная и мобильная верстка", en: "Adaptive and mobile layout"},
-    href: "https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-adaptive-and-mobile-layout.pdf"
+    text: {ru: 'Адаптивная и мобильная верстка', en: 'Adaptive and mobile layout'},
+    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-adaptive-and-mobile-layout.pdf'
   },
   certificate_4: {
-    text: {ru: "Основы программирования", en: "Basics of programming"},
-    href: "https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-basics-of-programming.pdf"
+    text: {ru: 'Основы программирования', en: 'Basics of programming'},
+    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-basics-of-programming.pdf'
   },
   certificate_5: {
-    text: {ru: "Git — система контроля версий", en: "Git - version control system"},
-    href: "https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-git-version-control-system.pdf"
+    text: {ru: 'Git — система контроля версий', en: 'Git - version control system'},
+    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-git-version-control-system.pdf'
   },
   certificate_6: {
-    text: {ru: "Основы JavaScript", en: "Basics of JavaScript"},
-    href: "https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-basics-of-javascript.pdf"
+    text: {ru: 'Основы JavaScript', en: 'Basics of JavaScript'},
+    href: 'https://github.com/neondoll/neondoll.github.io/blob/main/public/documents/certificate-basics-of-javascript.pdf'
   }
 };
 const content: Content = {
-  hero_title          : {ru: "Привет, я Александра!", en: "Hi, I'm Alexandra!"},
-  hero_subtitle       : {ru: "Будем знакомы", en: "Nice to meet you"},
-  about_title         : {ru: "Обо мне", en: "About me"},
+  hero_title          : {ru: 'Привет, я Александра!', en: "Hi, I'm Alexandra!"},
+  hero_subtitle       : {ru: 'Будем знакомы', en: 'Nice to meet you'},
+  about_title         : {ru: 'Обо мне', en: 'About me'},
   about_text_me       : {
-    ru: "Frontend-разработчик из Москвы, который ищет развития и профессионального роста",
-    en: "Frontend developer from Moscow who is looking for development and professional growth"
+    ru: 'Frontend-разработчик из Москвы, который ищет развития и профессионального роста',
+    en: 'Frontend developer from Moscow who is looking for development and professional growth'
   },
   about_text_interface: {
-    ru: "Пришла во frontend-разработку, чтобы разрабатывать крутые интерфейсы и максимально улучшать пользовательский опыт",
-    en: "Came into frontend development to develop cool interfaces and improve the user experience as much as possible"
+    ru: 'Пришла во frontend-разработку, чтобы разрабатывать крутые интерфейсы и максимально улучшать пользовательский опыт',
+    en: 'Came into frontend development to develop cool interfaces and improve the user experience as much as possible'
   },
-  work_title          : {ru: "Опыт работы", en: "Work experience"},
-  stack_title         : {ru: "Мой стек", en: "My stack"},
-  stack_subtitle      : {ru: "Инструменты и прочее:", en: "Tools and other:"},
-  projects_title      : {ru: "Проекты", en: "Projects"},
-  certificates_title  : {ru: "Сертификаты", en: "Certificates"}
+  work_title          : {ru: 'Опыт работы', en: 'Work experience'},
+  stack_title         : {ru: 'Мой стек', en: 'My stack'},
+  stack_subtitle      : {ru: 'Инструменты и прочее:', en: 'Tools and other:'},
+  projects_title      : {ru: 'Проекты', en: 'Projects'},
+  project_link_live   : {ru: 'Посмотреть вживую', en: 'Watch live'},
+  certificates_title  : {ru: 'Сертификаты', en: 'Certificates'}
 };
-const language: LanguageType = inject('language') || 'ru';
-const myStackList: Record<string, string> = {
-  html5        : "HTML 5",
-  css3         : "CSS 3",
-  scss         : "SCSS",
-  jquery       : "jQuery",
-  javascript   : "JavaScript",
-  typescript   : "TypeScript",
-  vue          : "Vue",
-  bootstrap    : "Bootstrap",
-  bootstrap_vue: "BootstrapVue",
-  vuetify      : "Vuetify",
-  tailwind_css : "Tailwind CSS"
+const language: Language = inject('language') || 'ru';
+const myStackList: StackList = {
+  html5        : {svgUse: '<use xlink:href="#svg-html5"/>', title: 'HTML 5'},
+  css3         : {svgUse: '<use xlink:href="#svg-css3"/>', title: 'CSS 3'},
+  scss         : {svgUse: '<use xlink:href="#svg-scss"/>', title: 'SCSS'},
+  jquery       : {svgUse: '<use xlink:href="#svg-jquery"/>', title: 'jQuery'},
+  javascript   : {svgUse: '<use xlink:href="#svg-javascript"/>', title: 'JavaScript'},
+  typescript   : {svgUse: '<use xlink:href="#svg-typescript"/>', title: 'TypeScript'},
+  vue          : {svgUse: '<use xlink:href="#svg-vue"/>', title: 'Vue'},
+  bootstrap    : {svgUse: '<use xlink:href="#svg-bootstrap"/>', title: 'Bootstrap'},
+  bootstrap_vue: {svgUse: '<use xlink:href="#svg-bootstrap-vue"/>', title: 'BootstrapVue'},
+  vuetify      : {svgUse: '<use xlink:href="#svg-vuetify"/>', title: 'Vuetify'},
+  tailwind_css : {svgUse: '<use xlink:href="#svg-tailwind-css"/>', title: 'Tailwind CSS'}
 };
 const jobs: Jobs = {
   job_1: {
@@ -114,15 +115,21 @@ const jobs: Jobs = {
     }
   }
 };
-const projects = {
+const projects: Projects = {
   project_1: {
     image      : 'https://xn--80aejmawrcgd.xn--p1ai/images/main-image.png',
-    title      : 'ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ',
-    description: 'Сайт премий Правительства Российской Федерации',
+    title      : {
+      ru: 'ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ',
+      en: 'PRIZES OF THE GOVERNMENT OF THE RUSSIAN FEDERATION'
+    },
+    description: {
+      ru: 'Сайт премий Правительства Российской Федерации',
+      en: 'Website of the Government of the Russian Federation awards'
+    },
     links      : {live: 'https://xn--80aejmawrcgd.xn--p1ai/'}
   }
 };
-const toolsAndOther: Record<string, string> = {phpstorm: 'PhpStorm'};
+const toolsAndOther: StackList = {phpstorm: {svgUse: '<use xlink:href="#svg-phpstorm"/>', title: 'PhpStorm'}};
 </script>
 
 <template>
@@ -192,16 +199,18 @@ const toolsAndOther: Record<string, string> = {phpstorm: 'PhpStorm'};
       <h2 v-text="content.stack_title[language]" class="stack__title" data-localization-key="stack_title"/>
       <ul class="stack__list">
         <li v-for="(stackItem, stackItemId) in myStackList"
-            v-text="stackItem"
-            :class="`stack__item icon--${stackItemId.replace('_', '-')}`"
-            :key="`stack_${stackItemId}`"/>
+            class="stack__item item-stack"
+            :key="`stack_${stackItemId}`">
+          <svg v-html="stackItem.svgUse" class="item-stack__icon"/>
+          <span v-text="stackItem.title" class="item-stack__text"/>
+        </li>
       </ul>
       <h3 v-text="content.stack_subtitle[language]" class="stack__subtitle" data-localization-key="stack_subtitle"/>
       <ul class="stack__list">
-        <li v-for="(tool, toolId) in toolsAndOther"
-            v-text="tool"
-            :class="`stack__item icon--${toolId.replace('_', '-')}`"
-            :key="`tool_${toolId}`"/>
+        <li v-for="(tool, toolId) in toolsAndOther" class="stack__item item-stack" :key="`tool_${toolId}`">
+          <svg v-html="tool.svgUse" class="item-stack__icon"/>
+          <span v-text="tool.title" class="item-stack__text"/>
+        </li>
       </ul>
     </section>
     <section class="projects">
@@ -209,15 +218,19 @@ const toolsAndOther: Record<string, string> = {phpstorm: 'PhpStorm'};
       <div class="projects__cards">
         <article v-for="(project, projectId) in projects" class="projects__card card-project" :key="projectId">
           <figure class="card-project__image-container">
-            <img class="card-project__image" :alt="project.title" draggable="false" :src="project.image">
+            <img class="card-project__image" :alt="project.title[language]" draggable="false" :src="project.image">
           </figure>
           <div class="card-project__info">
-            <h3 class="card-project__title">{{ project.title }}</h3>
-            <p class="card-project__description">{{ project.description }}</p>
+            <h3 class="card-project__title">{{ project.title[language] }}</h3>
+            <p class="card-project__description">{{ project.description[language] }}</p>
             <div v-if="project.links" class="card-project__links">
               <a v-if="project.links.live" class="card-project__link" :href="project.links.live" target="_blank">
-                <img alt="" src="https://dastan64.github.io/assets/images/external-icon.svg" width="24" height="24">
-                <span class="card-project__link-caption" data-localization-key="live">Посмотреть вживую</span>
+                <svg class="card-project__link-icon">
+                  <use xlink:href="#svg-external"/>
+                </svg>
+                <span v-text="content.project_link_live[language]"
+                      class="card-project__link-caption"
+                      data-localization-key="live"/>
               </a>
             </div>
           </div>

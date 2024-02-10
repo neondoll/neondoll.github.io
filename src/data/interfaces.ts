@@ -1,11 +1,18 @@
 interface Certificate {
-    text: TextLine;
+    text: TextByLanguage;
     href: string;
 }
 
 export type Certificates = Record<string, Certificate>;
 
-export type Content = Record<string, TextLine>;
+export type Content = Record<string, TextByLanguage>;
+
+interface FooterNavItem {
+    text: TextByLanguage;
+    to: { name: string; }
+}
+
+export type FooterNavList = FooterNavItem[];
 
 export type Jobs = Record<string, Job>;
 
@@ -17,17 +24,34 @@ interface Job {
     tools: Record<string, string>
 }
 
-export type LanguageType = "ru" | "en";
+export type Language = 'ru' | 'en';
 
-export interface Language {
-    image: string;
+interface LanguageItem {
+    svgUse: string;
     title: string;
-    value: LanguageType;
+    value: Language;
 }
 
-export type ThemeType = "light" | "dark";
+export type LanguageList = Record<Language, LanguageItem>;
 
-export interface TextLine {
-    ru: string;
-    en: string;
+interface Project {
+    image: string;
+    title: TextByLanguage;
+    description: TextByLanguage;
+    links?: {
+        live?: string;
+    }
 }
+
+export type Projects = Record<string, Project>;
+
+interface StackItem {
+    svgUse: string;
+    title: string;
+}
+
+export type StackList = Record<string, StackItem>;
+
+export type Theme = 'light' | 'dark';
+
+type TextByLanguage = Record<Language, string>;
