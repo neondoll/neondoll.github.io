@@ -129,7 +129,7 @@ const projects: Projects = {
     links      : {live: 'https://xn--80aejmawrcgd.xn--p1ai/'}
   }
 };
-const toolsAndOther: StackList = {phpstorm: {svgUse: '<use xlink:href="https://raw.githubusercontent.com/neondoll/neondoll.github.io/36eb0812391123e65aed0d85b2adc4dca751c7a1/src/assets/images/phpstorm.svg"/>', title: 'PhpStorm'}};
+const toolsAndOther: StackList = {phpstorm: {svgUse: '<use xlink:href="https://raw.githubusercontent.com/neondoll/neondoll.github.io/22feee9d29c05b2e1a4b0520f5423501cdc79f07/src/assets/images/phpstorm.svg#phpstorm"/>', title: 'PhpStorm'}};
 </script>
 
 <template>
