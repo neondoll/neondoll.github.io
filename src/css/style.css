@@ -298,6 +298,8 @@ body {
 .hero__image {
     width: var(--image-width);
     height: var(--image-height);
+    background-image: url("https://neondoll.github.io/project-sources/neondoll-github-io/images/NxcQR6VIBiA.jpg");
+    background-repeat: no-repeat;
     box-shadow: 0 0 0.5rem 0.5rem var(--bg-color) inset;
 }
 
@@ -650,8 +652,8 @@ body {
         --image-height: 100%;
         position: absolute;
         left: 50%;
-        object-fit: cover;
-        object-position: center 25%;
+        background-position: center 25%;
+        background-size: cover;
         transform: translateX(-50%);
     }
 
@@ -696,8 +698,8 @@ body {
         --image-height: calc(var(--image-width) * 2160 / 1440);
         position: relative;
         left: 0;
-        object-fit: contain;
-        object-position: center;
+        background-position: center;
+        background-size: contain;
     }
 
     .hero__container {

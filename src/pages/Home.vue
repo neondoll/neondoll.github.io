@@ -145,9 +145,7 @@ const toolsAndOther: StackList = {
 <template>
   <main class="main container">
     <section class="hero">
-      <img class="hero__image"
-           src="https://neondoll.github.io/project-sources/neondoll-github-io/images/NxcQR6VIBiA.jpg"
-           :alt="content.hero_image[language]">
+      <div class="hero__image"/>
       <div class="hero__container">
         <h2 v-text="content.hero_title[language]" class="hero__title" data-localization-key="hero_title"/>
         <p v-text="content.hero_subtitle[language]" class="hero__subtitle" data-localization-key="hero_subtitle"/>
