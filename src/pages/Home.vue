@@ -56,73 +56,73 @@ const content: Content = {
 };
 const language: Language = inject('language') || 'ru';
 const myStackList: StackList = {
-  html5        : {svgUse: '<use xlink:href="#svg-html5"/>', title: 'HTML 5'},
-  css3         : {svgUse: '<use xlink:href="#svg-css3"/>', title: 'CSS 3'},
-  scss         : {svgUse: '<use xlink:href="#svg-scss"/>', title: 'SCSS'},
-  jquery       : {svgUse: '<use xlink:href="#svg-jquery"/>', title: 'jQuery'},
-  javascript   : {svgUse: '<use xlink:href="#svg-javascript"/>', title: 'JavaScript'},
-  typescript   : {svgUse: '<use xlink:href="#svg-typescript"/>', title: 'TypeScript'},
-  vue          : {svgUse: '<use xlink:href="#svg-vue"/>', title: 'Vue'},
-  bootstrap    : {svgUse: '<use xlink:href="#svg-bootstrap"/>', title: 'Bootstrap'},
-  bootstrap_vue: {svgUse: '<use xlink:href="#svg-bootstrap-vue"/>', title: 'BootstrapVue'},
-  vuetify      : {svgUse: '<use xlink:href="#svg-vuetify"/>', title: 'Vuetify'},
-  tailwind_css : {svgUse: '<use xlink:href="#svg-tailwind-css"/>', title: 'Tailwind CSS'}
+  html5        : {svgUse: '<use xlink:href="#svg-html5"/>', text: 'HTML 5'},
+  css3         : {svgUse: '<use xlink:href="#svg-css3"/>', text: 'CSS 3'},
+  scss         : {svgUse: '<use xlink:href="#svg-scss"/>', text: 'SCSS'},
+  jquery       : {svgUse: '<use xlink:href="#svg-jquery"/>', text: 'jQuery'},
+  javascript   : {svgUse: '<use xlink:href="#svg-javascript"/>', text: 'JavaScript'},
+  typescript   : {svgUse: '<use xlink:href="#svg-typescript"/>', text: 'TypeScript'},
+  vue          : {svgUse: '<use xlink:href="#svg-vue"/>', text: 'Vue'},
+  bootstrap    : {svgUse: '<use xlink:href="#svg-bootstrap"/>', text: 'Bootstrap'},
+  bootstrap_vue: {svgUse: '<use xlink:href="#svg-bootstrap-vue"/>', text: 'BootstrapVue'},
+  vuetify      : {svgUse: '<use xlink:href="#svg-vuetify"/>', text: 'Vuetify'},
+  tailwind_css : {svgUse: '<use xlink:href="#svg-tailwind-css"/>', text: 'Tailwind CSS'}
 };
 const jobs: Jobs = {
   job_1: {
-    image           : "https://neondoll.github.io/project-sources/neondoll-github-io/images/MIREA.png",
     content         : {
-      title                 : {ru: "Fullstack-разработчик", en: "Fullstack developer"},
+      title                 : {ru: 'Fullstack-разработчик', en: 'Fullstack developer'},
       company               : {
-        ru: "Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете",
-        en: "Educational and Scientific Institute of Informatics and Control Systems at MIREA - Russian Technological University"
+        ru: 'Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете',
+        en: 'Educational and Scientific Institute of Informatics and Control Systems at MIREA - Russian Technological University'
       },
-      employment_form       : {ru: "Полная занятость", en: "Full-time"},
+      employment_form       : {ru: 'Полная занятость', en: 'Full-time'},
       start_and_end         : {
-        ru: "Фев 2020 - по настоящее время · 3 года 11 месяцев",
-        en: "Feb 2020 - present · 3 years 11 months"
+        ru: 'Фев 2020 - по настоящее время · 3 года 11 месяцев',
+        en: 'Feb 2020 - present · 3 years 11 months'
       },
-      address               : {ru: "Москва, Россия", en: "Moscow, Russia"},
-      technology_stack_title: {ru: "Стек технологий:", en: "Technologies Stack:"},
-      tools_title           : {ru: "Инструменты:", en: "Tools:"}
+      address               : {ru: 'Москва, Россия', en: 'Moscow, Russia'},
+      technology_stack_title: {ru: 'Стек технологий:', en: 'Technologies Stack:'},
+      tools_title           : {ru: 'Инструменты:', en: 'Tools:'}
     },
+    imgSrc          : 'https://neondoll.github.io/project-sources/neondoll-github-io/images/MIREA.png',
     responsibilities: {
       responsibility_1: {
-        ru: "Разработка систем с нуля (от проектирования архитектуры и схемы базы данных и до реализации системы)",
-        en: "Development of systems from scratch (from designing the architecture and database schema to system implementation)"
+        ru: 'Разработка систем с нуля (от проектирования архитектуры и схемы базы данных и до реализации системы)',
+        en: 'Development of systems from scratch (from designing the architecture and database schema to system implementation)'
       },
-      responsibility_2: {ru: "Поддержка существующих систем", en: "Support for existing systems"},
-      responsibility_3: {ru: "Доработка существующих систем", en: "Refinement of existing systems"}
+      responsibility_2: {ru: 'Поддержка существующих систем', en: 'Support for existing systems'},
+      responsibility_3: {ru: 'Доработка существующих систем', en: 'Refinement of existing systems'}
     },
-    technology_stack: {
-      html5        : "HTML 5",
-      css3         : "CSS 3",
-      scss         : "SCSS",
-      jquery       : "jQuery",
-      javascript   : "JavaScript",
-      vue          : "Vue",
-      bootstrap    : "Bootstrap",
-      bootstrap_vue: "BootstrapVue",
-      vuetify      : "Vuetify",
-      tailwind_css : "Tailwind CSS",
-      php          : "PHP",
-      yii2         : "Yii2",
-      laravel      : "Laravel",
-      mysql        : "MySQL"
+    technologyStack : {
+      html5        : 'HTML 5',
+      css3         : 'CSS 3',
+      scss         : 'SCSS',
+      jquery       : 'jQuery',
+      javascript   : 'JavaScript',
+      vue          : 'Vue',
+      bootstrap    : 'Bootstrap',
+      bootstrap_vue: 'BootstrapVue',
+      vuetify      : 'Vuetify',
+      tailwind_css : 'Tailwind CSS',
+      php          : 'PHP',
+      yii2         : 'Yii2',
+      laravel      : 'Laravel',
+      mysql        : 'MySQL'
     },
     tools           : {
-      webpack : "Webpack",
-      vite    : "Vite",
-      phpstorm: "PhpStorm",
-      datagrip: "DataGrip",
-      git     : "Git",
-      gitlab  : "GitLab"
+      webpack : 'Webpack',
+      vite    : 'Vite',
+      phpstorm: 'PhpStorm',
+      datagrip: 'DataGrip',
+      git     : 'Git',
+      gitlab  : 'GitLab'
     }
   }
 };
 const projects: Projects = {
   project_1: {
-    image      : 'https://xn--80aejmawrcgd.xn--p1ai/images/main-image.png',
+    imgSrc     : 'https://xn--80aejmawrcgd.xn--p1ai/images/main-image.png',
     title      : {
       ru: 'ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ',
       en: 'PRIZES OF THE GOVERNMENT OF THE RUSSIAN FEDERATION'
@@ -135,13 +135,13 @@ const projects: Projects = {
   }
 };
 const toolsAndOther: StackList = {
-  webpack : {svgUse: '<use xlink:href="#svg-webpack"/>', title: "Webpack"},
-  vite    : {imgSrc: 'https://neondoll.github.io/project-sources/neondoll-github-io/icons/vite.svg', title: 'Vite'},
+  webpack : {svgUse: '<use xlink:href="#svg-webpack"/>', text: "Webpack"},
+  vite    : {imgSrc: 'https://neondoll.github.io/project-sources/neondoll-github-io/icons/vite.svg', text: 'Vite'},
   phpstorm: {
     imgSrc: 'https://neondoll.github.io/project-sources/neondoll-github-io/icons/phpstorm.svg',
-    title : 'PhpStorm'
+    text  : 'PhpStorm'
   },
-  git     : {svgUse: '<use xlink:href="#svg-git"/>', title: "Git"}
+  git     : {svgUse: '<use xlink:href="#svg-git"/>', text: 'Git'}
 };
 </script>
 
@@ -169,7 +169,7 @@ const toolsAndOther: StackList = {
       <h2 v-text="content.work_title[language]" class="work__title" data-localization-key="work_title"/>
       <div class="work__container">
         <div v-for="(job, jobId) in jobs" class="job" :key="jobId">
-          <img class="job__image" :src="job.image" :alt="job.content.company[language]">
+          <img class="job__image" :src="job.imgSrc" :alt="job.content.company[language]">
           <div class="job__container">
             <h3 v-text="job.content.title[language]" class="job__title" :data-localization-key="`${jobId}_title`"/>
             <p v-text="`${job.content.company[language]} · ${job.content.employment_form[language]}`"
@@ -190,7 +190,7 @@ const toolsAndOther: StackList = {
                 class="job__list-title"
                 :data-localization-key="`${jobId}_technology_stack_title`"/>
             <ul class="job__list list-inside list-disc">
-              <li v-for="(stackItem, stackItemId) in job.technology_stack"
+              <li v-for="(stackItem, stackItemId) in job.technologyStack"
                   v-text="stackItem"
                   class="job__item"
                   :key="`${jobId}_technology_stack_${stackItemId}`"/>
@@ -215,16 +215,16 @@ const toolsAndOther: StackList = {
             class="stack__item item-stack"
             :key="`stack_${stackItemId}`">
           <svg v-if="stackItem.svgUse" v-html="stackItem.svgUse" class="item-stack__icon"/>
-          <img v-else-if="stackItem.imgSrc" class="item-stack__image" :src="stackItem.imgSrc" :alt="stackItem.title">
-          <span v-text="stackItem.title" class="item-stack__text"/>
+          <img v-else-if="stackItem.imgSrc" class="item-stack__image" :src="stackItem.imgSrc" :alt="stackItem.text">
+          <span v-text="stackItem.text" class="item-stack__text"/>
         </li>
       </ul>
       <h3 v-text="content.stack_subtitle[language]" class="stack__subtitle" data-localization-key="stack_subtitle"/>
       <ul class="stack__list">
         <li v-for="(tool, toolId) in toolsAndOther" class="stack__item item-stack" :key="`tool_${toolId}`">
           <svg v-if="tool.svgUse" v-html="tool.svgUse" class="item-stack__icon"/>
-          <img v-else-if="tool.imgSrc" class="item-stack__image" :src="tool.imgSrc" :alt="tool.title">
-          <span v-text="tool.title" class="item-stack__text"/>
+          <img v-else-if="tool.imgSrc" class="item-stack__image" :src="tool.imgSrc" :alt="tool.text">
+          <span v-text="tool.text" class="item-stack__text"/>
         </li>
       </ul>
     </section>
@@ -233,11 +233,11 @@ const toolsAndOther: StackList = {
       <div class="projects__cards">
         <article v-for="(project, projectId) in projects" class="projects__card card-project" :key="projectId">
           <figure class="card-project__image-container">
-            <img class="card-project__image" :alt="project.title[language]" draggable="false" :src="project.image">
+            <img class="card-project__image" :src="project.imgSrc" :alt="project.title[language]">
           </figure>
           <div class="card-project__info">
-            <h3 class="card-project__title">{{ project.title[language] }}</h3>
-            <p class="card-project__description">{{ project.description[language] }}</p>
+            <h3 v-text="project.title[language]" class="card-project__title"/>
+            <p v-text="project.description[language]" class="card-project__description"/>
             <div v-if="project.links" class="card-project__links">
               <a v-if="project.links.live" class="card-project__link" :href="project.links.live" target="_blank">
                 <svg class="card-project__link-icon">
