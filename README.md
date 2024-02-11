@@ -74,5 +74,5 @@ E-mail: <i>bonni_1998@mail.ru</i>
 - [HTML-верстка: с нуля до первого макета](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-html-layout-from-scratch-to-first-layout.pdf)
 - [Адаптивная и мобильная верстка](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-adaptive-and-mobile-layout.pdf)
 - [Основы программирования](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-basics-of-programming.pdf)
-- [Git — система контроля версий](phttps://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-git-version-control-system.pdf)
+- [Git — система контроля версий](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-git-version-control-system.pdf)
 - [Основы JavaScript](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-basics-of-javascript.pdf)
