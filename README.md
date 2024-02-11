@@ -1,6 +1,6 @@
 <style lang="css">img{width:200px;float:right}</style>
 
-![Моя фотография](src/assets/images/NxcQR6VIBiA.jpg)
+![Моя фотография](https://neondoll.github.io/project-sources/neondoll-github-io/images/NxcQR6VIBiA.jpg)
 
 # Михайлова Александра Сергеевна
 
@@ -70,9 +70,9 @@ E-mail: <i>bonni_1998@mail.ru</i>
 
 ## Сертификаты
 
-- [CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)](public/documents/-OST-2-MIREA-IKBO-certificate.pdf)
-- [HTML-верстка: с нуля до первого макета](public/documents/certificate-html-layout-from-scratch-to-first-layout.pdf)
-- [Адаптивная и мобильная верстка](public/documents/certificate-adaptive-and-mobile-layout.pdf)
-- [Основы программирования](public/documents/certificate-basics-of-programming.pdf)
-- [Git — система контроля версий](public/documents/certificate-git-version-control-system.pdf)
-- [Основы JavaScript](public/documents/certificate-basics-of-javascript.pdf)
+- [CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/-OST-2-MIREA-IKBO-certificate.pdf)
+- [HTML-верстка: с нуля до первого макета](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-html-layout-from-scratch-to-first-layout.pdf)
+- [Адаптивная и мобильная верстка](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-adaptive-and-mobile-layout.pdf)
+- [Основы программирования](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-basics-of-programming.pdf)
+- [Git — система контроля версий](phttps://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-git-version-control-system.pdf)
+- [Основы JavaScript](https://neondoll.github.io/project-sources/neondoll-github-io/documents/certificates/certificate-basics-of-javascript.pdf)
