@@ -1,26 +1,36 @@
+import {RouteLocationRaw} from 'vue-router';
+
 interface Certificate {
     text: TextByLanguage;
-    to: { name: string; params: Record<string, any>; }
+    to: RouteLocationRaw;
 }
 
 export type Certificates = Record<string, Certificate>;
+
+interface ContactItem {
+    link: string;
+    svgUse: string;
+    text: string;
+}
+
+export type ContactList = Record<string, ContactItem>;
 
 export type Content = Record<string, TextByLanguage>;
 
 interface FooterNavItem {
     text: TextByLanguage;
-    to: { name: string; }
+    to: RouteLocationRaw;
 }
 
-export type FooterNavList = FooterNavItem[];
+export type FooterNavList = Record<string, FooterNavItem>;
 
 export type Jobs = Record<string, Job>;
 
 interface Job {
-    image: string;
     content: Content;
+    imgSrc: string;
     responsibilities: Content;
-    technology_stack: Record<string, string>;
+    technologyStack: Record<string, string>;
     tools: Record<string, string>
 }
 
@@ -28,19 +38,17 @@ export type Language = 'ru' | 'en';
 
 interface LanguageItem {
     svgUse: string;
-    title: string;
+    text: string;
     value: Language;
 }
 
 export type LanguageList = Record<Language, LanguageItem>;
 
 interface Project {
-    image: string;
+    imgSrc: string;
     title: TextByLanguage;
     description: TextByLanguage;
-    links?: {
-        live?: string;
-    }
+    links?: { live?: string; }
 }
 
 export type Projects = Record<string, Project>;
@@ -48,7 +56,7 @@ export type Projects = Record<string, Project>;
 interface StackItem {
     imgSrc?: string;
     svgUse?: string;
-    title: string;
+    text: string;
 }
 
 export type StackList = Record<string, StackItem>;
