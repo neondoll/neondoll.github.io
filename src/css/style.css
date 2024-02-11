@@ -441,6 +441,7 @@ body {
 .projects__cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(0, 550px));
+    justify-content: center;
     gap: 1rem; /* 16px */
     margin: 0 auto;
 }
