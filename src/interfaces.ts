@@ -1,11 +1,9 @@
 import {RouteLocationRaw} from 'vue-router';
 
-interface Certificate {
+export interface Certificate {
     text: TextByLanguage;
     to: RouteLocationRaw;
 }
-
-export type Certificates = Record<string, Certificate>;
 
 interface ContactItem {
     link: string;
@@ -24,14 +22,17 @@ interface FooterNavItem {
 
 export type FooterNavList = Record<string, FooterNavItem>;
 
-export type Jobs = Record<string, Job>;
-
-interface Job {
-    content: Content;
+export interface Job {
     imgSrc: string;
-    responsibilities: Content;
+    title: TextByLanguage;
+    company: TextByLanguage;
+    employmentForm: TextByLanguage;
+    startDate: string;
+    endDate?: string;
+    address: TextByLanguage;
+    responsibilities: TextByLanguage[];
     technologyStack: Record<string, string>;
-    tools: Record<string, string>
+    tools: Record<string, string>;
 }
 
 export type Language = 'ru' | 'en';
@@ -44,7 +45,7 @@ interface LanguageItem {
 
 export type LanguageList = Record<Language, LanguageItem>;
 
-interface Project {
+export interface Project {
     imgSrc: string;
     title: TextByLanguage;
     description: TextByLanguage;
@@ -53,14 +54,12 @@ interface Project {
 
 export type Projects = Record<string, Project>;
 
-interface StackItem {
+export interface StackItem {
     imgSrc?: string;
     svgUse?: string;
     text: string;
 }
 
-export type StackList = Record<string, StackItem>;
-
 export type Theme = 'light' | 'dark';
 
-type TextByLanguage = Record<Language, string>;
+export type TextByLanguage = Record<Language, string>;
