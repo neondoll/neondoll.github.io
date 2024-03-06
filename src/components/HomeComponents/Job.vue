@@ -1,27 +1,22 @@
 <script setup lang="ts">
 import {Job, Language, TextByLanguage} from "../../interfaces.ts";
-import {computed, inject} from "vue";
+import {computed, inject, ref, Ref} from "vue";
 import months from "../../data/months.ts";
 
 const endDateNull: TextByLanguage = {ru: 'по настоящее время', en: 'present'};
-const language: Language = inject<Language>('language') || 'ru';
+const language: Ref<Language> = inject('language') || ref('ru');
 const props = defineProps<{ item: Job; itemKey: string; }>();
 
 const startDate = new Date(props.item.startDate);
-const startDateMonth = startDate.getMonth();
-const startDateYear = startDate.getFullYear();
-
 const endDate = props.item.endDate ? new Date(props.item.endDate) : undefined;
-const endDateMonth = endDate ? endDate.getMonth() : undefined;
-const endDateYear = endDate ? endDate.getFullYear() : undefined;
 
 const startAndEndDate = computed(() => {
-  let result = `${months[startDateMonth][language]} ${startDateYear} - `;
+  let result = `${months[startDate.getMonth()][language.value]} ${startDate.getFullYear()} - `;
 
   if (endDate) {
-    result += `${months[endDateMonth][language]} ${endDateYear}`;
+    result += `${months[endDate.getMonth()][language.value]} ${endDate.getFullYear()}`;
   } else {
-    result += endDateNull[language];
+    result += endDateNull[language.value];
   }
 
   return result;
