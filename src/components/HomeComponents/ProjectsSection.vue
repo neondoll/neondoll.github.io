@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Language, Project, TextByLanguage} from "../../interfaces.ts";
-import {inject} from "vue";
+import {inject, ref, Ref} from "vue";
 import CardProject from "./ProjectCard.vue";
 
 interface Content {
@@ -27,7 +27,7 @@ const content: Content = {
   ],
   links: {live: {ru: 'Посмотреть вживую', en: 'Watch live'}}
 };
-const language: Language = inject<Language>('language') || 'ru';
+const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
 </script>
 
 <template>

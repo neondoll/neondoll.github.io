@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Job, Language, TextByLanguage} from "../../interfaces.ts";
-import {inject} from "vue";
+import {inject, ref, Ref} from "vue";
 import ItemJob from "./Job.vue";
 
 interface Content {
@@ -14,14 +14,13 @@ const content: Content = {
   title               : {ru: 'Опыт работы', en: 'Work experience'},
   items               : [
     {
-      imgSrc        : 'https://neondoll.github.io/project-sources/neondoll-github-io/images/MIREA.png',
-      title         : {ru: 'Fullstack-разработчик', en: 'Fullstack developer'},
-      company       : {
+      imgSrc          : 'https://neondoll.github.io/project-sources/neondoll-github-io/images/MIREA.png',
+      title           : {ru: 'Fullstack-разработчик', en: 'Fullstack developer'},
+      company         : {
         ru: 'Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете',
         en: 'Educational and Scientific Institute of Informatics and Control Systems at MIREA - Russian Technological University'
       },
-      employmentForm: {ru: 'Полная занятость', en: 'Full-time'},
-      //start_and_end: {ru: 'Фев 2020 - по настоящее время · 3 года 11 месяцев', en: 'Feb 2020 - present · 3 years 11 months'},
+      employmentForm  : {ru: 'Полная занятость', en: 'Full-time'},
       startDate       : '2020-02-01',
       address         : {ru: 'Москва, Россия', en: 'Moscow, Russia'},
       responsibilities: [
@@ -61,14 +60,15 @@ const content: Content = {
   technologyStackTitle: {ru: 'Стек технологий:', en: 'Technologies Stack:'},
   toolsTitle          : {ru: 'Инструменты:', en: 'Tools:'}
 };
-const language: Language = inject<Language>('language') || 'ru';
+const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
 </script>
 
 <template>
   <section class="work">
     <h2 class="work__title">{{ content.title[language] }}</h2>
     <div class="work__container">
-      <ItemJob v-for="(item, index) in content.items" :item="item" :item-key="`job_${index + 1}`">
+      <ItemJob v-for="(item, index) in content.items" :item="item" :item-key="`job_${index + 1}`"
+               :key="`job_${index + 1}`">
         <template #technology-stack-title>{{ content.technologyStackTitle[language] }}</template>
         <template #tools-title>{{ content.toolsTitle[language] }}</template>
       </ItemJob>

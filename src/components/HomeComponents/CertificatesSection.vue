@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import {Certificate, Language, TextByLanguage} from "../../interfaces.ts";
-import {inject} from "vue";
+import {Language, TextByLanguage} from "../../interfaces.ts";
+import {RouteLocationRaw} from "vue-router";
+import {inject, ref, Ref} from "vue";
 
 interface Content {
   title: TextByLanguage;
   items: Certificate[];
+}
+
+interface Certificate {
+  text: TextByLanguage;
+  to: RouteLocationRaw;
 }
 
 const content: Content = {
@@ -46,7 +52,7 @@ const content: Content = {
     }
   ]
 };
-const language: Language = inject<Language>('language') || 'ru';
+const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
 </script>
 
 <template>

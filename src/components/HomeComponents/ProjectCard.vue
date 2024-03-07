@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {Language, Project} from "../../interfaces.ts";
-import {inject} from "vue";
+import {inject, ref, Ref} from "vue";
 
-const language: Language = inject<Language>('language') || 'ru';
+const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
 const props = defineProps<{ item: Project; }>();
 </script>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Language, StackItem, TextByLanguage} from "../../interfaces.ts";
-import {inject} from "vue";
+import {inject, ref, Ref} from "vue";
 import ItemStack from "./StackItem.vue";
 
 interface Content {
@@ -44,7 +44,7 @@ const content: Content = {
     }
   }
 };
-const language: Language = inject<Language>('language') || 'ru';
+const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
 </script>
 
 <template>
