@@ -1,51 +1,67 @@
 <script setup lang="ts">
-import {ContactList, Language, LanguageList, Theme} from './interfaces.ts';
-import {provide, Ref, ref} from 'vue';
+import {Language, Theme} from "./interfaces.ts";
+import {provide, Ref, ref} from "vue";
 
-const contactList: ContactList = {
-  github  : {link: 'https://github.com/neondoll', svgUse: '<use xlink:href="#svg-github"/>', text: 'GitHub'},
-  telegram: {link: 'https://t.me/owlet_owl', svgUse: '<use xlink:href="#svg-telegram"/>', text: 'Telegram'}
+interface ContactItem {
+  text: string;
+  svgUse: string;
+  link: string;
 }
-/*const footerNavList: FooterNavList = [{text: {ru: 'Интерактивная клавиатура', en: 'Interactive keyboard'}, to: {name: 'interactiveKeyboard'}}];*/
-const languagesList: LanguageList = {
-  ru: {svgUse: '<use xlink:href="#svg-russian"/>', text: 'RU', value: 'ru'},
-  en: {svgUse: '<use xlink:href="#svg-english"/>', text: 'EN', value: 'en'}
+
+/*interface FooterNavItem {
+  text: TextByLanguage;
+  to: RouteLocationRaw;
+}*/
+
+interface LanguageItem {
+  text: string;
+  svgUse: string;
+}
+
+const contactList: Record<string, ContactItem> = {
+  github  : {text: 'GitHub', svgUse: '<use xlink:href="#svg-github"/>', link: 'https://github.com/neondoll'},
+  telegram: {text: 'Telegram', svgUse: '<use xlink:href="#svg-telegram"/>', link: 'https://t.me/owlet_owl'}
+}
+/*const footerNavList: FooterNavItem[] = [{text: {ru: 'Интерактивная клавиатура', en: 'Interactive keyboard'}, to: {name: 'interactiveKeyboard'}}];*/
+const languagesList: Record<Language, LanguageItem> = {
+  ru: {text: 'RU', svgUse: '<use xlink:href="#svg-russian"/>'},
+  en: {text: 'EN', svgUse: '<use xlink:href="#svg-english"/>'}
 };
 
-let language: Ref<Language> = ref('ru');
-let theme: Ref<Theme> = ref('light');
+const language: Ref<Language> = ref<Language>('ru');
+const theme: Ref<Theme> = ref<Theme>('light');
 
-provide('language', language);
+provide<Ref<Language>, string>('language', language);
 
 const getLanguage = function () {
-  language.value = localStorage.language ? localStorage.language : document.documentElement.getAttribute("lang");
+  language.value = localStorage.language ? localStorage.language : document.documentElement.getAttribute('lang');
 
   setLanguage();
 };
 const getTheme = function () {
   theme.value = localStorage.theme
       ? localStorage.theme
-      : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
   setTheme();
 };
 const setLanguage = function () {
   localStorage.language = language.value;
-  document.documentElement.setAttribute("lang", language.value);
+  document.documentElement.setAttribute('lang', language.value);
 };
 const setTheme = function () {
   localStorage.theme = theme.value;
 
-  if (theme.value === "dark") {
-    document.documentElement.classList.add("dark");
+  if (theme.value === 'dark') {
+    document.documentElement.classList.add('dark');
   } else {
-    document.documentElement.classList.remove("dark");
+    document.documentElement.classList.remove('dark');
   }
 };
 
-window.addEventListener("load", getLanguage);
-window.addEventListener("load", getTheme);
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", getTheme);
+window.addEventListener('load', getLanguage);
+window.addEventListener('load', getTheme);
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', getTheme);
 
 window.addEventListener('DOMContentLoaded', function () {
   const themeCheckboxElement: HTMLElement | null = document.getElementById('theme-checkbox');
@@ -54,8 +70,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const themeCheckboxInputElement: HTMLElement | null = themeCheckboxElement.querySelector('#theme-checkbox-input');
 
     if (themeCheckboxInputElement) {
-      themeCheckboxInputElement.addEventListener("change", (event: Event) => {
-        theme.value = (event.target as HTMLInputElement).checked ? "dark" : "light";
+      themeCheckboxInputElement.addEventListener('change', (event: Event) => {
+        theme.value = (event.target as HTMLInputElement).checked ? 'dark' : 'light';
 
         setTheme();
       });
@@ -68,14 +84,14 @@ window.addEventListener('DOMContentLoaded', function () {
     const languageDropdownBtnElement: HTMLElement | null = languageDropdownElement.querySelector('.language-dropdown__btn');
 
     if (languageDropdownBtnElement) {
-      languageDropdownBtnElement.addEventListener("click", () => {
-        languageDropdownElement.classList.toggle("language-dropdown--active");
+      languageDropdownBtnElement.addEventListener('click', () => {
+        languageDropdownElement.classList.toggle('language-dropdown--active');
       });
     }
 
     Array.from(languageDropdownElement.querySelectorAll('.list-language-dropdown__btn')).forEach((listLanguageDropdownBtnElement) => {
-      listLanguageDropdownBtnElement.addEventListener("click", () => {
-        languageDropdownElement.classList.toggle("language-dropdown--active");
+      listLanguageDropdownBtnElement.addEventListener('click', () => {
+        languageDropdownElement.classList.toggle('language-dropdown--active');
         const languageDropdownValue = (listLanguageDropdownBtnElement as HTMLElement).dataset.value;
 
         if (languageDropdownValue) {
@@ -107,18 +123,17 @@ window.addEventListener('DOMContentLoaded', function () {
       <div class="language-dropdown" id="language-dropdown">
         <button class="language-dropdown__btn" type="button">
           <svg v-html="languagesList[language].svgUse" class="language-dropdown__btn-flag"/>
-          <span v-text="languagesList[language].text" class="language-dropdown__btn-text"/>
+          <span class="language-dropdown__btn-text">{{ languagesList[language].text }}</span>
           <svg class="language-dropdown__btn-icon">
             <use xlink:href="#svg-chevron-down"/>
           </svg>
         </button>
         <ul class="language-dropdown__list list-language-dropdown">
-          <li v-for="(languagesItem, languagesItemId) in languagesList"
-              class="list-language-dropdown__item"
+          <li v-for="(languagesItem, languagesItemId) in languagesList" class="list-language-dropdown__item"
               :key="`language_${languagesItemId}`">
             <button class="list-language-dropdown__btn" :data-value="languagesItemId" type="button">
               <svg v-html="languagesItem.svgUse" class="list-language-dropdown__btn-flag"/>
-              <span v-text="languagesItem.text" class="list-language-dropdown__btn-text"/>
+              <span class="list-language-dropdown__btn-text">{{ languagesItem.text }}</span>
             </button>
           </li>
         </ul>
@@ -130,11 +145,10 @@ window.addEventListener('DOMContentLoaded', function () {
     <div class="footer__container container">
       <address class="footer__contacts contacts-footer">
         <ul class="contacts-footer__list">
-          <li v-for="(contactItem, contactId) in contactList"
-              class="contacts-footer__item"
-              :key="`contact-${contactId}`">
+          <li v-for="(contactItem, contactId) in contactList" class="contacts-footer__item"
+              :key="`contact_${contactId}`">
             <svg v-html="contactItem.svgUse" class="contacts-footer__icon"/>
-            <a v-text="contactItem.text" class="contacts-footer__link" :href="contactItem.link"/>
+            <a class="contacts-footer__link" :href="contactItem.link">{{ contactItem.text }}</a>
           </li>
         </ul>
       </address>
