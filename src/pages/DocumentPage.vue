@@ -1,0 +1,26 @@
+<script setup lang="ts">
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+
+const route = useRoute();
+
+const url = computed((): string => `https://neondoll.github.io/project-sources/neondoll-github-io/documents/${route.params.documentName}`);
+</script>
+
+<template>
+  <main class="main document-page">
+    <object
+      :data="url"
+      type="application/pdf"
+    >
+      <embed
+        :src="url"
+        type="application/pdf"
+      >
+    </object>
+  </main>
+</template>
+
+<style scoped>
+
+</style>
