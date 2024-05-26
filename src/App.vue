@@ -143,7 +143,7 @@ window.addEventListener('DOMContentLoaded', function () {
           type="button"
         >
           <svg
-            v-sane-html="languagesList[language].svgUse"
+            v-html="languagesList[language].svgUse"
             class="language-dropdown__btn-flag"
           />
           <span
@@ -166,7 +166,7 @@ window.addEventListener('DOMContentLoaded', function () {
               type="button"
             >
               <svg
-                v-sane-html="languagesItem.svgUse"
+                v-html="languagesItem.svgUse"
                 class="list-language-dropdown__btn-flag"
               />
               <span
@@ -190,7 +190,7 @@ window.addEventListener('DOMContentLoaded', function () {
             class="contacts-footer__item"
           >
             <svg
-              v-sane-html="contactItem.svgUse"
+              v-html="contactItem.svgUse"
               class="contacts-footer__icon"
             />
             <a

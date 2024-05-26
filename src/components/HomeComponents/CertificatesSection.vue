@@ -27,7 +27,7 @@ const content: Content = {
       text: { ru: 'HTML-верстка: с нуля до первого макета', en: 'HTML layout: from scratch to first layout' },
       to: {
         name: 'document',
-        params: { documentName: 'certificates/certificate-html-layout-from-scratch-to-first-layout.pdf' },
+        params: { documentName: 'certificates/certificate-html-layout-from-scratch-to-first-layout.pdf' }
       },
     },
     {
@@ -48,7 +48,20 @@ const content: Content = {
     },
     {
       text: { ru: 'Основы JavaScript в браузере', en: 'Basics of JavaScript in the browser' },
-      to: { name: 'document', params: { documentName: 'certificates/certificate-basics-of-javascript-in-browser.pdf' } },
+      to: {
+        name: 'document',
+        params: { documentName: 'certificates/certificate-basics-of-javascript-in-browser.pdf' }
+      },
+    },
+    {
+      text: {
+        ru: 'Продвинутый JavaScript: современные возможности языка',
+        en: 'Advanced JavaScript: Modern Language Features'
+      },
+      to: {
+        name: 'document',
+        params: { documentName: 'certificates/certificate-advanced-javascript-modern-language-features.pdf' }
+      },
     },
   ],
 };
@@ -58,19 +71,19 @@ const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Languag
 <template>
   <section class="certificates">
     <h2
-      class="certificates__title"
-      v-text="content.title[language]"
+        class="certificates__title"
+        v-text="content.title[language]"
     />
     <ul class="certificates__list list-inside list-disc">
       <li
-        v-for="(item, index) in content.items"
-        :key="`certificate_${index + 1}`"
-        class="certificates__item"
+          v-for="(item, index) in content.items"
+          :key="`certificate_${index + 1}`"
+          class="certificates__item"
       >
         <RouterLink
-          class="certificates__link"
-          target="_blank"
-          :to="item.to"
+            class="certificates__link"
+            target="_blank"
+            :to="item.to"
         >
           {{ item.text[language] }}
         </RouterLink>
