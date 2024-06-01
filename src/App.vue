@@ -1,219 +1,57 @@
 <script setup lang="ts">
-import { Language, Theme } from './interfaces.ts';
-import { provide, Ref, ref } from 'vue';
+// Components
+import AppFooter from './components/AppFooter.vue';
+import AppHeader from './components/AppHeader.vue';
 
-interface ContactItem {
-  text: string;
-  svgUse: string;
-  link: string;
-}
+// Composables
+import { provide, ref, watch } from 'vue';
 
-/* interface FooterNavItem {
-  text: TextByLanguage;
-  to: RouteLocationRaw;
-} */
+// Types
+import type { Language, Theme } from './types';
 
-interface LanguageItem {
-  text: string;
-  svgUse: string;
-}
+const language = ref<Language>('ru');
+const theme = ref<Theme>('light');
 
-const contactList: Record<string, ContactItem> = {
-  github: { text: 'GitHub', svgUse: '<use xlink:href="#svg-github"/>', link: 'https://github.com/neondoll' },
-  telegram: { text: 'Telegram', svgUse: '<use xlink:href="#svg-telegram"/>', link: 'https://t.me/owlet_owl' },
-};
-/* const footerNavList: FooterNavItem[] = [{text: {ru: 'Интерактивная клавиатура', en: 'Interactive keyboard'}, to: {name: 'interactiveKeyboard'}}]; */
-const languagesList: Record<Language, LanguageItem> = {
-  ru: { text: 'RU', svgUse: '<use xlink:href="#svg-russian"/>' },
-  en: { text: 'EN', svgUse: '<use xlink:href="#svg-english"/>' },
-};
-
-const language: Ref<Language> = ref<Language>('ru');
-const theme: Ref<Theme> = ref<Theme>('light');
-
-provide<Ref<Language>, string>('language', language);
-
-const getLanguage = function () {
+const initLanguage = function () {
   language.value = localStorage.language
     ? localStorage.language as Language
     : document.documentElement.getAttribute('lang') as Language;
-
-  setLanguage();
 };
-const getTheme = function () {
+const initTheme = function () {
   theme.value = localStorage.theme
     ? localStorage.theme as Theme
     : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') as Theme;
-
-  setTheme();
 };
-const setLanguage = function () {
-  localStorage.language = language.value;
-  document.documentElement.setAttribute('lang', language.value);
-};
-const setTheme = function () {
-  localStorage.theme = theme.value;
 
-  if (theme.value === 'dark') {
+provide('language', language);
+
+watch(() => language.value, (value) => {
+  localStorage.language = value;
+  document.documentElement.setAttribute('lang', value);
+});
+watch(() => theme.value, (value) => {
+  localStorage.theme = value;
+
+  if (value === 'dark') {
     document.documentElement.classList.add('dark');
   }
   else {
     document.documentElement.classList.remove('dark');
   }
-};
-
-window.addEventListener('load', getLanguage);
-window.addEventListener('load', getTheme);
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', getTheme);
-
-window.addEventListener('DOMContentLoaded', function () {
-  const themeCheckboxElement: HTMLElement | null = document.getElementById('theme-checkbox');
-
-  if (themeCheckboxElement) {
-    const themeCheckboxInputElement: HTMLElement | null = themeCheckboxElement.querySelector('#theme-checkbox-input');
-
-    if (themeCheckboxInputElement) {
-      themeCheckboxInputElement.addEventListener('change', (event: Event) => {
-        theme.value = (event.target as HTMLInputElement).checked ? 'dark' : 'light';
-
-        setTheme();
-      });
-    }
-  }
-
-  const languageDropdownElement: HTMLElement | null = document.getElementById('language-dropdown');
-
-  if (languageDropdownElement) {
-    const languageDropdownBtnElement: HTMLElement | null = languageDropdownElement.querySelector('.language-dropdown__btn');
-
-    if (languageDropdownBtnElement) {
-      languageDropdownBtnElement.addEventListener('click', () => {
-        languageDropdownElement.classList.toggle('language-dropdown--active');
-      });
-    }
-
-    Array.from(languageDropdownElement.querySelectorAll('.list-language-dropdown__btn')).forEach((listLanguageDropdownBtnElement) => {
-      listLanguageDropdownBtnElement.addEventListener('click', () => {
-        languageDropdownElement.classList.toggle('language-dropdown--active');
-        const languageDropdownValue = (listLanguageDropdownBtnElement as HTMLElement).dataset.value;
-
-        if (languageDropdownValue) {
-          language.value = languageDropdownValue as Language;
-
-          setLanguage();
-        }
-      });
-    });
-  }
 });
+
+window.addEventListener('load', initLanguage);
+window.addEventListener('load', initTheme);
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', initTheme);
 </script>
 
 <template>
-  <header class="header">
-    <div class="header__container container">
-      <div
-        id="theme-checkbox"
-        class="theme-checkbox"
-      >
-        <input
-          id="theme-checkbox-input"
-          class="theme-checkbox__input"
-          type="checkbox"
-          :checked="theme === 'dark'"
-        >
-        <label
-          class="theme-checkbox__label"
-          for="theme-checkbox-input"
-        >
-          <svg class="theme-checkbox__icon">
-            <use xlink:href="#svg-moon" />
-          </svg>
-          <span class="theme-checkbox__ball" />
-          <svg class="theme-checkbox__icon">
-            <use xlink:href="#svg-sun" />
-          </svg>
-        </label>
-      </div>
-      <div
-        id="language-dropdown"
-        class="language-dropdown"
-      >
-        <button
-          class="language-dropdown__btn"
-          type="button"
-        >
-          <svg
-            v-html="languagesList[language].svgUse"
-            class="language-dropdown__btn-flag"
-          />
-          <span
-            class="language-dropdown__btn-text"
-            v-text="languagesList[language].text"
-          />
-          <svg class="language-dropdown__btn-icon">
-            <use xlink:href="#svg-chevron-down" />
-          </svg>
-        </button>
-        <ul class="language-dropdown__list list-language-dropdown">
-          <li
-            v-for="(languagesItem, languagesItemId) in languagesList"
-            :key="`language_${languagesItemId}`"
-            class="list-language-dropdown__item"
-          >
-            <button
-              class="list-language-dropdown__btn"
-              :data-value="languagesItemId"
-              type="button"
-            >
-              <svg
-                v-html="languagesItem.svgUse"
-                class="list-language-dropdown__btn-flag"
-              />
-              <span
-                class="list-language-dropdown__btn-text"
-                v-text="languagesItem.text"
-              />
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </header>
+  <AppHeader
+    v-model:language="language"
+    v-model:theme="theme"
+  />
   <RouterView />
-  <footer class="footer">
-    <div class="footer__container container">
-      <address class="footer__contacts contacts-footer">
-        <ul class="contacts-footer__list">
-          <li
-            v-for="(contactItem, contactId) in contactList"
-            :key="`contact_${contactId}`"
-            class="contacts-footer__item"
-          >
-            <svg
-              v-html="contactItem.svgUse"
-              class="contacts-footer__icon"
-            />
-            <a
-              class="contacts-footer__link"
-              :href="contactItem.link"
-              v-text="contactItem.text"
-            />
-          </li>
-        </ul>
-      </address>
-      <!--<nav class="footer__nav nav-footer">
-        <ul class="nav-footer__list">
-          <template v-for="footerNavItem in footerNavList">
-            <li class="nav-footer__item">
-              <RouterLink class="nav-footer__link" :to="footerNavItem.to">
-                {{ footerNavItem.text[language] }}
-              </RouterLink>
-            </li>
-          </template>
-        </ul>
-      </nav>-->
-    </div>
-  </footer>
+  <AppFooter />
   <div class="svg-container">
     <svg
       xmlns="http://www.w3.org/2000/svg"

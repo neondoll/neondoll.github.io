@@ -8,8 +8,8 @@ const props = defineProps<{ item: StackItem }>();
   <li class="item-stack">
     <svg
       v-if="props.item.svgUse"
-      v-html="props.item.svgUse"
       class="item-stack__icon"
+      v-html="props.item.svgUse"
     />
     <img
       v-else-if="props.item.imgSrc"

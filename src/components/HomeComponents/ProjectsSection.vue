@@ -24,6 +24,18 @@ const content: Content = {
       },
       links: { live: 'https://xn--80aejmawrcgd.xn--p1ai/' },
     },
+    {
+      imgSrc: 'https://i.postimg.cc/gkfksgDy/Screenshot-from-2022-08-09-17-55-43.png',
+      title: {
+        ru: 'Retro Game',
+        en: 'Retro Game',
+      },
+      description: {
+        ru: 'Дипломное задание к курсу «Продвинутый JavaScript»',
+        en: 'Diploma assignment for the course «Advanced JavaScript»',
+      },
+      links: { live: 'https://neondoll.github.io/js-advanced-diploma' },
+    },
   ],
   links: { live: { ru: 'Посмотреть вживую', en: 'Watch live' } },
 };

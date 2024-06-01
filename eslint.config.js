@@ -20,21 +20,21 @@ export default ts.config(
         extraFileExtensions: ['.vue'],
         parser: ts.parser,
         project: true,
-        sourceType: 'module'
-      }
-    }
+        sourceType: 'module',
+      },
+    },
   },
   { files: ['**/*.js'], ...ts.configs.disableTypeChecked },
   {
     files: ['/src/tests/**'], ...jest.configs['flat/recommended'], ...jest.configs['flat/style'],
     languageOptions: { globals: globals.jest },
-    rules: { ...jest.configs['flat/recommended'].rules, ...jest.configs['flat/style'].rules }
+    rules: { ...jest.configs['flat/recommended'].rules, ...jest.configs['flat/style'].rules },
   },
   {
     files: ['eslint.config.js', 'jest.config.ts', 'vite.config.ts'],
     languageOptions: {
       globals: globals.node,
-      parserOptions: { parser: ts.parser, project: 'tsconfig.node.json', sourceType: 'script' }
-    }
-  }
+      parserOptions: { parser: ts.parser, project: 'tsconfig.node.json', sourceType: 'script' },
+    },
+  },
 );
