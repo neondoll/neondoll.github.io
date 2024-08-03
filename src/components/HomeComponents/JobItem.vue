@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { Job, Language, TextByLanguage } from '../../interfaces.ts';
-import { computed, inject, ref, Ref } from 'vue';
-import declensionBasedOnNumber from '../../data/declensionBasedOnNumber.ts';
-import diffDate from '../../data/diffDate.ts';
-import months from '../../data/months.ts';
+import months from '../../constants/months';
+import { computed } from 'vue';
+import { declensionBasedOnNumber, diffDate } from '../../utils';
+import { useSettings } from '../../composables/useSettings';
+import type { Job } from '../../types/job';
+import type { TextByLanguage } from '../../types/language';
 
 const endDateNull: TextByLanguage = { ru: 'по настоящее время', en: 'present' };
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
 const props = defineProps<{ item: Job; itemKey: string }>();
+const { language } = useSettings();
 
-const startAndEndOfWork = computed(() => {
+const startAndEndOfWork = computed<string>(() => {
   const startDate = new Date(props.item.startDate);
 
   let result = `${months[startDate.getMonth()][language.value]} ${startDate.getFullYear()} - `;
@@ -25,7 +26,7 @@ const startAndEndOfWork = computed(() => {
 
   return result;
 });
-const periodOfWork = computed(() => {
+const periodOfWork = computed<string>(() => {
   const diff = diffDate(props.item.startDate, props.item.endDate);
   const diffYear = diff.year;
   const diffMonth = diff.month + (diff.day ? 1 : 0);
@@ -65,18 +66,18 @@ const periodOfWork = computed(() => {
 <template>
   <div class="job">
     <img
+      :alt="item.company[language]"
       class="job__image"
-      :src="props.item.imgSrc"
-      :alt="props.item.company[language]"
+      :src="item.imgSrc"
     >
     <div class="job__container">
       <h3
         class="job__title"
-        v-text="props.item.title[language]"
+        v-text="item.title[language]"
       />
       <p
         class="job__text"
-        v-text="`${props.item.company[language]} · ${props.item.employmentForm[language]}`"
+        v-text="`${item.company[language]} · ${item.employmentForm[language]}`"
       />
       <p
         class="job__text"
@@ -84,12 +85,12 @@ const periodOfWork = computed(() => {
       />
       <p
         class="job__text"
-        v-text="props.item.address[language]"
+        v-text="item.address[language]"
       />
       <ul class="job__list list-inside list-dash">
         <li
-          v-for="(responsibilityItem, responsibilityIndex) in props.item.responsibilities"
-          :key="`${props.itemKey}_responsibility_${responsibilityIndex + 1}`"
+          v-for="(responsibilityItem, responsibilityIndex) in item.responsibilities"
+          :key="`${itemKey}_responsibility_${responsibilityIndex + 1}`"
           class="job__item"
           v-text="responsibilityItem[language]"
         />
@@ -99,8 +100,8 @@ const periodOfWork = computed(() => {
       </h4>
       <ul class="job__list list-inside list-disc">
         <li
-          v-for="(technologyStackItem, technologyStackItemId) in props.item.technologyStack"
-          :key="`${props.itemKey}_technology_stack_${technologyStackItemId}`"
+          v-for="(technologyStackItem, technologyStackItemId) in item.technologyStack"
+          :key="`${itemKey}_technology_stack_${technologyStackItemId}`"
           class="job__item"
           v-text="technologyStackItem"
         />
@@ -110,8 +111,8 @@ const periodOfWork = computed(() => {
       </h4>
       <ul class="job__list list-inside list-disc">
         <li
-          v-for="(toolItem, toolItemId) in props.item.tools"
-          :key="`${props.itemKey}_tools_${toolItemId}`"
+          v-for="(toolItem, toolItemId) in item.tools"
+          :key="`${itemKey}_tools_${toolItemId}`"
           class="job__item"
           v-text="toolItem"
         />

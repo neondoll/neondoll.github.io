@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { Language, TextByLanguage } from '../../interfaces.ts';
-import { inject, ref, Ref } from 'vue';
+import { useSettings } from '../../composables/useSettings';
+import type { TextByLanguage } from '../../types/language';
 
-interface Content {
-  title: TextByLanguage;
-  text: Record<string, TextByLanguage>;
-}
+interface Content { title: TextByLanguage; text: Record<string, TextByLanguage> }
 
 const content: Content = {
   title: { ru: 'Обо мне', en: 'About me' },
@@ -20,25 +17,22 @@ const content: Content = {
     },
   },
 };
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
+const { language } = useSettings();
 </script>
 
 <template>
   <section class="about">
-    <h2 class="about__title">
-      {{ content.title[language] }}
-    </h2>
+    <h2
+      class="about__title"
+      v-text="content.title[language]"
+    />
     <div class="about__container">
       <p
         v-for="(text, textId) in content.text"
-        :key="`about_text_${textId}`"
-        class="about__text"
-        :class="`about__text--${textId}`"
-      >
-        {{ text[language] }}
-      </p>
+        :key="`about-text-${textId}`"
+        :class="`about__text about__text--${textId}`"
+        v-text="text[language]"
+      />
     </div>
   </section>
 </template>
-
-<style scoped></style>

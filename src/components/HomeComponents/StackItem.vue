@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { StackItem } from '../../interfaces.ts';
+import type { StackItem } from '../../types/stack';
 
-const props = defineProps<{ item: StackItem }>();
+defineProps<{ item: StackItem }>();
 </script>
 
 <template>
   <li class="item-stack">
     <svg
-      v-if="props.item.svgUse"
-      v-html="props.item.svgUse"
+      v-if="item.svgUse"
       class="item-stack__icon"
+      v-html="item.svgUse"
     />
     <img
-      v-else-if="props.item.imgSrc"
+      v-else-if="item.imgSrc"
+      :alt="item.text"
       class="item-stack__image"
-      :src="props.item.imgSrc"
-      :alt="props.item.text"
+      :src="item.imgSrc"
     >
     <span
       class="item-stack__text"

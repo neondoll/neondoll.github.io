@@ -1,37 +1,25 @@
 <script setup lang="ts">
-import { Language, Theme } from './interfaces.ts';
-import { provide, Ref, ref } from 'vue';
+import { provide, ref } from 'vue';
+import type { InjectedSettings } from './composables/useSettings';
+import type { Language } from './types/language';
+import type { Theme } from './types/theme';
 
-interface ContactItem {
-  text: string;
-  svgUse: string;
-  link: string;
-}
-
-/* interface FooterNavItem {
-  text: TextByLanguage;
-  to: RouteLocationRaw;
-} */
-
-interface LanguageItem {
-  text: string;
-  svgUse: string;
-}
+interface ContactItem { text: string; svgUse: string; link: string };
+interface LanguageItem { text: string; svgUse: string }
 
 const contactList: Record<string, ContactItem> = {
   github: { text: 'GitHub', svgUse: '<use xlink:href="#svg-github"/>', link: 'https://github.com/neondoll' },
   telegram: { text: 'Telegram', svgUse: '<use xlink:href="#svg-telegram"/>', link: 'https://t.me/owlet_owl' },
 };
-/* const footerNavList: FooterNavItem[] = [{text: {ru: 'Интерактивная клавиатура', en: 'Interactive keyboard'}, to: {name: 'interactiveKeyboard'}}]; */
 const languagesList: Record<Language, LanguageItem> = {
   ru: { text: 'RU', svgUse: '<use xlink:href="#svg-russian"/>' },
   en: { text: 'EN', svgUse: '<use xlink:href="#svg-english"/>' },
 };
 
-const language: Ref<Language> = ref<Language>('ru');
-const theme: Ref<Theme> = ref<Theme>('light');
+const language = ref<Language>('ru');
+const theme = ref<Theme>('light');
 
-provide<Ref<Language>, string>('language', language);
+provide<InjectedSettings>('settings', { language, theme });
 
 const getLanguage = function () {
   language.value = localStorage.language
@@ -143,8 +131,8 @@ window.addEventListener('DOMContentLoaded', function () {
           type="button"
         >
           <svg
-            v-html="languagesList[language].svgUse"
             class="language-dropdown__btn-flag"
+            v-html="languagesList[language].svgUse"
           />
           <span
             class="language-dropdown__btn-text"
@@ -166,8 +154,8 @@ window.addEventListener('DOMContentLoaded', function () {
               type="button"
             >
               <svg
-                v-html="languagesItem.svgUse"
                 class="list-language-dropdown__btn-flag"
+                v-html="languagesItem.svgUse"
               />
               <span
                 class="list-language-dropdown__btn-text"
@@ -190,8 +178,8 @@ window.addEventListener('DOMContentLoaded', function () {
             class="contacts-footer__item"
           >
             <svg
-              v-html="contactItem.svgUse"
               class="contacts-footer__icon"
+              v-html="contactItem.svgUse"
             />
             <a
               class="contacts-footer__link"
@@ -201,17 +189,6 @@ window.addEventListener('DOMContentLoaded', function () {
           </li>
         </ul>
       </address>
-      <!--<nav class="footer__nav nav-footer">
-        <ul class="nav-footer__list">
-          <template v-for="footerNavItem in footerNavList">
-            <li class="nav-footer__item">
-              <RouterLink class="nav-footer__link" :to="footerNavItem.to">
-                {{ footerNavItem.text[language] }}
-              </RouterLink>
-            </li>
-          </template>
-        </ul>
-      </nav>-->
     </div>
   </footer>
   <div class="svg-container">

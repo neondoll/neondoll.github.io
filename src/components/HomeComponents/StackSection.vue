@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { Language, StackItem, TextByLanguage } from '../../interfaces.ts';
-import { inject, ref, Ref } from 'vue';
 import ItemStack from './StackItem.vue';
+import { useSettings } from '../../composables/useSettings';
+import type { TextByLanguage } from '../../types/language';
+import type { StackItem } from '../../types/stack';
 
 interface Content {
-  stack: {
-    title: TextByLanguage;
-    items: Record<string, StackItem>;
-  };
-  toolsAndOther: {
-    title: TextByLanguage;
-    items: Record<string, StackItem>;
-  };
+  stack: { title: TextByLanguage; items: Record<string, StackItem> };
+  toolsAndOther: { title: TextByLanguage; items: Record<string, StackItem> };
 }
 
 const content: Content = {
@@ -44,34 +39,34 @@ const content: Content = {
     },
   },
 };
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
+const { language } = useSettings();
 </script>
 
 <template>
   <section class="stack">
-    <h2 class="stack__title">
-      {{ content.stack.title[language] }}
-    </h2>
+    <h2
+      class="stack__title"
+      v-text="content.stack.title[language]"
+    />
     <ul class="stack__list">
       <ItemStack
         v-for="(item, itemId) in content.stack.items"
         :key="`stack_${itemId}`"
-        :item="item"
         class="stack__item"
+        :item="item"
       />
     </ul>
-    <h3 class="stack__subtitle">
-      {{ content.toolsAndOther.title[language] }}:
-    </h3>
+    <h3
+      class="stack__subtitle"
+      v-text="content.toolsAndOther.title[language]"
+    />
     <ul class="stack__list">
       <ItemStack
         v-for="(item, itemId) in content.toolsAndOther.items"
         :key="`tool_${itemId}`"
-        :item="item"
         class="stack__item"
+        :item="item"
       />
     </ul>
   </section>
 </template>
-
-<style scoped></style>

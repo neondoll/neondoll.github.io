@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
-const url = computed((): string => `https://neondoll.github.io/project-sources/neondoll-github-io/documents/${route.params.documentName}`);
+const url = computed<string>(() => {
+  return `https://neondoll.github.io/project-sources/neondoll-github-io/documents/${route.params.documentName}`;
+});
 </script>
 
 <template>
@@ -20,7 +22,3 @@ const url = computed((): string => `https://neondoll.github.io/project-sources/n
     </object>
   </main>
 </template>
-
-<style scoped>
-
-</style>

@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { Language, TextByLanguage } from '../../interfaces.ts';
-import { RouteLocationRaw } from 'vue-router';
-import { inject, ref, Ref } from 'vue';
+import { useSettings } from '../../composables/useSettings';
+import type { RouteLocationRaw } from 'vue-router';
+import type { TextByLanguage } from '../../types/language';
 
-interface Content {
-  title: TextByLanguage;
-  items: Certificate[];
-}
-
-interface Certificate {
-  text: TextByLanguage;
-  to: RouteLocationRaw;
-}
+interface Content { title: TextByLanguage; items: Certificate[] }
+interface Certificate { text: TextByLanguage; to: RouteLocationRaw }
 
 const content: Content = {
   title: { ru: 'Сертификаты', en: 'Certificates' },
@@ -27,7 +20,7 @@ const content: Content = {
       text: { ru: 'HTML-верстка: с нуля до первого макета', en: 'HTML layout: from scratch to first layout' },
       to: {
         name: 'document',
-        params: { documentName: 'certificates/certificate-html-layout-from-scratch-to-first-layout.pdf' }
+        params: { documentName: 'certificates/certificate-html-layout-from-scratch-to-first-layout.pdf' },
       },
     },
     {
@@ -50,40 +43,50 @@ const content: Content = {
       text: { ru: 'Основы JavaScript в браузере', en: 'Basics of JavaScript in the browser' },
       to: {
         name: 'document',
-        params: { documentName: 'certificates/certificate-basics-of-javascript-in-browser.pdf' }
+        params: { documentName: 'certificates/certificate-basics-of-javascript-in-browser.pdf' },
       },
     },
     {
       text: {
         ru: 'Продвинутый JavaScript: современные возможности языка',
-        en: 'Advanced JavaScript: Modern Language Features'
+        en: 'Advanced JavaScript: Modern Language Features',
       },
       to: {
         name: 'document',
-        params: { documentName: 'certificates/certificate-advanced-javascript-modern-language-features.pdf' }
+        params: { documentName: 'certificates/certificate-advanced-javascript-modern-language-features.pdf' },
+      },
+    },
+    {
+      text: {
+        ru: 'Продвинутый JavaScript в браузере',
+        en: 'Advanced JavaScript in the Browser',
+      },
+      to: {
+        name: 'document',
+        params: { documentName: 'certificates/certificate-advanced-javascript-in-browser.pdf' },
       },
     },
   ],
 };
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
+const { language } = useSettings();
 </script>
 
 <template>
   <section class="certificates">
     <h2
-        class="certificates__title"
-        v-text="content.title[language]"
+      class="certificates__title"
+      v-text="content.title[language]"
     />
     <ul class="certificates__list list-inside list-disc">
       <li
-          v-for="(item, index) in content.items"
-          :key="`certificate_${index + 1}`"
-          class="certificates__item"
+        v-for="(item, index) in content.items"
+        :key="`certificate-${index + 1}`"
+        class="certificates__item"
       >
         <RouterLink
-            class="certificates__link"
-            target="_blank"
-            :to="item.to"
+          class="certificates__link"
+          target="_blank"
+          :to="item.to"
         >
           {{ item.text[language] }}
         </RouterLink>

@@ -1,35 +1,37 @@
 <script setup lang="ts">
-import { Language, Project } from '../../interfaces.ts';
-import { inject, ref, Ref } from 'vue';
+import { useSettings } from '../../composables/useSettings';
+import type { Project } from '../../types/project';
 
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
-const props = defineProps<{ item: Project }>();
+defineProps<{ item: Project }>();
+const { language } = useSettings();
 </script>
 
 <template>
   <article class="card-project">
     <figure class="card-project__image-container">
       <img
+        :alt="item.title[language]"
         class="card-project__image"
-        :src="props.item.imgSrc"
-        :alt="props.item.title[language]"
+        :src="item.imgSrc"
       >
     </figure>
     <div class="card-project__info">
-      <h3 class="card-project__title">
-        {{ props.item.title[language] }}
-      </h3>
-      <p class="card-project__description">
-        {{ props.item.description[language] }}
-      </p>
+      <h3
+        class="card-project__title"
+        v-text="item.title[language]"
+      />
+      <p
+        class="card-project__description"
+        v-text="item.description[language]"
+      />
       <div
-        v-if="props.item.links"
+        v-if="item.links"
         class="card-project__links"
       >
         <a
-          v-if="props.item.links.live"
+          v-if="item.links.live"
           class="card-project__link"
-          :href="props.item.links.live"
+          :href="item.links.live"
           target="_blank"
         >
           <svg class="card-project__link-icon">
@@ -43,5 +45,3 @@ const props = defineProps<{ item: Project }>();
     </div>
   </article>
 </template>
-
-<style scoped></style>

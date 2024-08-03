@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Job, Language, TextByLanguage } from '../../interfaces.ts';
-import { inject, ref, Ref } from 'vue';
 import ItemJob from './JobItem.vue';
+import { computed } from 'vue';
+import { useSettings } from '../../composables/useSettings';
+import type { Job } from '../../types/job';
+import type { TextByLanguage } from '../../types/language';
 
 interface Content {
   title: TextByLanguage;
@@ -60,20 +62,23 @@ const content: Content = {
   technologyStackTitle: { ru: 'Стек технологий:', en: 'Technologies Stack:' },
   toolsTitle: { ru: 'Инструменты:', en: 'Tools:' },
 };
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
+const { language } = useSettings();
+
+const itemKey = computed<(index: number) => string>(() => (index: number): string => `job_${index + 1}`);
 </script>
 
 <template>
   <section class="work">
-    <h2 class="work__title">
-      {{ content.title[language] }}
-    </h2>
+    <h2
+      class="work__title"
+      v-text="content.title[language]"
+    />
     <div class="work__container">
       <ItemJob
         v-for="(item, index) in content.items"
-        :key="`job_${index + 1}`"
+        :key="itemKey(index)"
         :item="item"
-        :item-key="`job_${index + 1}`"
+        :item-key="itemKey(index)"
       >
         <template #technology-stack-title>
           {{ content.technologyStackTitle[language] }}
@@ -85,5 +90,3 @@ const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Languag
     </div>
   </section>
 </template>
-
-<style scoped></style>

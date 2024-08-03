@@ -17,5 +17,3 @@ import WorkSection from '../components/HomeComponents/WorkSection.vue';
     <CertificatesSection />
   </main>
 </template>
-
-<style scoped></style>

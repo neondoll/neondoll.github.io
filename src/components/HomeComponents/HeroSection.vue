@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { Language, TextByLanguage } from '../../interfaces.ts';
-import { inject, ref, Ref } from 'vue';
+import { useSettings } from '../../composables/useSettings';
+import type { TextByLanguage } from '../../types/language';
 
-interface Content {
-  title: TextByLanguage;
-  subtitle: TextByLanguage;
-}
+interface Content { title: TextByLanguage; subtitle: TextByLanguage }
 
 const content: Content = {
   title: { ru: 'Привет, я Александра!', en: 'Hi, I\'m Alexandra!' },
   subtitle: { ru: 'Будем знакомы', en: 'Nice to meet you' },
 };
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
+const { language } = useSettings();
 </script>
 
 <template>

@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { Language, Project, TextByLanguage } from '../../interfaces.ts';
-import { inject, ref, Ref } from 'vue';
 import CardProject from './ProjectCard.vue';
+import { useSettings } from '../../composables/useSettings';
+import type { Project } from '../../types/project';
+import type { TextByLanguage } from '../../types/language';
 
-interface Content {
-  title: TextByLanguage;
-  items: Project[];
-  links: { live: TextByLanguage };
-}
+interface Content { title: TextByLanguage; items: Project[]; links: { live: TextByLanguage } }
 
 const content: Content = {
   title: { ru: 'Проекты', en: 'Projects' },
@@ -27,14 +24,15 @@ const content: Content = {
   ],
   links: { live: { ru: 'Посмотреть вживую', en: 'Watch live' } },
 };
-const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Language>('ru');
+const { language } = useSettings();
 </script>
 
 <template>
   <section class="projects">
-    <h2 class="projects__title">
-      {{ content.title[language] }}
-    </h2>
+    <h2
+      class="projects__title"
+      v-text="content.title[language]"
+    />
     <div class="projects__cards">
       <CardProject
         v-for="(item, index) in content.items"
@@ -49,5 +47,3 @@ const language: Ref<Language> = inject<Ref<Language>>('language') || ref<Languag
     </div>
   </section>
 </template>
-
-<style scoped></style>
