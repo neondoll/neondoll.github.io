@@ -12,7 +12,7 @@ export const useSettings = () => {
   const settings = inject<InjectedSettings>('settings');
 
   return {
-    language: computed<Language>(() => settings?.language || 'ru'),
-    theme: computed(() => settings?.theme),
+    language: computed<Language>(() => settings?.language?.value || 'ru'),
+    theme: computed<Theme>(() => settings?.theme?.value || 'light'),
   };
 };

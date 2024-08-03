@@ -19,7 +19,7 @@ defineProps<{ item: StackItem }>();
     >
     <span
       class="item-stack__text"
-      v-text="props.item.text"
+      v-text="item.text"
     />
   </li>
 </template>
