@@ -66,6 +66,16 @@ const content: Content = {
         params: { documentName: 'certificates/certificate-advanced-javascript-in-browser.pdf' },
       },
     },
+    {
+      text: {
+        ru: 'React: Библиотека №1 в современной фронтенд-разработке',
+        en: 'React: The #1 Library in Modern Frontend Development',
+      },
+      to: {
+        name: 'document',
+        params: { documentName: 'certificates/certificate-react-1-library-in-modern-frontend-development.pdf' },
+      },
+    },
   ],
 };
 const { language } = useSettings();
