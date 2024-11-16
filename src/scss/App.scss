@@ -1,4 +1,4 @@
-@import "_variables";
+@use "_variables";
 
 #root {
   display: flex;
@@ -15,11 +15,11 @@
 }
 
 .container {
-  --container-padding-x: #{$container-padding-x};
+  --container-padding-x: #{variables.$container-padding-x};
 
   width: 100%;
   margin: 0 auto;
-  padding: 0 var(--container-padding-x, #{$container-padding-x});
+  padding: 0 var(--container-padding-x, #{variables.$container-padding-x});
 }
 
 .list {
@@ -35,12 +35,12 @@
 }
 
 .theme-checkbox {
-  --theme-checkbox-ball-color: var(--primary, #{$theme-checkbox-ball-color});
+  --theme-checkbox-ball-color: var(--primary, #{variables.$theme-checkbox-ball-color});
 
   &__input { position: absolute; appearance: none; }
 
   &__input:checked + &__label > &__ball {
-    background-color: var(--bg-color, #{$bg-color-light});
+    background-color: var(--bg-color, #{variables.$bg-color-light});
     transform: translateX(2.375rem);
   }
 
@@ -68,7 +68,7 @@
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
-    background-color: var(--theme-checkbox-ball-color, #{$theme-checkbox-ball-color});
+    background-color: var(--theme-checkbox-ball-color, #{variables.$theme-checkbox-ball-color});
     transition: transform 300ms linear;
   }
 }
@@ -96,7 +96,7 @@
     display: none;
     width: 1rem;
     height: 1rem;
-    background-color: var(--white, #{$white});
+    background-color: var(--white, #{variables.$white});
     transform: rotate(45deg) translateX(-50%);
   }
 
@@ -111,7 +111,7 @@
     gap: 0.3125rem;
     width: 100%;
 
-    &:focus-visible { outline: 0.125rem solid var(--primary, $primary-light); }
+    &:focus-visible { outline: 0.125rem solid var(--primary, variables.$primary-light); }
 
     &-icon { width: 1rem; height: 1rem; transition: transform 200ms ease; }
   }
@@ -123,13 +123,13 @@
     z-index: 3;
     width: 100%;
     max-height: 0;
-    background-color: var(--white, #{$white});
+    background-color: var(--white, #{variables.$white});
     border-bottom-right-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
     overflow: hidden;
   }
 
-  &-item__btn { gap: 0.625rem; color: var(--dark, #{$dark}); }
+  &-item__btn { gap: 0.625rem; color: var(--dark, #{variables.$dark}); }
 }
 
 .main { display: flex; flex-direction: column; gap: 4rem; }
@@ -140,7 +140,7 @@
     height: var(--image-height);
     background-image: url("../assets/NxcQR6VIBiA.jpg");
     background-repeat: no-repeat;
-    box-shadow: 0 0 0.5rem 0.5rem var(--bg-color, $bg-color-light) inset;
+    box-shadow: 0 0 0.5rem 0.5rem var(--bg-color, variables.$bg-color-light) inset;
   }
 
   &__title { margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 4rem); font-weight: 900; }
@@ -171,7 +171,7 @@
     &--resources::before { content: "📚"; }
   }
 
-  &__link { border-bottom: 0.125rem dashed var(--primary, #{$primary-light}); }
+  &__link { border-bottom: 0.125rem dashed var(--primary, #{variables.$primary-light}); }
 }
 
 .work {
@@ -186,15 +186,15 @@
 }
 
 .job {
-  --job-image-size: #{$job-image-size-xs};
+  --job-image-size: #{variables.$job-image-size-xs};
 
   display: flex;
   gap: 1rem;
 
   &__image {
     flex-shrink: 0;
-    width: var(--job-image-size, $job-image-size-xs);
-    height: var(--job-image-size, $job-image-size-xs);
+    width: var(--job-image-size, variables.$job-image-size-xs);
+    height: var(--job-image-size, variables.$job-image-size-xs);
     object-fit: contain;
     object-position: center;
   }
@@ -217,7 +217,7 @@
     margin-bottom: 0.625rem;
     padding-bottom: 0.25rem;
     font-size: 1.125rem;
-    border-bottom: 0.125rem solid var(--primary, #{$primary-light});
+    border-bottom: 0.125rem solid var(--primary, #{variables.$primary-light});
   }
 
   &__list-title + &__list { margin-top: 0; }
@@ -273,7 +273,7 @@
   display: flex;
   flex-direction: column;
   max-width: 550px;
-  background-color: var(--bg-color, #{$bg-color-light});
+  background-color: var(--bg-color, #{variables.$bg-color-light});
   border-radius: 0.5rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
@@ -303,8 +303,8 @@
     gap: 1rem;
     padding: 0.5rem;
     font-size: 1rem;
-    color: var(--white, #{$white});
-    background-color: var(--primary, #{$primary-light});
+    color: var(--white, #{variables.$white});
+    background-color: var(--primary, #{variables.$primary-light});
     border-radius: 0.25rem;
 
     &-icon { width: 1.5rem; height: 1.5rem; }
@@ -331,7 +331,7 @@
     transition: color 300ms ease;
 
     &:hover,
-    &:focus-visible { color: var(--primary, #{$primary-light}); }
+    &:focus-visible { color: var(--primary, #{variables.$primary-light}); }
   }
 }
 
@@ -348,13 +348,13 @@
       align-items: center;
       gap: 1rem;
       padding: 0.5rem;
-      color: var(--primary, #{$primary-light});
+      color: var(--primary, #{variables.$primary-light});
       border-radius: 0.25rem;
       pointer-events: none;
     }
 
     &__item:has(&__link:hover),
-    &__item:has(&__link:focus-visible) { color: var(--white, #{$white}); }
+    &__item:has(&__link:focus-visible) { color: var(--white, #{variables.$white}); }
 
     &__icon { width: 1.5rem; height: 1.5rem; }
 
@@ -371,7 +371,7 @@
         z-index: -1;
         width: 100%;
         height: 0.125rem;
-        background-color: var(--primary, #{$primary-light});
+        background-color: var(--primary, #{variables.$primary-light});
         transition: all 300ms ease;
       }
 
@@ -388,7 +388,7 @@
     position: relative;
 
     &__image {
-      --image-width: calc(100% + var(--container-padding-x, #{$container-padding-x}) * 2);
+      --image-width: calc(100% + var(--container-padding-x, #{variables.$container-padding-x}) * 2);
       --image-height: 100%;
 
       position: absolute;
@@ -402,7 +402,7 @@
         position: absolute;
         inset: 0;
         z-index: 1;
-        background-color: var(--bg-color, #{$bg-color-light});
+        background-color: var(--bg-color, #{variables.$bg-color-light});
         opacity: 0.6;
       }
     }
@@ -444,7 +444,7 @@
 @media (min-width: 768px) {
   .container { max-width: 768px; }
 
-  .job { --job-image-size: #{$job-image-size-md}; }
+  .job { --job-image-size: #{variables.$job-image-size-md}; }
 }
 
 @media (min-width: 768px) and (orientation: portrait), (min-height: 768px) and (max-width: 1023px) and (orientation: landscape) {
