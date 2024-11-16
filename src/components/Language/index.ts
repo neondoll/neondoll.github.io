@@ -1,0 +1,10 @@
+export { default as LanguageHeading2 } from "./LanguageHeading2";
+export { default as LanguageHeading3 } from "./LanguageHeading3";
+export { default as LanguageHeading4 } from "./LanguageHeading4";
+export { default as LanguageImage } from "./LanguageImage";
+export { default as LanguageLi } from "./LanguageLi";
+export { default as LanguageLink } from "./LanguageLink";
+export { default as LanguageParagraph } from "./LanguageParagraph";
+export { default as LanguageSpan } from "./LanguageSpan";
+export { default as LanguageText } from "./LanguageText";
+export { default as TextByLanguage } from "./TextByLanguage";
