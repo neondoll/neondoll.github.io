@@ -31,7 +31,7 @@ const content: Content = {
         ru: "Сайт премий Правительства Российской Федерации",
         en: "Website of the Government of the Russian Federation awards",
       }),
-      links: { live: "https://xn--80aejmawrcgd.xn--p1ai/" },
+      links: { live: "https://xn--80aejmawrcgd.xn--p1ai" },
     },
   ],
   links: { live: new TextByLanguage({ ru: "Посмотреть вживую", en: "Watch live" }) },
