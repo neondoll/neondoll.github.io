@@ -66,6 +66,13 @@ const content: Content = {
       }),
       to: Paths.DOCUMENT("certificates/certificate-react-1-library-in-modern-frontend-development.pdf"),
     },
+    {
+      text: new TextByLanguage({
+        ru: "Frontend-разработчик с нуля до middle",
+        en: "Frontend developer from zero to middle",
+      }),
+      to: Paths.DOCUMENT("certificates/certificate-frontend-developer-from-zero-to-middle.pdf"),
+    },
   ],
 };
 

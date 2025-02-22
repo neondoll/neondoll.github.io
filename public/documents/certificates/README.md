@@ -10,3 +10,4 @@
 - [Advanced JavaScript: Modern Language Features](certificate-advanced-javascript-modern-language-features.pdf)
 - [Advanced JavaScript in the Browser](certificate-advanced-javascript-in-browser.pdf)
 - [React: The #1 Library in Modern Frontend Development](certificate-react-1-library-in-modern-frontend-development.pdf)
+- [Frontend developer from zero to middle](certificate-frontend-developer-from-zero-to-middle.pdf)
