@@ -22,7 +22,7 @@ const content: Content = {
   title: new TextByLanguage({ ru: "Проекты", en: "Projects" }),
   items: [
     {
-      imgSrc: "https://xn--80aejmawrcgd.xn--p1ai/images/main-image.png",
+      imgSrc: "https://xn--80aejmawrcgd.xn--p1ai/images/vLNeyfu9vI 1.png",
       title: new TextByLanguage({
         ru: "ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ",
         en: "PRIZES OF THE GOVERNMENT OF THE RUSSIAN FEDERATION",
