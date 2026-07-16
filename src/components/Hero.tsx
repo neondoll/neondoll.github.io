@@ -6,8 +6,14 @@ interface Content {
 }
 
 const content: Content = {
-  title: new TextByLanguage({ ru: "Привет, я Александра!", en: "Hi, I'm Alexandra!" }),
-  subtitle: new TextByLanguage({ ru: "Будем знакомы", en: "Nice to meet you" }),
+  title: new TextByLanguage({
+    ru: "Александра Михайлова — Frontend-разработчик",
+    en: "Aleksandra Mikhaylova — Frontend Developer",
+  }),
+  subtitle: new TextByLanguage({
+    ru: "Создаю быстрые, доступные и удобные интерфейсы на React, TypeScript и Vue.js. Превращаю сложную логику в простой пользовательский опыт.",
+    en: "I create fast, accessible, and user-friendly interfaces using React, TypeScript, and Vue.js. I transform complex logic into a simple user experience.",
+  }),
 };
 
 export default function Hero() {

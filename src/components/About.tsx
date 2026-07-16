@@ -10,12 +10,16 @@ const content: Content = {
   title: new TextByLanguage({ ru: "Обо мне", en: "About me" }),
   text: {
     me: new TextByLanguage({
-      ru: "Frontend-разработчик из Москвы, который ищет развития и профессионального роста",
-      en: "Frontend developer from Moscow who is looking for development and professional growth",
+      ru: "Привет! Я Александра — frontend-разработчик с опытом более 6 лет.",
+      en: "Hi! I'm Aleksandra, a frontend developer with over 6 years of experience.",
+    }),
+    superpower: new TextByLanguage({
+      ru: "Моя главная суперсила — умение работать на всём цикле создания интерфейса: от обсуждения требований с заказчиком до pixel-perfect вёрстки и интеграции с серверным API.",
+      en: "My main superpower is my ability to work across the entire interface creation cycle: from discussing requirements with the client to pixel-perfect layout and integration with the server API.",
     }),
     interface: new TextByLanguage({
-      ru: "Пришла во frontend-разработку, чтобы разрабатывать крутые интерфейсы и максимально улучшать пользовательский опыт",
-      en: "Came into frontend development to develop cool interfaces and improve the user experience as much as possible",
+      ru: "Я специализируюсь на экосистеме React (с TypeScript) и Vue.js, а благодаря серьёзному бэкенд-опыту (PHP, Laravel, MySQL) быстро нахожу общий язык с серверной командой и проектирую фронтенд, который легко интегрируется.",
+      en: "I specialize in the React (with TypeScript) and Vue.js ecosystem, and thanks to my strong backend experience (PHP, Laravel, MySQL), I quickly find common ground with the server team and design a frontend that is easy to integrate.",
     }),
   },
 };
