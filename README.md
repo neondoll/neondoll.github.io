@@ -1,6 +1,6 @@
 <style lang="css">img{width:200px;float:right}</style>
 
-![Моя фотография](src/assets/NxcQR6VIBiA.jpg)
+![Моя фотография](public/images/NxcQR6VIBiA.jpg)
 
 # Михайлова Александра Сергеевна
 

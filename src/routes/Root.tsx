@@ -1,13 +1,15 @@
-import About from "../components/About";
-import Certificates from "../components/Certificates";
-import Hero from "../components/Hero";
-import Projects from "../components/Projects";
-import Stack from "../components/Stack";
-import Work from "../components/Work";
+import type { FC } from "react";
 
-export default function Root() {
+import { About } from "../components/About";
+import { Certificates } from "../components/Certificates";
+import { Hero } from "../components/Hero";
+import { Projects } from "../components/Projects";
+import { Stack } from "../components/Stack";
+import { Work } from "../components/Work";
+
+export const Root: FC = () => {
   return (
-    <main className="main container">
+    <main className="flex flex-col gap-16 px-4 mx-auto container" data-slot="main">
       <Hero />
       <About />
       <Work />
@@ -16,4 +18,4 @@ export default function Root() {
       <Certificates />
     </main>
   );
-}
+};

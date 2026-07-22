@@ -1,17 +1,16 @@
-import Layout from "./components/Layout";
-import Paths from "./paths";
-import Root from "./routes/Root";
+import type { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { getLanguage } from "./slices/language";
-import { getTheme } from "./slices/theme";
-import { useStoreDispatch } from "./hooks";
-import "./scss/App.scss";
 
-function App() {
+import { Layout } from "./components/Layout";
+import { useStoreDispatch } from "./hooks";
+import Paths from "./paths";
+import { Root } from "./routes/Root";
+import { getTheme } from "./slices/theme";
+
+const App: FC = () => {
   const dispatch = useStoreDispatch();
 
   window.addEventListener("load", () => {
-    dispatch(getLanguage());
     dispatch(getTheme());
   });
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
@@ -29,6 +28,6 @@ function App() {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

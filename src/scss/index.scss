@@ -67,7 +67,7 @@
 :root {
   --bg-color: var(--white, #{variables.$bg-color-light});
   --dark: #{variables.$dark};
-  --primary: #{variables.$primary-light};
+  // --primary: #{variables.$primary-light};
   --text-color: var(--dark, #{variables.$text-color-light});
   --white: #{variables.$white};
 
@@ -84,23 +84,23 @@
 
   &.dark {
     --bg-color: var(--dark, #{variables.$bg-color-dark});
-    --primary: #{variables.$primary-dark};
+    // --primary: #{variables.$primary-dark};
     --text-color: var(--white, #{variables.$text-color-dark});
   }
 }
 
-a, button { color: inherit; }
+// a, button { color: inherit; }
 
 a { text-decoration: inherit; }
 
 address { font-style: inherit; }
 
-body, figure, h2, h3, h4, p, ul { margin: 0; }
+// body, figure, h2, h3, h4, p, ul { margin: 0; }
 
 body { min-height: 100vh; }
 
-button, ul { padding: 0; }
+// button, ul { padding: 0; }
 
-button { background-color: transparent; border: none; }
+// button { background-color: transparent; border: none; }
 
 ul { list-style-type: none; }

@@ -1,92 +1,64 @@
-import Paths from "../paths";
-import { LanguageHeading2, LanguageLink, TextByLanguage } from "./Language";
-import type { LinkProps } from "react-router-dom";
+import type { FC } from "react";
+import { Link, type LinkProps } from "react-router-dom";
 
-interface Content {
-  title: TextByLanguage;
-  items: Certificate[];
-}
+import Paths from "../paths";
 
 interface Certificate extends Pick<LinkProps, "to"> {
-  text: TextByLanguage;
+  text: string;
 }
 
-const content: Content = {
-  title: new TextByLanguage({ ru: "Сертификаты", en: "Certificates" }),
-  items: [
-    {
-      text: new TextByLanguage({
-        ru: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)",
-        en: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE)",
-      }),
-      to: Paths.DOCUMENT("certificates/-OST-2-MIREA-IKBO-certificate.pdf"),
-    },
-    {
-      text: new TextByLanguage({
-        ru: "HTML-верстка: с нуля до первого макета",
-        en: "HTML layout: from scratch to first layout",
-      }),
-      to: Paths.DOCUMENT("certificates/certificate-html-layout-from-scratch-to-first-layout.pdf"),
-    },
-    {
-      text: new TextByLanguage({ ru: "Адаптивная и мобильная верстка", en: "Adaptive and mobile layout" }),
-      to: Paths.DOCUMENT("certificates/certificate-adaptive-and-mobile-layout.pdf"),
-    },
-    {
-      text: new TextByLanguage({ ru: "Основы программирования", en: "Basics of programming" }),
-      to: Paths.DOCUMENT("certificates/certificate-basics-of-programming.pdf"),
-    },
-    {
-      text: new TextByLanguage({ ru: "Git — система контроля версий", en: "Git — version control system" }),
-      to: Paths.DOCUMENT("certificates/certificate-git-version-control-system.pdf"),
-    },
-    {
-      text: new TextByLanguage({ ru: "Основы JavaScript", en: "Basics of JavaScript" }),
-      to: Paths.DOCUMENT("certificates/certificate-basics-of-javascript.pdf"),
-    },
-    {
-      text: new TextByLanguage({ ru: "Основы JavaScript в браузере", en: "Basics of JavaScript in the browser" }),
-      to: Paths.DOCUMENT("certificates/certificate-basics-of-javascript-in-browser.pdf"),
-    },
-    {
-      text: new TextByLanguage({
-        ru: "Продвинутый JavaScript: современные возможности языка",
-        en: "Advanced JavaScript: Modern Language Features",
-      }),
-      to: Paths.DOCUMENT("certificates/certificate-advanced-javascript-modern-language-features.pdf"),
-    },
-    {
-      text: new TextByLanguage({ ru: "Продвинутый JavaScript в браузере", en: "Advanced JavaScript in the Browser" }),
-      to: Paths.DOCUMENT("certificates/certificate-advanced-javascript-in-browser.pdf"),
-    },
-    {
-      text: new TextByLanguage({
-        ru: "React: Библиотека №1 в современной фронтенд-разработке",
-        en: "React: The #1 Library in Modern Frontend Development",
-      }),
-      to: Paths.DOCUMENT("certificates/certificate-react-1-library-in-modern-frontend-development.pdf"),
-    },
-    {
-      text: new TextByLanguage({
-        ru: "Frontend-разработчик с нуля до middle",
-        en: "Frontend developer from zero to middle",
-      }),
-      to: Paths.DOCUMENT("certificates/certificate-frontend-developer-from-zero-to-middle.pdf"),
-    },
-  ],
-};
+const CERTIFICATES: Certificate[] = [
+  {
+    text: "CCNA 7. Switching, Routing, and Wireless Essentials (SRWE) (Основы маршрутизации, коммутации и беспроводных сетей)",
+    to: Paths.DOCUMENT("certificates/-OST-2-MIREA-IKBO-certificate.pdf"),
+  },
+  {
+    text: "HTML-верстка: с нуля до первого макета",
+    to: Paths.DOCUMENT("certificates/certificate-html-layout-from-scratch-to-first-layout.pdf"),
+  },
+  {
+    text: "Адаптивная и мобильная верстка",
+    to: Paths.DOCUMENT("certificates/certificate-adaptive-and-mobile-layout.pdf"),
+  },
+  { text: "Основы программирования", to: Paths.DOCUMENT("certificates/certificate-basics-of-programming.pdf") },
+  {
+    text: "Git — система контроля версий",
+    to: Paths.DOCUMENT("certificates/certificate-git-version-control-system.pdf"),
+  },
+  { text: "Основы JavaScript", to: Paths.DOCUMENT("certificates/certificate-basics-of-javascript.pdf") },
+  {
+    text: "Основы JavaScript в браузере",
+    to: Paths.DOCUMENT("certificates/certificate-basics-of-javascript-in-browser.pdf"),
+  },
+  {
+    text: "Продвинутый JavaScript: современные возможности языка",
+    to: Paths.DOCUMENT("certificates/certificate-advanced-javascript-modern-language-features.pdf"),
+  },
+  {
+    text: "Продвинутый JavaScript в браузере",
+    to: Paths.DOCUMENT("certificates/certificate-advanced-javascript-in-browser.pdf"),
+  },
+  {
+    text: "React: Библиотека №1 в современной фронтенд-разработке",
+    to: Paths.DOCUMENT("certificates/certificate-react-1-library-in-modern-frontend-development.pdf"),
+  },
+  {
+    text: "Frontend-разработчик с нуля до middle",
+    to: Paths.DOCUMENT("certificates/certificate-frontend-developer-from-zero-to-middle.pdf"),
+  },
+];
 
-export default function Certificates() {
+export const Certificates: FC = () => {
   return (
     <section className="certificates">
-      <LanguageHeading2 className="certificates__title" text={content.title} />
+      <h2 className="certificates__title">Сертификаты</h2>
       <ul className="certificates__list list-disc">
-        {content.items.map((item, index) => (
+        {CERTIFICATES.map((item, index) => (
           <li className="certificates__item" key={index + 1}>
-            <LanguageLink className="certificates__link" target="_blank" text={item.text} to={item.to} />
+            <Link children={item.text} className="certificates__link" target="_blank" to={item.to} />
           </li>
         ))}
       </ul>
     </section>
   );
-}
+};

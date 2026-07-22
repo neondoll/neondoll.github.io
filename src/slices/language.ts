@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { StoreDispatch, StoreState } from "../store";
-import type { SvgIconName } from "../components/SvgIcon";
+import type { SvgIconName } from "../components/svg-icon.tsx";
 
 export type Language = "ru" | "en";
 type LanguageItem = { text: string; svgName: SvgIconName };

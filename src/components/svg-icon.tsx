@@ -1,4 +1,4 @@
-import type { SVGAttributes } from "react";
+import type { FC, SVGAttributes } from "react";
 
 export type SvgIconName = "bootstrap" | "bootstrap-vue" | "chevron-down" | "css3" | "english" | "external" | "git"
   | "github" | "html5" | "javascript" | "jquery" | "moon" | "phpstorm" | "pinia" | "react" | "react-redux"
@@ -9,7 +9,7 @@ interface SvgIconProps extends Pick<SVGAttributes<SVGSVGElement>, "className"> {
   name: SvgIconName;
 }
 
-export default function SvgIcon({ className, name }: SvgIconProps) {
+export const SvgIcon: FC<SvgIconProps> = ({ className, name }) => {
   switch (name) {
     case "bootstrap":
       return (
@@ -95,10 +95,10 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
             y2="8.0256"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="1.612903e-002" stop-color="#765af8" />
-            <stop offset="0.3821" stop-color="#b345f1" />
-            <stop offset="0.7581" stop-color="#fa3293" />
-            <stop offset="0.9409" stop-color="#ff318c" />
+            <stop offset="1.612903e-002" stopColor="#765af8" />
+            <stop offset="0.3821" stopColor="#b345f1" />
+            <stop offset="0.7581" stopColor="#fa3293" />
+            <stop offset="0.9409" stopColor="#ff318c" />
           </linearGradient>
           <linearGradient
             id="phpstorm-gradient-2"
@@ -108,10 +108,10 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
             y2="9.6209"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="1.612903e-002" stop-color="#765af8" />
-            <stop offset="0.3821" stop-color="#b345f1" />
-            <stop offset="0.7581" stop-color="#fa3293" />
-            <stop offset="0.9409" stop-color="#ff318c" />
+            <stop offset="1.612903e-002" stopColor="#765af8" />
+            <stop offset="0.3821" stopColor="#b345f1" />
+            <stop offset="0.7581" stopColor="#fa3293" />
+            <stop offset="0.9409" stopColor="#ff318c" />
           </linearGradient>
           <linearGradient
             id="phpstorm-gradient-3"
@@ -121,11 +121,11 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
             y2="7.0481"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.1828" stop-color="#765af8" />
-            <stop offset="0.2382" stop-color="#8655f6" />
-            <stop offset="0.3449" stop-color="#9f4cf3" />
-            <stop offset="0.4425" stop-color="#ae47f2" />
-            <stop offset="0.5219" stop-color="#b345f1" />
+            <stop offset="0.1828" stopColor="#765af8" />
+            <stop offset="0.2382" stopColor="#8655f6" />
+            <stop offset="0.3449" stopColor="#9f4cf3" />
+            <stop offset="0.4425" stopColor="#ae47f2" />
+            <stop offset="0.5219" stopColor="#b345f1" />
           </linearGradient>
           <linearGradient
             id="phpstorm-gradient-4"
@@ -135,8 +135,8 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
             y2="27.5158"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="1.612903e-002" stop-color="#765af8" />
-            <stop offset="0.3821" stop-color="#b345f1" />
+            <stop offset="1.612903e-002" stopColor="#765af8" />
+            <stop offset="0.3821" stopColor="#b345f1" />
           </linearGradient>
           <polygon fill="url(#phpstorm-gradient-1)" points="39.6,15.2 36.3,5.2 11.9,0 0,13.5 37.2,32.5" />
           <polygon fill="url(#phpstorm-gradient-2)" points="28,41.4 27.3,20.6 0,13.5 6.7,53.6 28,53.4" />
@@ -163,20 +163,20 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
           <path d="M0 0h256v331H0z" fill="none" />
           <defs>
             <linearGradient id="SVGlph9Sf5o" x1="55.342%" x2="42.817%" y1="0%" y2="42.863%">
-              <stop offset="0%" stop-color="#52ce63" />
-              <stop offset="100%" stop-color="#51a256" />
+              <stop offset="0%" stopColor="#52ce63" />
+              <stop offset="100%" stopColor="#51a256" />
             </linearGradient>
             <linearGradient id="SVGWDHq4cKS" x1="55.349%" x2="42.808%" y1="0%" y2="42.863%">
-              <stop offset="0%" stop-color="#52ce63" />
-              <stop offset="100%" stop-color="#51a256" />
+              <stop offset="0%" stopColor="#52ce63" />
+              <stop offset="100%" stopColor="#51a256" />
             </linearGradient>
             <linearGradient id="SVGUFY2CcaJ" x1="50%" x2="50%" y1="0%" y2="58.811%">
-              <stop offset="0%" stop-color="#8ae99c" />
-              <stop offset="100%" stop-color="#52ce63" />
+              <stop offset="0%" stopColor="#8ae99c" />
+              <stop offset="100%" stopColor="#52ce63" />
             </linearGradient>
             <linearGradient id="SVGObkTWdMq" x1="51.378%" x2="44.585%" y1="17.473%" y2="100%">
-              <stop offset="0%" stop-color="#ffe56c" />
-              <stop offset="100%" stop-color="#ffc63a" />
+              <stop offset="0%" stopColor="#ffe56c" />
+              <stop offset="100%" stopColor="#ffc63a" />
             </linearGradient>
           </defs>
           <path
@@ -285,8 +285,8 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
             gradientUnits="userSpaceOnUse"
             gradientTransform="matrix(.07142 0 0 .07142 1.3398 1.8944)"
           >
-            <stop stop-color="#41d1ff" />
-            <stop offset="1" stop-color="#bd34fe" />
+            <stop stopColor="#41d1ff" />
+            <stop offset="1" stopColor="#bd34fe" />
           </linearGradient>
           <linearGradient
             id="vite-gradient-2"
@@ -297,9 +297,9 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
             gradientUnits="userSpaceOnUse"
             gradientTransform="matrix(.07142 0 0 .07142 1.3398 1.8944)"
           >
-            <stop stop-color="#ffea83" />
-            <stop offset="0.0833" stop-color="#ffdd35" />
-            <stop offset="1" stop-color="#ffa800" />
+            <stop stopColor="#ffea83" />
+            <stop offset="0.0833" stopColor="#ffdd35" />
+            <stop offset="1" stopColor="#ffa800" />
           </linearGradient>
           <path
             fill="url(#vite-gradient-1)"
@@ -332,4 +332,4 @@ export default function SvgIcon({ className, name }: SvgIconProps) {
     default:
       return <></>;
   }
-}
+};

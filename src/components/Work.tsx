@@ -1,155 +1,127 @@
-import imageMirea from "../assets/MIREA.png";
-import { enGB, ru } from "date-fns/locale";
 import { format, formatDistance } from "date-fns";
-import {
-  LanguageHeading2, LanguageHeading3, LanguageHeading4, LanguageImage, LanguageLi, LanguageParagraph, LanguageText,
-  TextByLanguage,
-} from "./Language";
+import { enUS, ru } from "date-fns/locale";
+import { type FC, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-type Content = {
-  title: TextByLanguage;
-  items: Job[];
-  technologyStackTitle: TextByLanguage;
-  toolsTitle: TextByLanguage;
-};
+import { useTime } from "../hooks";
+
 type Job = {
   imgSrc: string;
-  title: TextByLanguage;
-  company: TextByLanguage;
-  employmentForm: TextByLanguage;
+  title: string;
+  company: string;
+  employmentForm: string;
   startDate: string;
   endDate?: string;
-  address: TextByLanguage;
-  responsibilities: TextByLanguage[];
+  address: string;
+  responsibilities: string[];
   technologyStack: Record<string, string>;
   tools: Record<string, string>;
 };
 
-const content: Content = {
-  title: new TextByLanguage({ ru: "Опыт работы", en: "Work experience" }),
-  items: [
-    {
-      imgSrc: imageMirea,
-      title: new TextByLanguage({ ru: "Fullstack-разработчик", en: "Fullstack developer" }),
-      company: new TextByLanguage({
-        ru: "Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете",
-        en: "Educational and Scientific Institute of Informatics and Control Systems at MIREA - Russian Technological University",
-      }),
-      employmentForm: new TextByLanguage({ ru: "Полная занятость", en: "Full-time" }),
-      startDate: "2020-02-01",
-      address: new TextByLanguage({ ru: "Москва, Россия", en: "Moscow, Russia" }),
-      responsibilities: [
-        new TextByLanguage({
-          ru: "Разработка систем с нуля (от проектирования архитектуры и схемы базы данных и до реализации системы)",
-          en: "Development of systems from scratch (from designing the architecture and database schema to system implementation)",
-        }),
-        new TextByLanguage({ ru: "Поддержка существующих систем", en: "Support for existing systems" }),
-        new TextByLanguage({ ru: "Доработка существующих систем", en: "Refinement of existing systems" }),
-      ],
-      technologyStack: {
-        html5: "HTML 5",
-        css3: "CSS 3",
-        scss: "SCSS",
-        jquery: "jQuery",
-        javascript: "JavaScript",
-        vue: "Vue",
-        bootstrap: "Bootstrap",
-        bootstrap_vue: "BootstrapVue",
-        vuetify: "Vuetify",
-        tailwind_css: "Tailwind CSS",
-        php: "PHP",
-        yii2: "Yii2",
-        laravel: "Laravel",
-        mysql: "MySQL",
-      },
-      tools: {
-        webpack: "Webpack",
-        vite: "Vite",
-        phpstorm: "PhpStorm",
-        datagrip: "DataGrip",
-        git: "Git",
-        gitlab: "GitLab",
-      },
+const JOBS: Job[] = [
+  {
+    imgSrc: "/images/MIREA.png",
+    title: "Fullstack-разработчик",
+    company: "Учебно-научный институт информатики и систем управления при МИРЭА - Российском технологическом университете",
+    employmentForm: "Полная занятость",
+    startDate: "2020-02-01",
+    address: "Москва, Россия",
+    responsibilities: [
+      "Разработка систем с нуля (от проектирования архитектуры и схемы базы данных и до реализации системы)",
+      "Поддержка существующих систем",
+      "Доработка существующих систем",
+    ],
+    technologyStack: {
+      html5: "HTML 5",
+      css3: "CSS 3",
+      scss: "SCSS",
+      jquery: "jQuery",
+      javascript: "JavaScript",
+      vue: "Vue",
+      bootstrap: "Bootstrap",
+      bootstrap_vue: "BootstrapVue",
+      vuetify: "Vuetify",
+      tailwind_css: "Tailwind CSS",
+      php: "PHP",
+      yii2: "Yii2",
+      laravel: "Laravel",
+      mysql: "MySQL",
     },
-  ],
-  technologyStackTitle: new TextByLanguage({ ru: "Стек технологий:", en: "Technologies Stack:" }),
-  toolsTitle: new TextByLanguage({ ru: "Инструменты:", en: "Tools:" }),
-};
+    tools: {
+      webpack: "Webpack",
+      vite: "Vite",
+      phpstorm: "PhpStorm",
+      datagrip: "DataGrip",
+      git: "Git",
+      gitlab: "GitLab",
+    },
+  },
+];
 
-function startAndEndOfJob({ startDate, endDate }: Pick<Job, "startDate" | "endDate">) {
-  const formatStr = "MMM yyyy";
+const Job: FC<{ item: Job }> = ({ item }) => {
+  const time = useTime();
+  const { i18n } = useTranslation();
 
-  const formatEn = (date: string) => format(new Date(date), formatStr, { locale: enGB });
-  const formatRu = (date: string) => format(new Date(date), formatStr, { locale: ru });
+  const startAndEnd = useMemo(() => {
+    const formatStr = "MMM yyyy";
 
-  return new TextByLanguage({
-    ru: `${formatRu(startDate)} - ${endDate ? formatRu(endDate) : "по настоящее время"}`,
-    en: `${formatEn(startDate)} - ${endDate ? formatEn(endDate) : "present"}`,
-  });
-}
+    const f = (date: string) => {
+      return format(new Date(date), formatStr, {
+        locale: i18n.language === "ru" ? ru : i18n.language === "en" ? enUS : undefined,
+      });
+    };
 
-function periodOfJob({ startDate, endDate }: Pick<Job, "startDate" | "endDate">) {
-  const formatDistanceEn = (laterDate: string, earlierDate?: string) => {
-    return formatDistance(new Date(laterDate), earlierDate ? new Date(earlierDate) : Date.now(), { locale: enGB });
-  };
-  const formatDistanceRu = (laterDate: string, earlierDate?: string) => {
-    return formatDistance(new Date(laterDate), earlierDate ? new Date(earlierDate) : Date.now(), { locale: ru });
-  };
+    return f(item.startDate) + " - " + (item.endDate ? f(item.endDate) : "по настоящее время"/* "present" */);
+  }, [i18n.language, item.endDate, item.startDate]);
+  const period = useMemo(() => {
+    const f = (laterDate: string, earlierDate?: string) => {
+      return formatDistance(new Date(laterDate), earlierDate ? new Date(earlierDate) : time, {
+        locale: i18n.language === "ru" ? ru : i18n.language === "en" ? enUS : undefined,
+      });
+    };
 
-  return new TextByLanguage({
-    ru: formatDistanceRu(startDate, endDate),
-    en: formatDistanceEn(startDate, endDate),
-  });
-}
+    return f(item.startDate, item.endDate);
+  }, [i18n.language, item.endDate, item.startDate, time]);
 
-function Job({ item }: { item: Job }) {
   return (
     <div className="job">
-      <LanguageImage alt={item.company} className="job__image" src={item.imgSrc} />
+      <img alt={item.company} className="job__image" src={item.imgSrc} />
       <div className="job__container">
-        <LanguageHeading3 className="job__title" text={item.title} />
-        <p className="job__text">
-          <LanguageText text={item.company} />
-          {" · "}
-          <LanguageText text={item.employmentForm} />
-        </p>
-        <p className="job__text">
-          <LanguageText text={startAndEndOfJob(item)} />
-          {" · "}
-          <LanguageText text={periodOfJob(item)} />
-        </p>
-        <LanguageParagraph className="job__text" text={item.address} />
+        <h3 children={item.title} className="job__title" />
+        <p children={`${item.company} · ${item.employmentForm}`} className="job__text" />
+        <p children={`${startAndEnd} · ${period}`} className="job__text" />
+        <p children={item.address} className="job__text" />
         <ul className="job__list list-dash">
           {item.responsibilities.map((text, index) => (
-            <LanguageLi className="job__item" key={index + 1} text={text} />
+            <li children={text} className="job__item" key={index + 1} />
           ))}
         </ul>
-        <LanguageHeading4 className="job__list-title" text={content.technologyStackTitle} />
+        <h4 className="job__list-title">Стек технологий:</h4>
         <ul className="job__list list-disc">
           {Object.entries(item.technologyStack).map(([textId, text]) => (
-            <li className="job__item" key={textId}>{text}</li>
+            <li children={text} className="job__item" key={textId} />
           ))}
         </ul>
-        <LanguageHeading4 className="job__list-title" text={content.toolsTitle} />
+        <h4 className="job__list-title">Инструменты:</h4>
         <ul className="job__list list-disc">
           {Object.entries(item.tools).map(([textId, text]) => (
-            <li className="job__item" key={textId}>{text}</li>
+            <li children={text} className="job__item" key={textId} />
           ))}
         </ul>
       </div>
     </div>
   );
-}
+};
 
-export default function Work() {
+export const Work: FC = () => {
   return (
     <section className="work">
-      <LanguageHeading2 className="work__title" text={content.title} />
+      <h2 className="work__title">Опыт работы</h2>
       <div className="work__container">
-        {content.items.map((item, index) => (
+        {JOBS.map((item, index) => (
           <Job item={item} key={index + 1} />
         ))}
       </div>
     </section>
   );
-}
+};

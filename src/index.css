@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+}
+
+:root {
+    --background: var(--color-white);
+    --foreground: #202020;
+    --primary: var(--color-violet-500)
+}
+
+.dark {
+    --background: #202020;
+    --foreground: var(--color-white);
+    --primary: var(--color-indigo-500)
+}
+
+@layer base {
+    body {
+        @apply bg-background text-foreground
+    }
+}

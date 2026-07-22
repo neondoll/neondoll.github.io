@@ -1,57 +1,34 @@
-import SvgIcon from "./SvgIcon";
+import type { FC, HTMLAttributes } from "react";
+
+import { SvgIcon } from "./svg-icon";
 import { cn } from "../lib/utils";
-import {
-  LanguageHeading2, LanguageHeading3, LanguageImage, LanguageParagraph, LanguageSpan, TextByLanguage,
-} from "./Language";
-import type { HTMLAttributes } from "react";
 
-interface Content {
-  title: TextByLanguage;
-  items: Project[];
-  links: { live: TextByLanguage };
-}
+type Project = { imgSrc: string; title: string; description: string; links?: { live?: string } };
 
-interface Project {
-  imgSrc: string;
-  title: TextByLanguage;
-  description: TextByLanguage;
-  links?: { live?: string };
-}
+const PROJECTS: Project[] = [
+  {
+    imgSrc: "https://xn--80aejmawrcgd.xn--p1ai/images/vLNeyfu9vI 1.png",
+    title: "ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ",
+    description: "Сайт премий Правительства Российской Федерации",
+    links: { live: "https://xn--80aejmawrcgd.xn--p1ai" },
+  },
+];
 
-const content: Content = {
-  title: new TextByLanguage({ ru: "Проекты", en: "Projects" }),
-  items: [
-    {
-      imgSrc: "https://xn--80aejmawrcgd.xn--p1ai/images/vLNeyfu9vI 1.png",
-      title: new TextByLanguage({
-        ru: "ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ",
-        en: "PRIZES OF THE GOVERNMENT OF THE RUSSIAN FEDERATION",
-      }),
-      description: new TextByLanguage({
-        ru: "Сайт премий Правительства Российской Федерации",
-        en: "Website of the Government of the Russian Federation awards",
-      }),
-      links: { live: "https://xn--80aejmawrcgd.xn--p1ai" },
-    },
-  ],
-  links: { live: new TextByLanguage({ ru: "Посмотреть вживую", en: "Watch live" }) },
-};
-
-function ProjectCard({ className, item }: Pick<HTMLAttributes<HTMLElement>, "className"> & { item: Project }) {
+const ProjectCard: FC<Pick<HTMLAttributes<HTMLElement>, "className"> & { item: Project }> = ({ className, item }) => {
   return (
     <article className={cn("project-card", className)}>
       <figure className="project-card__figure">
-        <LanguageImage alt={item.title} className="project-card__image" src={item.imgSrc} />
+        <img alt={item.title} className="project-card__image" src={item.imgSrc} />
       </figure>
       <div className="project-card__info">
-        <LanguageHeading3 className="project-card__title" text={item.title} />
-        <LanguageParagraph className="project-card__desc" text={item.description} />
+        <h3 children={item.title} className="project-card__title" />
+        <p children={item.description} className="project-card__desc" />
         {item.links && (
           <div className="project-card__links">
             {item.links.live && (
               <a className="project-card__link" href={item.links.live} target="_blank">
                 <SvgIcon className="project-card__link-icon" name="external" />
-                <LanguageSpan className="project-card__link-caption" text={content.links.live} />
+                <span className="project-card__link-caption">Посмотреть вживую</span>
               </a>
             )}
           </div>
@@ -59,17 +36,17 @@ function ProjectCard({ className, item }: Pick<HTMLAttributes<HTMLElement>, "cla
       </div>
     </article>
   );
-}
+};
 
-export default function Projects() {
+export const Projects: FC = () => {
   return (
     <section className="projects">
-      <LanguageHeading2 className="projects__title" text={content.title} />
+      <h2 className="projects__title">Проекты</h2>
       <div className="projects__cards">
-        {content.items.map((item, index) => (
+        {PROJECTS.map((item, index) => (
           <ProjectCard className="projects__card" item={item} key={index + 1} />
         ))}
       </div>
     </section>
   );
-}
+};

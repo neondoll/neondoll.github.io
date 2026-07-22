@@ -16,10 +16,6 @@
 
 .container {
   --container-padding-x: #{variables.$container-padding-x};
-
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--container-padding-x, #{variables.$container-padding-x});
 }
 
 .list {
@@ -138,7 +134,7 @@
   &__image {
     width: var(--image-width);
     height: var(--image-height);
-    background-image: url("../assets/NxcQR6VIBiA.jpg");
+    background-image: url("../../public/images/NxcQR6VIBiA.jpg");
     background-repeat: no-repeat;
     box-shadow: 0 0 0.5rem 0.5rem var(--bg-color, variables.$bg-color-light) inset;
   }
@@ -413,10 +409,6 @@
   .footer-contacts__list { flex-direction: column; align-items: center; }
 }
 
-@media (min-width: 640px) {
-  .container { max-width: 640px; }
-}
-
 @media (min-width: 640px) and (orientation: portrait), (min-height: 640px) and (orientation: landscape) {
   .hero {
     display: flex;
@@ -442,8 +434,6 @@
 }
 
 @media (min-width: 768px) {
-  .container { max-width: 768px; }
-
   .job { --job-image-size: #{variables.$job-image-size-md}; }
 }
 
@@ -452,17 +442,9 @@
 }
 
 @media (min-width: 1024px) {
-  .container { max-width: 1024px; }
-
   .hero__image { --image-width: 400px; }
 }
 
 @media (min-width: 1280px) {
-  .container { max-width: 1280px; }
-
   .hero__image { --image-width: 600px; }
-}
-
-@media (min-width: 1536px) {
-  .container { max-width: 1536px; }
 }

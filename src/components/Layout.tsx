@@ -1,8 +1,9 @@
-import Footer from "./Footer";
-import Header from "./Header";
-import type { PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from "react";
 
-export default function Layout({ children }: PropsWithChildren) {
+import { Footer } from "./footer";
+import { Header } from "./header";
+
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Header />
@@ -10,4 +11,4 @@ export default function Layout({ children }: PropsWithChildren) {
       <Footer />
     </>
   );
-}
+};
