@@ -2,8 +2,8 @@
   "hero": {
     "title": "Александра Михайлова — Frontend-разработчик",
     "subtitle": "Создаю быстрые, доступные и удобные интерфейсы на React, TypeScript и Vue.js.",
-    "cta_projects": "Проекты",
-    "cta_contact": "Связаться"
+    "cta_projects": "Смотреть проекты",
+    "cta_contact": "Связаться со мной"
   },
   "about": {
     "heading": "Обо мне",

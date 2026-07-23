@@ -71,9 +71,9 @@
   --text-color: var(--dark, #{variables.$text-color-light});
   --white: #{variables.$white};
 
-  font-family: "MuseoSans", "Segoe UI", "Arial", sans-serif;
-  color: var(--text-color, #{variables.$text-color-light});
-  background-color: var(--bg-color, #{variables.$bg-color-light});
+  //font-family: "MuseoSans", "Segoe UI", "Arial", sans-serif;
+  //color: var(--text-color, #{variables.$text-color-light});
+  //background-color: var(--bg-color, #{variables.$bg-color-light});
 
   &::-webkit-scrollbar { width: 0.375rem; height: 0.375rem; }
 
@@ -103,4 +103,4 @@ body { min-height: 100vh; }
 
 // button { background-color: transparent; border: none; }
 
-ul { list-style-type: none; }
+// ul { list-style-type: none; }

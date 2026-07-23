@@ -12,7 +12,7 @@ import "./i18n";
 const container = document.getElementById("root");
 
 if (!container) {
-  throw new Error("Root element (#root) not found in HTML");
+  throw new Error("Index element (#root) not found in HTML");
 }
 
 createRoot(container).render(
