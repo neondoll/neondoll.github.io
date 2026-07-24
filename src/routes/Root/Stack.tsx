@@ -31,6 +31,59 @@ const TOOLS_AND_OTHER_ITEMS: Record<string, StackItem> = {
   webpack: { text: "Webpack", svgName: "webpack" },
 };
 
+const stackGroups = [
+  {
+    title: "Языки",
+    items: [
+      { name: "JavaScript", tooltip: "Основной язык разработки." },
+      { name: "TypeScript", tooltip: "Использую в новых проектах на React и Vue 3." },
+      { name: "HTML5", tooltip: "Семантическая вёрстка." },
+      { name: "CSS3 / SCSS", tooltip: "Стилизация, адаптивность." },
+    ],
+  },
+  {
+    title: "Фреймворки и библиотеки",
+    items: [
+      { name: "React", tooltip: "Один коммерческий проект и пет-проекты, развиваюсь в этом направлении." },
+      { name: "Vue.js", tooltip: "Основной фреймворк на работе (2/3, Composition API)." },
+      { name: "Tailwind CSS", tooltip: "Активно применяю в своих проектах и в одном коммерческом." },
+      { name: "Bootstrap", tooltip: "Использовала на ранних проектах." },
+    ],
+  },
+  {
+    title: "Управление состоянием и роутинг",
+    items: [
+      { name: "Pinia", tooltip: "Основное хранилище в Vue 3 проектах." },
+      { name: "Vue Router", tooltip: "Навигация в SPA на Vue." },
+    ],
+  },
+  {
+    title: "Бэкенд",
+    items: [
+      { name: "PHP", tooltip: "Разрабатываю серверную логику." },
+      { name: "Yii2", tooltip: "Основной фреймворк на работе." },
+      { name: "Laravel", tooltip: "Один проект, есть практический опыт." },
+      { name: "MySQL", tooltip: "Проектирую БД, пишу сложные запросы." },
+    ],
+  },
+  {
+    title: "Инструменты",
+    items: [
+      { name: "Git", tooltip: "Ежедневная работа: ветки, pull requests." },
+      { name: "Ubuntu", tooltip: "Рабочее окружение, базовые навыки терминала." },
+      { name: "REST API", tooltip: "Проектирую и интегрирую." },
+    ],
+  },
+  {
+    title: "Дополнительно",
+    items: [
+      { name: "Java", tooltip: "Читаю код, могу написать простые скрипты." },
+      { name: "Python", tooltip: "Читаю код, базовое понимание." },
+      { name: "CCNA", tooltip: "Сертификат Cisco по основам сетей." },
+    ],
+  },
+];
+
 const StackItem: FC<Pick<HTMLAttributes<HTMLElement>, "className"> & { item: StackItem }> = ({ className, item }) => {
   return (
     <li className={cn("flex flex-col gap-1 items-center text-center md:gap-2", className)} data-slot="stack-item">
