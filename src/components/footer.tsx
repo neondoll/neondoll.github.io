@@ -30,7 +30,7 @@ export const Footer: FC = () => {
                 <a
                   children={contact.label}
                   className={cn([
-                    "text-base/none pointer-events-auto",
+                    "text-base/none outline-hidden pointer-events-auto",
                     // before
                     "before:absolute before:inset-0 before:-z-1",
                     // after

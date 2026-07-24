@@ -4,10 +4,8 @@ import { Provider } from "react-redux";
 
 import App from "./App";
 import store from "./store";
-import "./scss/index.scss";
-import "./scss/App.scss";
-import "./index.css";
 import "./i18n";
+import "./index.css";
 
 const container = document.getElementById("root");
 

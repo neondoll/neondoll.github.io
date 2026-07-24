@@ -97,16 +97,17 @@ const WorkPlace: FC<{ item: WorkPlace }> = ({ item }) => {
           data-slot="work-place-text"
         />
         <ul
-          className="pl-5 my-3 space-y-1 list-outside list-['\2014\00A0'] md:my-6 md:space-y-2"
+          className="pl-5 my-3 space-y-1 list-outside list-disc marker:text-primary md:my-6 md:space-y-2"
           data-slot="work-place-list"
         >
           {item.responsibilities.map(text => (
             <li
               className="text-sm text-justify text-pretty md:text-base lg:text-lg"
-              dangerouslySetInnerHTML={{ __html: text }}
               data-slot="work-place-item"
               key={text}
-            />
+            >
+              <span dangerouslySetInnerHTML={{ __html: text }} />
+            </li>
           ))}
         </ul>
         <h4

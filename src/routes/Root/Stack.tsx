@@ -1,7 +1,8 @@
 import type { FC, HTMLAttributes } from "react";
+import { useTranslation } from "react-i18next";
 
-import { SvgIcon, type SvgIconName } from "../../components/svg-icon.tsx";
-import { cn } from "../../lib/utils.ts";
+import { SvgIcon, type SvgIconName } from "../../components/svg-icon";
+import { cn } from "@/lib/utils";
 
 type StackItem = { text: string; svgName: SvgIconName };
 
@@ -32,26 +33,46 @@ const TOOLS_AND_OTHER_ITEMS: Record<string, StackItem> = {
 
 const StackItem: FC<Pick<HTMLAttributes<HTMLElement>, "className"> & { item: StackItem }> = ({ className, item }) => {
   return (
-    <li className={cn("stack-item", className)}>
-      <SvgIcon className="stack-item__icon" name={item.svgName} />
-      <span children={item.text} className="stack-item__text" />
+    <li className={cn("flex flex-col gap-1 items-center text-center md:gap-2", className)} data-slot="stack-item">
+      <SvgIcon className="shrink-0 size-12" data-slot="stack-item-icon" name={item.svgName} />
+      <span
+        children={item.text}
+        className="text-sm whitespace-nowrap md:text-base lg:text-lg"
+        data-slot="stack-item-text"
+      />
     </li>
   );
 };
 
 export const Stack: FC = () => {
+  const { t } = useTranslation();
+
   return (
-    <section className="stack">
-      <h2 className="stack__title">Мой стек</h2>
-      <ul className="stack__list">
+    <section data-slot="stack">
+      <h2
+        children={t("stack.heading", "Мой стек")}
+        className="mb-4 text-xl font-black text-center md:mb-8 md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"
+        data-slot="stack-title"
+      />
+      <ul
+        className="[--min-width:88px] grid grid-cols-[repeat(auto-fill,minmax(var(--min-width),1fr))] gap-2 my-2 md:[--min-width:100px] md:gap-4 md:my-4 lg:[--min-width:112px]"
+        data-slot="stack-list"
+      >
         {Object.entries(STACK_ITEMS).map(([itemId, item]) => (
-          <StackItem className="stack__item" item={item} key={itemId} />
+          <StackItem item={item} key={itemId} />
         ))}
       </ul>
-      <h3 className="stack__subtitle">Инструменты и прочее</h3>
-      <ul className="stack__list">
+      <h3
+        children={t("stack.subheading", "Инструменты и прочее")}
+        className="my-3 text-lg md:my-6 md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+        data-slot="stack-subtitle"
+      />
+      <ul
+        className="[--min-width:88px] grid grid-cols-[repeat(auto-fill,minmax(var(--min-width),1fr))] gap-2 my-2 md:[--min-width:100px] md:gap-4 md:my-4 lg:[--min-width:112px]"
+        data-slot="stack-list"
+      >
         {Object.entries(TOOLS_AND_OTHER_ITEMS).map(([itemId, item]) => (
-          <StackItem className="stack__item" item={item} key={itemId} />
+          <StackItem item={item} key={itemId} />
         ))}
       </ul>
     </section>

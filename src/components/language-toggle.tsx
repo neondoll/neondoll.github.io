@@ -1,10 +1,11 @@
-import { ChevronDownIcon } from "lucide-react";
 import { type FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { SvgIcon } from "./svg-icon";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { ChevronDownIcon } from "./ui/icon";
 
 const LANGUAGES = [
   { code: "ru", label: "RU", flagName: "russian" },
@@ -19,7 +20,7 @@ export const LanguageToggle: FC = () => {
     localStorage.setItem("lang", lng);
 
     if (lng === "en") {
-      // toast
+      toast.info("English version is a technical demo of i18n. My spoken English is basic.", { position: "top-right" });
     }
   }, [i18n]);
 
