@@ -1,53 +1,61 @@
 {
+  "nav": {
+    "title": "Aleksandra Mikhaylova",
+    "list": {
+      "about": "",
+      "work": "",
+      "stack": "",
+      "projects": "",
+      "education": "",
+      "certificates": "",
+      "contact": ""
+    }
+  },
+  "theme": {
+    "trigger": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "trigger": "Toggle language"
+  },
   "hero": {
-    "title": "Aleksandra Mikhailova — Frontend Developer",
-    "subtitle": "Building fast, accessible interfaces with React, TypeScript, and Vue.js.",
+    "title": "Aleksandra Mikhaylova",
+    "profession": "",
+    "desc": "",
     "cta_projects": "Projects",
     "cta_contact": "Contact me"
   },
   "about": {
     "heading": "About me",
-    "p1": "Hi! I'm Aleksandra, a frontend developer with 6+ years of experience. I specialize in building complex web interfaces and SPAs with React and Vue.js, using TypeScript.",
-    "p2": "My background includes both frontend and backend work (PHP, Laravel, MySQL). This helps me understand the full picture and collaborate effectively with backend teams.",
-    "p3": "Lately I focus on React, TypeScript, and Tailwind CSS. I care about reusable components and web accessibility (a11y).",
-    "languages": "Languages: Russian — native, English — <b>Pre-Intermediate</b> (I read technical docs, write code in English fluently, spoken English is basic)."
+    "p1": "",
+    "p2": "",
+    "p3": "",
+    "p4": "",
+    "languages": "",
+    "employment": ""
   },
-  "skills": {
-    "heading": "Tech stack",
-    "frontend": "Frontend",
-    "frontend_list": "JavaScript (ES6+), TypeScript, React, Vue.js (2/3, Composition API), Vue Router, Pinia, HTML5, CSS3/SCSS, Tailwind CSS, Bootstrap, jQuery",
-    "backend": "Backend & Databases",
-    "backend_list": "PHP, Laravel, Yii2, REST API, MySQL, PostgreSQL",
-    "tools": "Tools & Practices",
-    "tools_list": "Git, Linux (Astra Linux, Red OS), OOP, Responsive Design, Accessibility, working with large datasets"
+  "work": {
+    "heading": "",
+    "present": "present",
+    "mirea": {
+      "company": "",
+      "job_title": "",
+      "employment_form": "",
+      "responsibilities": []
+    }
+  },
+  "stack": {
+    "heading": ""
   },
   "projects": {
     "heading": "Projects",
-    "public_title": "Personal portfolio website",
-    "public_desc": "A single-page application built with React. Supports English/Russian languages, dark/light theme, animations, and responsive design. Demonstrates i18n, accessibility, and performance optimization.",
-    "public_tech": "React, TypeScript, Tailwind CSS, Framer Motion, react-i18next",
-    "nda_notice": "Most of my commercial projects are internal university systems. They are not publicly available, but I can describe them in an interview.",
-    "corporate_1_title": "Curriculum planning system",
-    "corporate_1_desc": "React + TypeScript frontend for teacher workload distribution. Features complex dynamic tables, drag-and-drop, form validation. Integrated with Laravel API. Reduced planning time by 40%.",
-    "corporate_1_tech": "React, TypeScript, Tailwind CSS, Laravel, MySQL",
-    "corporate_2_title": "Employee self-service portal",
-    "corporate_2_desc": "Responsive dashboard with personal data, payslips, and vacation schedule. Built with Vue.js and PHP (Yii2). Handles hundreds of concurrent users.",
-    "corporate_2_tech": "Vue.js, PHP (Yii2), MySQL, Bootstrap"
-  },
-  "demo": {
-    "heading": "Live demo",
-    "tab_todo": "Task list",
-    "tab_user": "User card",
-    "tab_search": "Search with debounce",
-    "disclaimer": "Small interactive examples of my React and TypeScript skills."
-  },
-  "contact": {
-    "heading": "Contact",
-    "text": "Open to job offers, freelance, and interesting projects. Reach me by email or Telegram.",
-    "email": "bonni_1998@mail.ru",
-    "telegram": "@your_username"
-  },
-  "footer": {
-    "disclaimer": "© Aleksandra Mikhailova, 2026. Built with React + TypeScript. English version is a demonstration of internationalization (i18n) and does not indicate spoken English fluency."
+    "awards": {
+      "title": "",
+      "desc": "",
+      "tech": ""
+    },
+    "nda_notice": ""
   }
 }

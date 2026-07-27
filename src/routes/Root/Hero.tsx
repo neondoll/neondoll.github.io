@@ -9,8 +9,9 @@ export const Hero: FC = () => {
 
   return (
     <section
-      className="max-sm:relative sm:flex sm:flex-row-reverse sm:gap-6 sm:justify-between sm:items-center"
+      className="py-4 max-sm:relative sm:flex sm:flex-row-reverse sm:gap-6 sm:justify-between sm:items-center md:py-8"
       data-slot="hero"
+      id="hero"
     >
       <div
         className={cn([
@@ -18,7 +19,7 @@ export const Hero: FC = () => {
           "pointer-events-none",
           // max-sm
           [
-            "max-sm:absolute max-sm:left-1/2 max-sm:w-[calc(100%+var(--spacing)*8)] max-sm:h-full",
+            "max-sm:absolute max-sm:inset-y-0 max-sm:left-1/2 max-sm:w-[calc(100%+var(--spacing)*8)] max-sm:h-full",
             "max-sm:bg-position-[center_25%] max-sm:bg-cover max-sm:-translate-x-1/2",
             // after
             "max-sm:after:absolute max-sm:after:inset-0 max-sm:after:z-1 max-sm:after:bg-background/60",
@@ -30,18 +31,27 @@ export const Hero: FC = () => {
       />
       <div className="space-y-4 max-sm:relative max-sm:z-2 max-sm:py-8 sm:flex-3" data-slot="hero-container">
         <h1
-          children={t("hero.title", "Александра Михайлова — Frontend-разработчик")}
+          children={t("hero.title", "Александра Михайлова")}
           className="text-2xl font-black text-balance max-sm:text-center md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl"
           data-slot="hero-title"
         />
         <p
-          children={t("hero.subtitle", "Создаю быстрые, доступные и удобные интерфейсы на React, TypeScript и Vue.js.")}
+          children={t("hero.profession", "Frontend-разработчик (React, TypeScript, Vue.js)")}
+          className="text-xl font-black text-balance max-sm:text-center md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"
+          data-slot="hero-profession"
+        />
+        <p
+          children={t("hero.desc", "Создаю удобные, доступные интерфейсы и веб-приложения с вниманием к деталям.")}
           className="text-lg font-bold text-balance max-sm:text-center md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-          data-slot="hero-subtitle"
+          data-slot="hero-desc"
         />
         <div className="grid grid-cols-2 gap-4 justify-evenly items-center" data-slot="hero-button-group">
-          <Button children={t("hero.cta_projects", "Смотреть проекты")} data-slot="hero-button" size="lg" />
-          <Button children={t("hero.cta_contact", "Связаться со мной")} data-slot="hero-button" size="lg" />
+          <Button asChild data-slot="hero-button" size="lg">
+            <a children={t("hero.cta_projects", "Смотреть проекты")} href="#projects" />
+          </Button>
+          <Button asChild data-slot="hero-button" size="lg">
+            <a children={t("hero.cta_contact", "Связаться со мной")} href="#contact" />
+          </Button>
         </div>
       </div>
     </section>

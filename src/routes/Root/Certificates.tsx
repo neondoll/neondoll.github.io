@@ -1,8 +1,8 @@
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, type LinkProps } from "react-router-dom";
 
 import Paths from "../../paths";
-import { useTranslation } from "react-i18next";
 
 interface Certificate extends Pick<LinkProps, "to"> {
   text: string;
@@ -53,13 +53,13 @@ export const Certificates: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <section data-slot="certificates">
+    <section className="py-4 md:py-8" data-slot="certificates" id="certificates">
       <h2
         children={t("certificates.heading", "Сертификаты")}
         className="mb-4 text-xl font-black text-center md:mb-8 md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"
         data-slot="certificates-title"
       />
-      <ul className="space-y-1 list-inside list-disc md:space-y-2" data-slot="certificates-list">
+      <ul className="space-y-1 list-inside list-disc marker:text-primary md:space-y-2" data-slot="certificates-list">
         {CERTIFICATES.map((item, index) => (
           <li data-slot="certificates-item" key={index + 1}>
             <Link
