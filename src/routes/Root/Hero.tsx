@@ -9,7 +9,7 @@ export const Hero: FC = () => {
 
   return (
     <section
-      className="max-sm:relative sm:flex sm:flex-row-reverse sm:gap-6 sm:justify-between sm:items-center"
+      className="py-4 max-sm:relative sm:flex sm:flex-row-reverse sm:gap-6 sm:justify-between sm:items-center md:py-8"
       data-slot="hero"
       id="hero"
     >
@@ -19,7 +19,7 @@ export const Hero: FC = () => {
           "pointer-events-none",
           // max-sm
           [
-            "max-sm:absolute max-sm:left-1/2 max-sm:w-[calc(100%+var(--spacing)*8)] max-sm:h-full",
+            "max-sm:absolute max-sm:inset-y-0 max-sm:left-1/2 max-sm:w-[calc(100%+var(--spacing)*8)] max-sm:h-full",
             "max-sm:bg-position-[center_25%] max-sm:bg-cover max-sm:-translate-x-1/2",
             // after
             "max-sm:after:absolute max-sm:after:inset-0 max-sm:after:z-1 max-sm:after:bg-background/60",
@@ -36,21 +36,21 @@ export const Hero: FC = () => {
           data-slot="hero-title"
         />
         <p
-          children={t("hero.subtitle1", "Frontend-разработчик (React, TypeScript, Vue.js)")}
+          children={t("hero.profession", "Frontend-разработчик (React, TypeScript, Vue.js)")}
           className="text-xl font-black text-balance max-sm:text-center md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"
-          data-slot="hero-subtitle1"
+          data-slot="hero-profession"
         />
         <p
-          children={t("hero.subtitle2", "Создаю удобные, доступные интерфейсы и веб-приложения с вниманием к деталям.")}
+          children={t("hero.desc", "Создаю удобные, доступные интерфейсы и веб-приложения с вниманием к деталям.")}
           className="text-lg font-bold text-balance max-sm:text-center md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-          data-slot="hero-subtitle2"
+          data-slot="hero-desc"
         />
         <div className="grid grid-cols-2 gap-4 justify-evenly items-center" data-slot="hero-button-group">
           <Button asChild data-slot="hero-button" size="lg">
-            <a children={t("hero.cta_projects", "Мои проекты")} href="#projects" />
+            <a children={t("hero.cta_projects", "Смотреть проекты")} href="#projects" />
           </Button>
           <Button asChild data-slot="hero-button" size="lg">
-            <a children={t("hero.cta_contact", "Связаться")} href="#contact" />
+            <a children={t("hero.cta_contact", "Связаться со мной")} href="#contact" />
           </Button>
         </div>
       </div>

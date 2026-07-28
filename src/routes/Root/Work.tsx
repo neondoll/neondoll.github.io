@@ -1,9 +1,7 @@
-import { format, formatDistance } from "date-fns";
-import { enUS, ru } from "date-fns/locale";
 import { type FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useTime } from "@/hooks";
+import { useDateFns, useTime } from "@/hooks";
 
 type WorkPlace = {
   imgSrc: string;
@@ -15,48 +13,19 @@ type WorkPlace = {
   responsibilities: string[];
 };
 
-const WORK_PLACES: WorkPlace[] = [
-  {
-    imgSrc: "/images/MIREA.png",
-    company: "ФГБОУ ВО «МИРЭА — Российский технологический университет» (УНИИиСУ при Министерстве образования и науки РФ)",
-    jobTitle: "Программист (Fullstack-разработчик)",
-    employmentForm: "Полная занятость",
-    startDate: "2020-02-01",
-    responsibilities: [
-      "Разрабатываю и сопровождаю веб-приложения, создаваемые по заказу Министерства образования и науки.",
-      "На фронтенде: создание интерфейсов на React (TypeScript) и Vue.js (Vue 2/3, Pinia, Vue Router), вёрстка по макетам, работа с формами, таблицами, модальными окнами.",
-      "Участвую в проектировании REST API и схем баз данных (MySQL).",
-      "На бэкенде: реализую серверную логику на PHP (основной фреймворк — Yii2, также есть проект на Laravel).",
-      "Пишу SQL-запросы (включая JOIN, подзапросы, агрегации), проектирую структуру таблиц.",
-      "Работаю в Linux (Ubuntu): базовые навыки терминала (установка пакетов, навигация, запуск скриптов), ежедневно использую git.",
-    ],
-  },
-];
-
 const WorkPlace: FC<{ item: WorkPlace }> = ({ item }) => {
+  const { formatDate, formatDistanceDates } = useDateFns();
   const time = useTime();
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const startAndEnd = useMemo(() => {
-    const formatStr = "MMM yyyy";
+    const format = (date: string) => formatDate(new Date(date), "MMM yyyy");
 
-    const f = (date: string) => {
-      return format(new Date(date), formatStr, {
-        locale: i18n.language === "ru" ? ru : i18n.language === "en" ? enUS : undefined,
-      });
-    };
-
-    return f(item.startDate) + " - " + (item.endDate ? f(item.endDate) : "по настоящее время"/* "present" */);
-  }, [i18n.language, item.endDate, item.startDate]);
+    return format(item.startDate) + " — " + (item.endDate ? format(item.endDate) : t("work.present", "по настоящее время"));
+  }, [formatDate, item.endDate, item.startDate, t]);
   const period = useMemo(() => {
-    const f = (laterDate: string, earlierDate?: string) => {
-      return formatDistance(new Date(laterDate), earlierDate ? new Date(earlierDate) : time, {
-        locale: i18n.language === "ru" ? ru : i18n.language === "en" ? enUS : undefined,
-      });
-    };
-
-    return f(item.startDate, item.endDate);
-  }, [i18n.language, item.endDate, item.startDate, time]);
+    return formatDistanceDates(new Date(item.startDate), item.endDate ? new Date(item.endDate) : time);
+  }, [formatDistanceDates, item.endDate, item.startDate, time]);
 
   return (
     <div className="flex gap-2 md:gap-4" data-slot="work-place">
@@ -104,15 +73,33 @@ const WorkPlace: FC<{ item: WorkPlace }> = ({ item }) => {
 export const Work: FC = () => {
   const { t } = useTranslation();
 
+  const workPlaces = useMemo(() => {
+    return [{
+      imgSrc: "/images/MIREA.png",
+      company: t("work.mirea.company", "ФГБОУ ВО «МИРЭА — Российский технологический университет» (УНИИиСУ при Министерстве образования и науки РФ)"),
+      jobTitle: t("work.mirea.job_title", "Программист (Fullstack-разработчик)"),
+      employmentForm: t("work.mirea.employment_form", "Полная занятость"),
+      startDate: "2020-02-01",
+      responsibilities: [
+        t("work.mirea.responsibilities.0", "Разрабатываю и сопровождаю веб-приложения, создаваемые по заказу Министерства образования и науки."),
+        t("work.mirea.responsibilities.1", "На фронтенде: создание интерфейсов на React (TypeScript) и Vue.js (Vue 2/3, Pinia, Vue Router), вёрстка по макетам, работа с формами, таблицами, модальными окнами."),
+        t("work.mirea.responsibilities.2", "Участвую в проектировании REST API и схем баз данных (MySQL)."),
+        t("work.mirea.responsibilities.3", "На бэкенде: реализую серверную логику на PHP (основной фреймворк — Yii2, также есть проект на Laravel)."),
+        t("work.mirea.responsibilities.4", "Пишу SQL-запросы (включая JOIN, подзапросы, агрегации), проектирую структуру таблиц."),
+        t("work.mirea.responsibilities.5", "Работаю в Linux (Ubuntu): базовые навыки терминала (установка пакетов, навигация, запуск скриптов), ежедневно использую git."),
+      ],
+    }] as WorkPlace[];
+  }, [t]);
+
   return (
-    <section data-slot="work" id="work">
+    <section className="py-4 md:py-8" data-slot="work" id="work">
       <h2
         children={t("work.heading", "Опыт работы")}
         className="mb-4 text-xl font-black text-center md:mb-8 md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"
         data-slot="work-title"
       />
       <div className="space-y-2 md:space-y-4" date-slot="work-container">
-        {WORK_PLACES.map((item, index) => (
+        {workPlaces.map((item, index) => (
           <WorkPlace item={item} key={index + 1} />
         ))}
       </div>

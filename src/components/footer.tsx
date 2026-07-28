@@ -12,8 +12,11 @@ export const Footer: FC = () => {
   return (
     <footer className="py-6" data-slot="footer">
       <div className="px-4 mx-auto container" data-slot="footer-container">
-        <p>&copy; 2026 Александра Михайлова</p>
-        <p>Сайт создан на React + TypeScript. Английская версия — демонстрация интернационализации, не отражает уровень разговорного английского.</p>
+        <p className="text-sm text-center md:text-base lg:text-lg">&copy; 2026 Александра Михайлова</p>
+        <p className="text-sm text-center md:text-base lg:text-lg">
+          Сайт создан на React + TypeScript. Английская версия — демонстрация интернационализации, не отражает уровень
+          разговорного английского.
+        </p>
         <address className="" data-slot="footer-contacts">
           <ul
             className="flex gap-6 justify-center max-sm:flex-col max-sm:items-center"
@@ -46,7 +49,9 @@ export const Footer: FC = () => {
             ))}
           </ul>
         </address>
-        <p><a href="https://github.com/neondoll/neondoll.github.io">Исходный код этого сайта</a></p>
+        <p className="text-sm text-center md:text-base lg:text-lg">
+          <a href="https://github.com/neondoll/neondoll.github.io">Исходный код этого сайта</a>
+        </p>
       </div>
     </footer>
   );

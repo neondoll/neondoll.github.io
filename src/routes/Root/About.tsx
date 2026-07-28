@@ -5,7 +5,7 @@ export const About: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <section data-slot="about" id="about">
+    <section className="py-4 md:py-8" data-slot="about" id="about">
       <h2
         children={t("about.heading", "Обо мне")}
         className="mb-4 text-xl font-black text-center md:mb-8 md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"

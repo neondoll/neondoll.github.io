@@ -13,7 +13,7 @@ const LANGUAGES = [
 ] as const;
 
 export const LanguageToggle: FC = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const changeLanguage = useCallback((lng: string) => {
     i18n.changeLanguage(lng);
@@ -32,7 +32,7 @@ export const LanguageToggle: FC = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          aria-label="Toggle Language"
+          aria-label={t("language.trigger", "Toggle language")}
           className="group/language-dropdown-trigger"
           data-slot="language-dropdown-trigger"
           variant="outline"

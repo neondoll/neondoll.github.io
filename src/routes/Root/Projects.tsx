@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SvgIcon } from "@/components/svg-icon";
@@ -6,16 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-type Project = { imgSrc: string; title: string; description: string; links?: { live?: string } };
-
-const PROJECTS: Project[] = [
-  {
-    imgSrc: "https://xn--80aejmawrcgd.xn--p1ai/images/vLNeyfu9vI 1.png",
-    title: "ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ",
-    description: "Сайт премий Правительства Российской Федерации",
-    links: { live: "https://xn--80aejmawrcgd.xn--p1ai" },
-  },
-];
+type Project = { imgSrc: string; title: string; desc: string; tech: string; links?: { live?: string } };
 
 const ProjectCard: FC<Pick<HTMLAttributes<HTMLElement>, "className"> & { item: Project }> = ({ className, item }) => {
   return (
@@ -35,8 +26,12 @@ const ProjectCard: FC<Pick<HTMLAttributes<HTMLElement>, "className"> & { item: P
           >
             <h3 children={item.title} />
           </CardTitle>
-          <CardDescription asChild className="text-sm md:text-base lg:text-lg" data-slot="project-card-description">
-            <p children={item.description} />
+          <CardDescription
+            asChild
+            className="text-sm text-justify md:text-base lg:text-lg"
+            data-slot="project-card-description"
+          >
+            <p children={item.desc} />
           </CardDescription>
         </CardHeader>
         {item.links && (
@@ -59,8 +54,19 @@ const ProjectCard: FC<Pick<HTMLAttributes<HTMLElement>, "className"> & { item: P
 export const Projects: FC = () => {
   const { t } = useTranslation();
 
+  const projects = useMemo(() => {
+    return [
+      {
+        imgSrc: "https://xn--80aejmawrcgd.xn--p1ai/images/vLNeyfu9vI 1.png",
+        title: t("projects.awards.title", "ПРЕМИИ ПРАВИТЕЛЬСТВА РОССИЙСКОЙ ФЕДЕРАЦИИ"),
+        desc: t("projects.awards.desc", "Веб-приложение для приёма заявок на премии Правительства РФ и последующего отображения премированных работ.\nРеализована сложная клиентская часть с маршрутизацией и глобальным состоянием, серверная часть на Yii2, админ-панель для обработки заявок. Приложение активно используется в рамках государственных конкурсов."),
+        links: { live: "https://xn--80aejmawrcgd.xn--p1ai" },
+      },
+    ] as Project[];
+  }, [t]);
+
   return (
-    <section data-slot="projects">
+    <section className="py-4 md:py-8" data-slot="projects" id="projects">
       <h2
         children={t("projects.heading", "Проекты")}
         className="mb-4 text-xl font-black text-center md:mb-8 md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl"
@@ -70,7 +76,7 @@ export const Projects: FC = () => {
         className="grid grid-cols-[repeat(auto-fill,minmax(0,550px))] gap-4 justify-center items-start mx-auto"
         data-slot="projects-cards"
       >
-        {PROJECTS.map((item, index) => (
+        {projects.map((item, index) => (
           <ProjectCard item={item} key={index + 1} />
         ))}
       </div>
